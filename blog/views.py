@@ -99,6 +99,6 @@ def animal_edit(request,pk):
         article.title = request.POST['title']
         article.content = request.POST['content']
         article.save()
-        return redirect(f'/animal_detail/{ article.pk }')
+        return redirect('/animal_detail/{ article.pk }')
 
     return render(request, 'animal_edit.html', {'feed': article})
