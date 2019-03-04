@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% block css %}
+
+<style type="text/css">
+	.in{
+		width: 100%;
+		text-align: center;
+	}
+.post{
+	width: 70%; 
+	display: inline-block;
+}
+.title {
+	text-align: left;
+}
+.img{
+	float:left;
+	text-align: left;
+	width: 48%;
+	margin-left: 2%;
+}
+.sound{
+	float:left;
+	text-align: left;
+	width: 46%;
+	margin-left: 2%;
+	margin-right: 2%;
+
+}
+.content{
+	text-align: left;
+	width: 48%;
+
+}
+p {text-align: left;}
+img {
+	height: 500px;
+	width: 80%;
+}
+a{
+	color: #000000;
+}
+</style>
+
+{% endblock%}
+
+<div class="in">
+    <div class="post" style="border: 1px solid;">
+    	<h1 class='title'>{{ animal_map.title }}</h1>
+    	    <span class="control hidden" id = "control_id{{ forloop.counter0 }}">
+  <a href="{% url 'animal_edit' pk=animal_map.pk %}">수정</a>
+  <a href="{% url 'animal_remove' pk=animal_map.pk %}">삭제</a>
+</span>
+    <p>작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
+
+    <div class="img" style="border: 1px solid;">
+    	<img src="/media/{{animal_map.file}}">
+    </div>
+    <div class="sound" style="border: 1px solid;">
+    	<div class=map style="height: 300px; border: 1px solid;"><h4>지도</h4>지도가 들어갈 예정.</div>
+    	<div style="border: 1px solid; height: 200px;">
+    		<h4>동물 소리</h4>
+			<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+			<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+				<div class="jp-type-single">
+					<div class="jp-gui jp-interface">
+						<div class="jp-controls">
+							<button class="jp-play" role="button" tabindex="0">play</button>
+							<button class="jp-stop" role="button" tabindex="0">stop</button>
+						</div>
+						<div class="jp-progress">
+							<div class="jp-seek-bar">
+								<div class="jp-play-bar"></div>
+							</div>
+						</div>
+						<div class="jp-volume-controls">
+							<button class="jp-mute" role="button" tabindex="0">mute</button>
+							<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+							<div class="jp-volume-bar">
+								<div class="jp-volume-bar-value"></div>
+							</div>
+						</div>
+						<div class="jp-time-holder">
+							<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+							<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+							<div class="jp-toggles">
+								<button class="jp-repeat" role="button" tabindex="0">repeat</button>
+							</div>
+						</div>
+					</div>
+					<div class="jp-details">
+						<div class="jp-title" aria-label="title">&nbsp;</div>
+					</div>
+					<div class="jp-no-solution">
+						<span>Update Required</span>
+						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="			_blank">Flash plugin</a>.
+					</div>
+				</div>
+			</div>
+    	</div>
+
+    </div>
+    
+    <div class='content' style="height: 400px;"> 
+    	<h4>세부 내용</h4>
+    	<p>{{ animal_map.content }}</p>
+    	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>s
+
+    </div>
+
+       
+    </div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+    	$(document).ready(function(){
+
+	$("#jquery_jplayer_1").jPlayer({
+		ready: function (event) {
+			$(this).jPlayer("setMedia", {
+				title: "{{ animal_map.title }} 소리",
+				mp3: "/media/{{ animal_map.soundfile }}",
+			});
+		},
+		swfPath: "../../dist/jplayer",
+		supplied: "m4a, oga,mp3",
+		wmode: "window",
+		useStateClassSkin: true,
+		autoBlur: false,
+		smoothPlayBar: true,
+		keyEnabled: true,
+		remainingDuration: true,
+		toggleDuration: true
+	});
+});
+    </script>
+{% endblock %}

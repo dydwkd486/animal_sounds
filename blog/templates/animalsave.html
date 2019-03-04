@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="div_wrap">
+	<div class="content">
+		<div>
+		    <h1>새로운 정보 작성</h1>
+        <form method="POST" class="post-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group {% if field.errors|length > 0 %}has-error{%endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:'' }}">
+                    {% for error in field.errors %}
+                        <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+            <div class="form-actions">
+                <button class="btn btn-primary btn-large" type="submit">저장하기</button>
+            </div>
+        </form>
+		</div>
+		<body onload="initialize()">
+ 		   <div id="map_canvas">
+ 		   	
+ 		   </div>
+		</body>
+	</div>
+</div>
+
+    <style type="text/css">
+    #map_canvas { height:100%; width:60%; }
+    #id_file{background-color: #FFFFFF;}
+    .div_wrap{
+    width:100%;
+    height:800px; 
+    margin:0px auto;
+    padding:0px; 
+    overflow:hidden;
+    text-align: center;
+	}
+	.content{
+	    border:1px solid black;
+	    width:90%; 
+	    height:90%;
+	    margin:24px auto;
+	    padding:0px;
+	    overflow:hidden;
+	    text-align:center;
+	}
+	    
+	.content:after {content:""; clear:both; display:block;}
+	    
+	.content > div { 
+	    float:left;
+	    color:black;
+	    width:40%; 
+	    height:100%;
+	    padding: 10px;
+	    text-align: center;
+	    box-sizing:border-box;    
+	    border:3px solid gray; 
+	}
+    </style>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&sensor=false"></script>
+
+    <script type="text/javascript">
+    var initialLocation;
+    var siberia = new google.maps.LatLng(60, 105);
+    var newyork = new google.maps.LatLng(40.698470, -73.95144);
+    var browserSupportFlag =  new Boolean();
+
+    function initialize() {
+        var myOptions = {
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.HYBRID
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+        var marker;
+
+        myListener = google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(event.latLng);
+        });
+        google.maps.event.addListener(map, 'drag', function(event) {
+            placeMarker(event.latLng);
+        });
+
+        // Try W3C Geolocation (Preferred)
+        if(navigator.geolocation) {
+            browserSupportFlag = true;
+            navigator.geolocation.getCurrentPosition(function(position) {
+                initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                map.setCenter(initialLocation);
+            }, function() {
+                handleNoGeolocation(browserSupportFlag);
+            });
+            // Try Google Gears Geolocation
+        } else if (google.gears) {
+            browserSupportFlag = true;
+            var geo = google.gears.factory.create('beta.geolocation');
+            geo.getCurrentPosition(function(position) {
+                initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
+                map.setCenter(initialLocation);
+            }, function() {
+                handleNoGeoLocation(browserSupportFlag);
+            });
+            // Browser doesn't support Geolocation
+        } else {
+            browserSupportFlag = false;
+            handleNoGeolocation(browserSupportFlag);
+        }
+
+        function handleNoGeolocation(errorFlag) {
+            if (errorFlag === true) {
+                alert("Geolocation service failed.");
+                initialLocation = newyork;
+            } else {
+                alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+                initialLocation = siberia;
+            }
+        }
+
+        function placeMarker(location) {
+            if (marker) {
+                marker.setPosition(location);
+            } else {
+               marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    draggable: true
+                });
+                google.maps.event.addListener(marker, "drag", function (mEvent) {
+                    populateInputs(mEvent.latLng);
+                });
+            }
+            populateInputs(location);
+        }
+
+        function populateInputs(pos) {
+            document.getElementById("id_Latitude").value=pos.lat().toFixed(5)
+            document.getElementById("id_Longitude").value=pos.lng().toFixed(5);
+        }
+    }
+
+    </script>
+{% endblock %}
