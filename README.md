@@ -1,12 +1,12 @@
 # animal_sounds
 
-##기본 사양
+## 기본 사양
 
-파이썬 3.6.0, 3.5.2
+- 파이썬 3.6.0, 3.5.2
 
-postgresql 11.2
+- postgresql 11.2
 
-##설치
+## 설치 방법
 1. postgresql 설치
  - 윈도우 기준
   
@@ -90,7 +90,7 @@ Bypass password validation and create user anyway? [y/N]: y
 
 Superuser created successfully.
 
-실행
+## 실행
 
 python3 manage.py runserver
 
