@@ -74,10 +74,14 @@
     var newyork = new google.maps.LatLng(40.698470, -73.95144);
     var browserSupportFlag =  new Boolean();
 
+
     function initialize() {
+        var centerlat=37.58098;
+        var centerlng=127.01487;
+        var myLatLng = {lat:centerlat, lng:centerlng};
         var myOptions = {
             zoom: 16,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            center: myLatLng
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
@@ -89,41 +93,6 @@
         google.maps.event.addListener(map, 'drag', function(event) {
             placeMarker(event.latLng);
         });
-
-        // Try W3C Geolocation (Preferred)
-        if(navigator.geolocation) {
-            browserSupportFlag = true;
-            navigator.geolocation.getCurrentPosition(function(position) {
-                initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-                map.setCenter(initialLocation);
-            }, function() {
-                handleNoGeolocation(browserSupportFlag);
-            });
-            // Try Google Gears Geolocation
-        } else if (google.gears) {
-            browserSupportFlag = true;
-            var geo = google.gears.factory.create('beta.geolocation');
-            geo.getCurrentPosition(function(position) {
-                initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
-                map.setCenter(initialLocation);
-            }, function() {
-                handleNoGeoLocation(browserSupportFlag);
-            });
-            // Browser doesn't support Geolocation
-        } else {
-            browserSupportFlag = false;
-            handleNoGeolocation(browserSupportFlag);
-        }
-
-        function handleNoGeolocation(errorFlag) {
-            if (errorFlag === true) {
-                alert("Geolocation service failed.");
-                initialLocation = newyork;
-            } else {
-                alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-                initialLocation = siberia;
-            }
-        }
 
         function placeMarker(location) {
             if (marker) {
@@ -145,6 +114,8 @@
             document.getElementById("id_Latitude").value=pos.lat().toFixed(5)
             document.getElementById("id_Longitude").value=pos.lng().toFixed(5);
         }
+        document.getElementById("id_file").accept=".jpg,.png,.gif";
+        document.getElementById("id_soundfile").accept="audio/*";
     }
 
     </script>
