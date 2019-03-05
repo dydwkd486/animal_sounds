@@ -1,37 +1,38 @@
 # animal_sounds
 
-## ±âº» »ç¾ç
+## ê¸°ë³¸ ì‚¬ì–‘
 
-- ÆÄÀÌ½ã 3.6.0, 3.5.2
+- íŒŒì´ì¬ 3.6.0, 3.5.2
 
 - postgresql 11.2
 
-## ¼³Ä¡ ¹æ¹ı
-### 1. postgresql ¼³Ä¡
-- À©µµ¿ì ±âÁØ
-    - postgresql »çÀÌÆ® : https://www.postgresql.org/
+## ì„¤ì¹˜ ë°©ë²•
+### 1. postgresql ì„¤ì¹˜
+- ìœˆë„ìš° ê¸°ì¤€
+    - postgresql ì‚¬ì´íŠ¸ : https://www.postgresql.org/
   
-    - 11.2¹öÀü ¼³Ä¡ ¹Ù·Î°¡±â : https://www.enterprisedb.com/thank-you-downloading-postgresql?anid=1256369
+    - 11.2ë²„ì „ ì„¤ì¹˜ ë°”ë¡œê°€ê¸° : https://www.enterprisedb.com/thank-you-downloading-postgresql?anid=1256369
 
-- ¿ìºĞÅõ ±âÁØ
+- ìš°ë¶„íˆ¬ ê¸°ì¤€
  
-
 	sudo apt-get update
+	
 	sudo apt-get install postgresql
+	
 	sudo -u postgres psql
 
 
-### 2. postgresql ¼³Á¤ »çÇ×
-- À©µµ¿ì ±âÁØ
+### 2. postgresql ì„¤ì • ì‚¬í•­
+- ìœˆë„ìš° ê¸°ì¤€
 
 	psql -U postgres
-	postgres »ç¿ëÀÚÀÇ ¾ÏÈ£: °¢ÀÚ ºñ¹Ğ¹øÈ£ ÀÔ·Â 
+	postgres ì‚¬ìš©ìì˜ ì•”í˜¸: ê°ì ë¹„ë°€ë²ˆí˜¸ ì…ë ¥ 
 	postgres=# ALTER USER postgres with encrypted password 'password';
 	postgres=# CREATE DATABASE django_test OWNER postgres;
 
-±âÁ¸ °èÁ¤(postgres) ºñ¹Ğ¹øÈ£¸¦ password·Î ¹Ù²åÀ¸¸ç django_test µ¥ÀÌÅÍº£ÀÌ½º¸¦ ¸¸µé¾ú½À´Ï´Ù.
+ê¸°ì¡´ ê³„ì •(postgres) ë¹„ë°€ë²ˆí˜¸ë¥¼ passwordë¡œ ë°”ê¿¨ìœ¼ë©° django_test ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ë§Œë“¤ì—ˆìŠµë‹ˆë‹¤.
 
-- ¿ìºĞÅõ ±âÁØ
+- ìš°ë¶„íˆ¬ ê¸°ì¤€
 
 	sudo -u postgres psql
 
@@ -40,47 +41,47 @@
 
 	sudo /etc/init.d/postgresql restart
 
-±âÁ¸ °èÁ¤(postgres) ºñ¹Ğ¹øÈ£¸¦ password·Î ¹Ù²åÀ¸¸ç django_test µ¥ÀÌÅÍº£ÀÌ½º¸¦ ¸¸µé¾ú½À´Ï´Ù.
+ê¸°ì¡´ ê³„ì •(postgres) ë¹„ë°€ë²ˆí˜¸ë¥¼ passwordë¡œ ë°”ê¿¨ìœ¼ë©° django_test ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ë§Œë“¤ì—ˆìŠµë‹ˆë‹¤.
 
-### 3. ±ê ¼³Ä¡
+### 3. ê¹ƒ ì„¤ì¹˜
 	git clone https://github.com/dydwkd486/animal_sounds.git
 
-### 4. requirements ¼³Ä¡
-- À©µµ¿ì ±âÁØ
+### 4. requirements ì„¤ì¹˜
+- ìœˆë„ìš° ê¸°ì¤€
 	pip install -r requirements.txt
 
-- ¿ìºĞÅõ ±âÁØ
+- ìš°ë¶„íˆ¬ ê¸°ì¤€
 	pip3 install -r requirements.txt
 
-   - ¿À·ù: The program 'pip3' is currently not installed. To run 'pip3' please ask your administrator to install the  package 'python3-pip'
+   - ì˜¤ë¥˜: The program 'pip3' is currently not installed. To run 'pip3' please ask your administrator to install the  package 'python3-pip'
 	sudo apt-get install python3-pip
 
-### 4. DB¿¡ ÇÊ¿ä ÀÚ·á ÀúÀå.
-- À©µµ¿ì ±âÁØ
+### 4. DBì— í•„ìš” ìë£Œ ì €ì¥.
+- ìœˆë„ìš° ê¸°ì¤€
 	python manage.py migrate
 
-- ¿ìºĞÅõ ±âÁØ
+- ìš°ë¶„íˆ¬ ê¸°ì¤€
 	python3 manage.py migrate
 
-### 5.½´ÆÛ°èÁ¤ ¸¸µé±â
-- ¿ìºĞÅõ ±âÁØ
+### 5.ìŠˆí¼ê³„ì • ë§Œë“¤ê¸°
+- ìš°ë¶„íˆ¬ ê¸°ì¤€
 	python3 manage.py createsuperuser
 
-  - ¿À·ù ½Ã:UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-2: ordinal not in range(128)
+  - ì˜¤ë¥˜ ì‹œ:UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-2: ordinal not in range(128)
 
 	export PYTHONIOENCODING=utf-8
 
-	»ç¿ëÀÚ ÀÌ¸§ (leave blank to use 'dydwkd486'): admin
-	ÀÌ¸ŞÀÏ ÁÖ¼Ò: admin@admin.com
+	ì‚¬ìš©ì ì´ë¦„ (leave blank to use 'dydwkd486'): admin
+	ì´ë©”ì¼ ì£¼ì†Œ: admin@admin.com
 	Password: 
 	Password (again): 
-	ºñ¹Ğ¹øÈ£°¡ ÀÌ¸ŞÀÏ ÁÖ¼Ò¿Í ³Ê¹« À¯»çÇÕ´Ï´Ù.
-	ºñ¹Ğ¹øÈ£°¡ ³Ê¹« Âª½À´Ï´Ù. ÃÖ¼Ò 8 ¹®ÀÚ¸¦ Æ÷ÇÔÇØ¾ß ÇÕ´Ï´Ù.
-	ºñ¹Ğ¹øÈ£°¡ ³Ê¹« ÀÏ»óÀûÀÎ ´Ü¾îÀÔ´Ï´Ù.
+	ë¹„ë°€ë²ˆí˜¸ê°€ ì´ë©”ì¼ ì£¼ì†Œì™€ ë„ˆë¬´ ìœ ì‚¬í•©ë‹ˆë‹¤.
+	ë¹„ë°€ë²ˆí˜¸ê°€ ë„ˆë¬´ ì§§ìŠµë‹ˆë‹¤. ìµœì†Œ 8 ë¬¸ìë¥¼ í¬í•¨í•´ì•¼ í•©ë‹ˆë‹¤.
+	ë¹„ë°€ë²ˆí˜¸ê°€ ë„ˆë¬´ ì¼ìƒì ì¸ ë‹¨ì–´ì…ë‹ˆë‹¤.
 	Bypass password validation and create user anyway? [y/N]: y
 	Superuser created successfully.
 
-## ½ÇÇà
+## ì‹¤í–‰
 	python3 manage.py runserver
 
 	System check identified no issues (0 silenced).
