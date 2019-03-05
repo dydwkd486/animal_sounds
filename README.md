@@ -15,11 +15,11 @@
 
 - 우분투 기준
  
-    '''sudo apt-get update'''
+    ```sudo apt-get update
 	
     sudo apt-get install postgresql
 	
-    sudo -u postgres psql
+    sudo -u postgres psql```
 
 
 ### 2. postgresql 설정 사항
