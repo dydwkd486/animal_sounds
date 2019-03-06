@@ -4,10 +4,12 @@
     <div class="form_box">
 		<h3>글 수정하기</h3>
 		<form method="POST">
+			<!-- 동물소리 내용 수정 start -->
 			{% csrf_token %}
-		<input class="input_field" type="text" placeholder="제목을 입력해주세요." name="title"  value="{{ feed.title }}"><br>
-		<textarea class="textarea_field" placeholder="내용을 입력해주세요." name="content">{{ feed.content }}</textarea><br>
-		<button class="write_button">수정</button>
+			<input class="input_field" type="text" placeholder="제목을 입력해주세요." name="title"  value="{{ feed.title }}"><br>
+			<textarea class="textarea_field" placeholder="내용을 입력해주세요." name="content">{{ feed.content }}</textarea><br>
+			<button class="write_button">수정</button>
+			<!-- 동물소리 내용 수정 end -->
 		</form>
 	</div>
 </div>

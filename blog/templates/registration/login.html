@@ -30,25 +30,25 @@
 </style>
 {% endblock css %}
 
-
 {% block content %}
 <div style="width: 20%;margin: 0 auto;">
 	<div class="panel-heading" style="text-align: center"> <h2>로그인</h2></div>
-<div class="panel-body" >
-	<form method="post">
-  {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group {% if field.errors|length > 0 %}has-error{%endif %}">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:'' }}">
-                    {% for error in field.errors %}
-                        <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-  <button type="submit">로그인</button>
-</form>
+    <div class="panel-body" >
+    	<form method="post">
+            <!--로그인 장고 라이브러리를 통해 불러옴 -->
+            {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group {% if field.errors|length > 0 %}has-error{%endif %}">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" value=field.value|default_if_none:'' }}">
+                            {% for error in field.errors %}
+                                <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
+                            {% endfor %}
+                    </div>
+                {% endfor %}
+                <!-- 장고 라이브러리 end-->
+            <button type="submit">로그인</button>
+        </form>
+    </div>
 </div>
-
-</div>
-    {% endblock %}
+{% endblock %}

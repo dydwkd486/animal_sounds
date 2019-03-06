@@ -37,6 +37,7 @@
     </div>
     <div class="panel-body">
         <form action="." method="post">
+            <!--장고 라이브러리를 통해 자동으로 폼이 나옴-->
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group {% if field.errors|length > 0 %}has-error{%endif %}">
@@ -45,9 +46,9 @@
                     {% for error in field.errors %}
                         <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
                     {% endfor %}
-
                 </div>
             {% endfor %}
+            <!--장고 라리브러리 사용 끝-->
             <div class="form-actions">
                 <button class="btn btn-primary btn-large" type="submit">가입하기</button>
             </div>

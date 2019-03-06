@@ -3,164 +3,150 @@
 {% extends 'base.html' %}
 
 <!-- 페이지 이름 -->
-{% block title %}animal Sound{% endblock %}
+{% block title %}동물 소리(animal_sound){% endblock %}
 
 {% block content %}
+  <!-- 상단 start -->
 	<div style="width: 100%;">
-	<div>
-		<p id="title"style=" float:left; font-size: 30px;"></p><p style=" float:left; font-size: 30px;"> 결과</p>
-	</div>
-	<div style="height: 30px; float:right; ">
-
-    	<a href="/animalsave"><button type="button" class="btn btn-primary">새 위치 저장</button></a>
-	</div>
-    <div style="height: 30px; float:right; ">
-    	<fieldset id="search_fieldset"> <input id="search_input" type="search" /> 
-    	<button id="search_button" type="submit"class="btn btn-primary"><i class="fa fa-search"></i>검색</button>
-    	<button id="reload_button" type="submit"class="btn btn-primary"><i class="fa fa-search"></i>맵 다시확인</button> </fieldset>
-   	</div>
+	 <div>
+	 	<p id="title"style=" float:left; font-size: 30px;"></p><p style=" float:left; font-size: 30px;"> 결과</p>
+	 </div>
+	 <div style="height: 30px; float:right; ">
+    <a href="/animalsave"><button type="button" class="btn btn-primary">새 위치 저장</button></a>
+	 </div>
+   <div style="height: 30px; float:right; ">
+    <fieldset id="search_fieldset"> <input id="search_input" type="search" /> 
+      <button id="search_button" type="submit"class="btn btn-primary"><i class="fa fa-search"></i>검색</button>
+      <button id="reload_button" type="submit"class="btn btn-primary"><i class="fa fa-search"></i>맵 다시확인</button> 
+    </fieldset>
+   </div>
   </div>
-   	<!--지도-->
-    <div id="map" style="height: 500px; clear:both;"></div>
-
-
+  <!-- 상단 end -->
+  <!--지도 start-->
+  <div id="map" style="height: 500px; clear:both;"></div>
+  <!--지도 end-->
     <div id="out" style="width: 100%;">
+      <!--동물 정보 start-->
     	<div id="text" style="overflow-y:scroll; width:39%;height:300px;  display: inline-block;">
     		<div style="width: 100%;height: 100px;">
     			{% for animal_map in animal_maps %}
     			<div class="text_img" style="width: 20%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.file}}" style="width: 100%; height: 100px;" ></div>
-    			<div style="width: 60%;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; ">{{ animal_map.title }}</a></h5> <p>(Lat:{{ animal_map.Latitude }}, Log:{{animal_map.Longitude}})</p></div>
-    			
-    		
-    			
-    		{% endfor%}
-    		<br/><br/><br/><br/><br/><br/><br/>
+    			<div style="width: 60%;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; ">{{ animal_map.title }}</a></h5> <p>(Lat:{{ animal_map.Latitude }}, Log:{{animal_map.Longitude}})</p>
+          </div>
+    		  {% endfor%}
     		</div>
     	</div>
-    	<div id="myDiv" style="width:30%;height:300px; display: inline-block;"></div>
-    	<div id="tester2" style="width:30%;height:300px; display: inline-block;"></div>
-    </div>
-    <p id="asd"></p>
+    <!--동물 정보 end-->
+    <!--표1 start-->
+    <div id="myDiv" style="width:30%;height:300px; display: inline-block;"></div>
+    <!--표1 end-->
+    <!--표2 start-->
+    <div id="tester2" style="width:30%;height:300px; display: inline-block;"></div>
+    <!--표2 end-->
+  </div>
 
-<div>
-
-</div>
-
-
-    <script>
-	function getParameterByName(name) {
-	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	        results = regex.exec(location.search);
-	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-	}
-	var title =getParameterByName('search_key');
-	document.getElementById('title').innerHTML=title;
-	var map
-	var centerlat = getParameterByName('centerlat');
-	var centerlng = getParameterByName('centerlng');
-	var centerzoom = getParameterByName('zoom');
-
-	if (centerlng=='') {
-		centerzoom=14;
-		centerlat=37.58098;
-		centerlng=127.01487;
-	}
-
-
-    function initMap() {
-      	var Latitude = centerlat;
-      	var Longitude = centerlng;
-      	
-        var myLatLng = {lat:parseFloat(centerlat), lng:parseFloat(centerlng)};
-        //alert(Latitude+' '+Longitude)
+<script>
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+var title =getParameterByName('search_key');
+document.getElementById('title').innerHTML=title;
+var map
+var centerlat = getParameterByName('centerlat');
+var centerlng = getParameterByName('centerlng');
+var centerzoom = getParameterByName('zoom');
+if (centerlng=='') {
+	centerzoom=14;
+	centerlat=37.58098;
+	centerlng=127.01487;
+}
+//구글 맵 지도 관련 자바 스크립트 start
+function initMap() {
+    	var Latitude = centerlat;
+    	var Longitude = centerlng;
+    	
+      var myLatLng = {lat:parseFloat(centerlat), lng:parseFloat(centerlng)};
+      //alert(Latitude+' '+Longitude)
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: parseInt(centerzoom),
+        center: myLatLng
+      });
+      
+	{% for animal_map in animal_maps %}
+	Latitude = {{ animal_map.Latitude }};
+  Longitude = {{ animal_map.Longitude }};
+  myLatLng = {lat: Latitude, lng: Longitude};
+    	var contentString = '<img src="/media/{{animal_map.file}}" width="100" height="100"> <h3>{{ animal_map.title }}</h3> {{ animal_map.content }} '+
+    	'<a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; ">더자세한 정보</a> <p>작성자: {{ animal_map.writer }}</p>';
+	var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: '{{ animal_map.title }}'
+      });
+      attachSecretMessage(marker,contentString);
+	
+	{% endfor%}
+}
+//구글 맵 지도 관련 자바 스크립트 end
+//구글 맵 클릭시 내용이 보이는 부분 start
+function attachSecretMessage(marker, secretMessage) {
+  var infowindow = new google.maps.InfoWindow({
+    content: secretMessage
+  });
+  marker.addListener('click', function() {
+    infowindow.open(marker.get('map'), marker);
+  });
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&callback=initMap"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+<script>
+// 맵 재검색 기능 start
+function map_reload(){
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: parseInt(centerzoom),
-          center: myLatLng
-        });
-        
- 		{% for animal_map in animal_maps %}
-
- 		Latitude = {{ animal_map.Latitude }};
-    Longitude = {{ animal_map.Longitude }};
-    myLatLng = {lat: Latitude, lng: Longitude};
-
-      	var contentString = '<img src="/media/{{animal_map.file}}" width="100" height="100"> <h3>{{ animal_map.title }}</h3> {{ animal_map.content }} '+
-      	'<a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; ">더자세한 정보</a> <p>작성자: {{ animal_map.writer }}</p>';
- 		var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: '{{ animal_map.title }}'
-        });
-        attachSecretMessage(marker,contentString);
- 		
- 		{% endfor%}
- 	}
+       	  zoom: map.getZoom(),
+       	  center: map.getCenter()
+       	});
+    var sw_lat;
+		var sw_lng;
+		var ne_lat;
+		var ne_lng;
 		
-      //클릭시 내용이 보이는 부분
-      function attachSecretMessage(marker, secretMessage) {
-        var infowindow = new google.maps.InfoWindow({
-          content: secretMessage
-        });
+		google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+			//화면에 나와있는 맵 왼쪽 아래
+			sw_lat=map.getBounds().getSouthWest().lat();
+			sw_lng=map.getBounds().getSouthWest().lng();
+			//화면에 나와있는 맵 오른쪽 위
+			ne_lat=map.getBounds().getNorthEast().lat();
+			ne_lng=map.getBounds().getNorthEast().lng();
+			url = '/?search_key='+document.getElementById('search_input').value+'&centerlat='+map.getCenter().lat()+'&centerlng='+map.getCenter().lng()+'&zoom='+map.getZoom()+'&sw_lat='+sw_lat+'&sw_lng='+sw_lng+'&ne_lat='+ne_lat+'&ne_lng='+ne_lng;
+			window.open(url,'_self')
+  		});
+  		
+  		//window.open(url,'_self')
+}
+$('#reload_button').click(function(){ 
+  var url;
+  map_reload()
+})
+// 맵 재검색 기능 end
 
-        marker.addListener('click', function() {
-          infowindow.open(marker.get('map'), marker);
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&callback=initMap">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+// 검색 기능 start
+$('#search_button').click(function(){ 
+	var url = '/?search_key='+document.getElementById('search_input').value;
+ 	window.open(url,'_self')
+}) 
+// 검색 기능 end
 
+</script>
 
-    <script>
-	function nn(){
-
-	        map = new google.maps.Map(document.getElementById('map'), {
-        	  zoom: map.getZoom(),
-        	  center: map.getCenter()
-        	});
-
-      var sw_lat;
-			var sw_lng;
-			var ne_lat;
-			var ne_lng;
-			
-			google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-				//화면에 나와있는 맵 왼쪽 아래
-				sw_lat=map.getBounds().getSouthWest().lat();
-				sw_lng=map.getBounds().getSouthWest().lng();
-				//화면에 나와있는 맵 오른쪽 위
-				ne_lat=map.getBounds().getNorthEast().lat();
-				ne_lng=map.getBounds().getNorthEast().lng();
-				url = '/?search_key='+document.getElementById('search_input').value+'&centerlat='+map.getCenter().lat()+'&centerlng='+map.getCenter().lng()+'&zoom='+map.getZoom()+'&sw_lat='+sw_lat+'&sw_lng='+sw_lng+'&ne_lat='+ne_lat+'&ne_lng='+ne_lng;
-				window.open(url,'_self')
-	  		});
-	  		
-	  		//window.open(url,'_self')
-	}
-    // 검색 기능
-
-     $('#search_button').click(function(){ 
-     	var url = '/?search_key='+document.getElementById('search_input').value;
-     	window.open(url,'_self')
-    }) 
-     $('#reload_button').click(function(){ 
-		var url;
-     	nn()
-     	
-    })
-
-
-
-
-
-	</script>
-  <!-- Plotly.js -->
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript">
-
+//표1 나오는 스크립트
 var x = [];
 for (var i = 0; i < 100; i ++) {
     x[i] = Math.random();
@@ -174,11 +160,13 @@ var trace = {
   };
 var data = [trace];
 Plotly.newPlot('myDiv', data, {}, {showSendToCloud: true});
+//표1 나오는 스크립트 end
 </script>
 
 
 
 <script type="text/javascript">
+  //표2 나오는 스크립트
 	var data = [{
 	  values: [19, 26, 55],
 	  labels: ['Residential', 'Non-Residential', 'Utility'],
@@ -186,7 +174,7 @@ Plotly.newPlot('myDiv', data, {}, {showSendToCloud: true});
 	}];
 	
 	Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
-	</script>
+  //표2 나오는 스크립트 end
+</script>
 
-
-    {% endblock %}
+{% endblock %}

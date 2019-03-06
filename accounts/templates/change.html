@@ -1,11 +1,13 @@
-<!-- templates/signup.html -->
+<!-- templates/change.html -->
 {% extends 'base.html' %}
 
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-  <h2>Sign up</h2>
+<!--아직 사용하고 있지 않음.-->
+  <h2>사용자 변경</h2>
  <form method="post" accept-charset="utf-8">
+ 	<!--장고 라이브러리를 통해 자동으로 폼이 나옴-->
         {% csrf_token %}
         {{ form.as_p }}
         <p><input type="submit" value="Update &rarr;"></p>

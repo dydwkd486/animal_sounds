@@ -16,7 +16,7 @@ class Animal_map(models.Model):
     Latitude = models.DecimalField(max_digits=10, decimal_places=7)
     Longitude = models.DecimalField(max_digits=10, decimal_places=7)
     content = models.TextField()
-    file = models.FileField(null=False, upload_to='img')
+    imagefile = models.FileField(null=False, upload_to='img')
     soundfile = models.FileField(null=False, upload_to='sound')
     observed_date=models.DateTimeField(blank=True, null=False)
     created_date = models.DateTimeField(default=timezone.now)

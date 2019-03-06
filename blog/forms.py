@@ -15,10 +15,9 @@ class Datesoundfile(forms.FileInput):
 
 
 class Animal_mapForm(forms.ModelForm):
-
     class Meta:
         model = Animal_map
-        fields = ('title', 'Latitude', 'Longitude', 'content','observed_date','soundfile','file')
+        fields = ('title', 'Latitude', 'Longitude', 'content','observed_date','soundfile','imagefile')
         widgets = {
             'observed_date': DateInput(),
             'Latitude':DateStep(),
@@ -27,6 +26,6 @@ class Animal_mapForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(Animal_mapForm, self).__init__(*args, **kwargs)
-        self.fields['file'].required = False
+        self.fields['imagefile'].required = False
         self.fields['soundfile'].required = False
 

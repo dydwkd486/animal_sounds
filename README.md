@@ -22,7 +22,6 @@
 
 ### 2. postgresql 설정 사항
 - 윈도우 기준
-
 	```
 	psql -U postgres
 	postgres 사용자의 암호: 각자 비밀번호 입력 
@@ -71,35 +70,73 @@
 	python3 manage.py migrate
 	```
 ### 5.슈퍼계정 만들기
+- 윈도우 기준
+	```
+	python manage.py createsuperuser
+	```
 - 우분투 기준
 	```
 	python3 manage.py createsuperuser
 	```
   - 오류 시:UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-2: ordinal not in range(128)
 	```
-	export PYTHONIOENCODING=utf-8
+		export PYTHONIOENCODING=utf-8
 	```
 
-	```
-	사용자 이름 (leave blank to use 'dydwkd486'): admin
-	이메일 주소: admin@admin.com
-	Password: 
-	Password (again): 
-	비밀번호가 이메일 주소와 너무 유사합니다.
-	비밀번호가 너무 짧습니다. 최소 8 문자를 포함해야 합니다.
-	비밀번호가 너무 일상적인 단어입니다.
-	Bypass password validation and create user anyway? [y/N]: y
-	Superuser created successfully.
-	```
+```
+사용자 이름 (leave blank to use 'dydwkd486'): admin
+이메일 주소: admin@admin.com
+Password: 
+Password (again): 
+비밀번호가 이메일 주소와 너무 유사합니다.
+비밀번호가 너무 짧습니다. 최소 8 문자를 포함해야 합니다.
+비밀번호가 너무 일상적인 단어입니다.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+```
 
 ## 실행
-	```
-	python3 manage.py runserver
-	```
-	```
-	System check identified no issues (0 silenced).
-	March 05, 2019 - 17:36:26
-	Django version 2.1.7, using settings 'animal_sounds.settings'
-	Starting development server at http://127.0.0.1:8000/
-	Quit the server with CONTROL-C.
-	```
+```
+python3 manage.py runserver
+```
+
+```
+System check identified no issues (0 silenced).
+March 05, 2019 - 17:36:26
+Django version 2.1.7, using settings 'animal_sounds.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
+
+## 추가 적으로 해야할 사항
+- 회원가입
+ - 회원가입시 성공 알림 필요.
+
+- 동물 디테일
+ - 수정후 오류문제 해결할것.
+
+- 메인화면
+ - 표도 연결시키기
+ - 이미지 안나올때 대체할 것
+ - 지도 검색기능
+ - 지도 검색기능+개체명 검색
+ - 검색 없을시: 화면에 검색 결과 발견되지 않았습니다 추가
+ - 새 위치 저장: 업로드로 변경, 위치는 ANIMAL SOUND, Home,지도, 목록의 최상단이 적합
+ - 새로 올라온 업로드 리스트를 보여주는 것 같으니 해당 창에 대한 설명 배너 추가
+ - 통계창도 마찬가지로 배너 추가
+
+- 새로운 정보 작성
+ - 전문가용, 일반 사용자용 나누기
+ - 오디오 태깅 추가
+ - 달력폼
+ - 지도에 검색기능
+ - ~~'새로운정보 작성' => 업로드~~
+ - UI 정렬 조금 해야 함
+ - ~~'File' -> image file 명시~~
+ - ~~'content' => 쓰고 싶은 글자 써도 되는거 맞낭~~
+ - ~~저장하기 버튼 => 짱 크게~~
+
+- 목록
+ - 페이지 만들고 들어갈수있게 하기
+
+사용법 정리 정리

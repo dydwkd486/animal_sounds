@@ -7,63 +7,72 @@
 
 <style type="text/css">
 	.in{
-		width: 100%;
-		text-align: center;
+			width: 100%;
+			text-align: center;
 	}
-.post{
-	width: 70%; 
-	display: inline-block;
-}
-.title {
-	text-align: left;
-}
-.img{
-	float:left;
-	text-align: left;
-	width: 48%;
-	margin-left: 2%;
-}
-.sound{
-	float:left;
-	text-align: left;
-	width: 46%;
-	margin-left: 2%;
-	margin-right: 2%;
-
-}
-.content{
-	text-align: left;
-	width: 48%;
-
-}
-p {text-align: left;}
-img {
-	height: 500px;
-	width: 80%;
-}
-a{
-	color: #000000;
-}
+	.post{
+		width: 70%; 
+		display: inline-block;
+	}
+	.title {
+		text-align: left;
+	}
+	.img{
+		float:left;
+		text-align: left;
+		width: 48%;
+		margin-left: 2%;
+	}
+	.sound{
+		float:left;
+		text-align: left;
+		width: 46%;
+		margin-left: 2%;
+		margin-right: 2%;
+	
+	}
+	.content{
+		text-align: left;
+		width: 48%;
+	
+	}
+	p {text-align: left;}
+	img {
+		height: 500px;
+		width: 80%;
+	}
+	a{
+		color: #000000;
+	}
 </style>
 
 {% endblock%}
 
 <div class="in">
+	<!--mainpage top start-->
     <div class="post" style="border: 1px solid;">
     	<h1 class='title'>{{ animal_map.title }}</h1>
-    	    <span class="control hidden" id = "control_id{{ forloop.counter0 }}">
-  <a href="{% url 'animal_edit' pk=animal_map.pk %}">수정</a>
-  <a href="{% url 'animal_remove' pk=animal_map.pk %}">삭제</a>
-</span>
-    <p>작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
-
+	    <span class="control hidden" id = "control_id{{ forloop.counter0 }}">
+		<!--수정과 삭제 부분 (현재 누가 접속하던 보이는 부분 수정중.)-->
+			<!--수정 후 오류 문제있음.-->
+			<a href="{% url 'animal_edit' pk=animal_map.pk %}">수정</a>
+			<a href="{% url 'animal_remove' pk=animal_map.pk %}">삭제</a>
+		</span>
+		<p>작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
+	<!--mainpage left side start-->
     <div class="img" style="border: 1px solid;">
     	<img src="/media/{{animal_map.file}}">
     </div>
+    <!--mainpage left side end-->
+    <!--mainpage right side start-->
     <div class="sound" style="border: 1px solid;">
-    	<div class=map style="height: 300px; border: 1px solid;"><h4>지도</h4>지도가 들어갈 예정.</div>
+    	<div class=map style="height: 300px; border: 1px solid;">
+    		<h4>지도</h4>지도가 들어갈 예정.
+    	</div>
+    	<!---->
     	<div style="border: 1px solid; height: 200px;">
     		<h4>동물 소리</h4>
+    		<!--jplater start-->
 			<div id="jquery_jplayer_1" class="jp-jplayer"></div>
 			<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
 				<div class="jp-type-single">
@@ -97,48 +106,44 @@ a{
 					</div>
 					<div class="jp-no-solution">
 						<span>Update Required</span>
-						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="			_blank">Flash plugin</a>.
+						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
 					</div>
 				</div>
 			</div>
+			<!--jplater end-->
     	</div>
-
     </div>
-    
+    <!--새부 내용 start-->
     <div class='content' style="height: 400px;"> 
     	<h4>세부 내용</h4>
     	<p>{{ animal_map.content }}</p>
     	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>s
-
     </div>
-
+    <!--새부 내용 end-->
        
     </div>
 </div>
 
-
-
-
     <script type="text/javascript">
-    	$(document).ready(function(){
-
-	$("#jquery_jplayer_1").jPlayer({
-		ready: function (event) {
-			$(this).jPlayer("setMedia", {
-				title: "{{ animal_map.title }} 소리",
-				mp3: "/media/{{ animal_map.soundfile }}",
-			});
-		},
-		swfPath: "../../dist/jplayer",
-		supplied: "m4a, oga,mp3",
-		wmode: "window",
-		useStateClassSkin: true,
-		autoBlur: false,
-		smoothPlayBar: true,
-		keyEnabled: true,
-		remainingDuration: true,
-		toggleDuration: true
+    //<jplater script
+    $(document).ready(function(){
+		$("#jquery_jplayer_1").jPlayer({
+			ready: function (event) {
+				$(this).jPlayer("setMedia", {
+					title: "{{ animal_map.title }} 소리",
+					mp3: "/media/{{ animal_map.soundfile }}",
+				});
+			},
+			swfPath: "../../dist/jplayer",
+			supplied: "m4a, oga,mp3",
+			wmode: "window",
+			useStateClassSkin: true,
+			autoBlur: false,
+			smoothPlayBar: true,
+			keyEnabled: true,
+			remainingDuration: true,
+			toggleDuration: true
+		});
 	});
-});
     </script>
 {% endblock %}

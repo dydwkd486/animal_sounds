@@ -7,28 +7,33 @@
     <link rel="stylesheet" href="{% static "css/bootstrap.css"%}">
 
   <meta charset="utf-8">
-  <title>{% block title %}웹은 이따구로 쓰는거다!{% endblock %}</title>
-    <style>
-      <span class="metadata-marker" style="display: none;" data-region_tag="css"></span>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+  <title>{% block title %}동물 소리(animal_sound){% endblock %}</title>
+  <style>
+    <span class="metadata-marker" style="display: none;" data-region_tag="css"></span>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
     .form-group{
         margin-bottom: 0rem;
     }
     label {
-    margin-bottom: 0rem;
-}
-    </style>
-    <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
+      margin-bottom: 0rem;
+    }
+  </style>
+  <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
 	<script type="text/javascript" src="{% static "js/jplayer/jquery.jplayer.min.js"%}"></script>
-    
+  <script>
+  function list_click() {
+    alert("미완성 된 기능입니다.");
+  }
+  </script>
 </head>
+
 <body>
 	<header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,7 +41,9 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarColor01">
+    <!-- 메뉴 바 부분 start -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
@@ -45,18 +52,23 @@
         <a class="nav-link" href="/">지도 <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/">목록 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/" onclick="list_click();">목록 <span class="sr-only">(current)</span></a>
       </li>
     </ul>
+    <!-- 메뉴 바 부분 end -->
+    <!-- 아이디 명 start -->
     <form class="form-inline my-2 my-lg-0">
       {% if user.is_authenticated %}
         <p class="navbar-brand" style="margin-bottom: 0px;"><span class="writer_name">{{ user.username }} </span>님</p>
-        <div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-secondary"><a href="{% url 'logout' %}">logout</a></button>
-</div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+    <!-- 아이디 명 end -->
+    <!-- 로그인/로그아웃 start -->
+    <button type="button" class="btn btn-secondary"><a href="{% url 'logout' %}">logout</a></button>
+    </div>
       {% else %}
         <a href="{% url 'login' %}" style="margin-right: 15px;color: #000000;">login</a><a href="{% url 'signup' %}"style="margin-right: 15px;color: #000000;"> signup</a>
       {% endif %}
+      <!-- 로그인/로그아웃 end -->
     </form>
   </div>
 </nav>
