@@ -26,6 +26,7 @@
 		</div>
 		<body onload="initialize()">
             <!--구글 맵이 나오는 곳-->
+            <input id="pac-input" class="controls" type="text" placeholder="위치 검색">
  	        <div id="map_canvas"></div>
             <!--구글 맵이 나오는 곳 end-->
 		</body>
@@ -74,8 +75,20 @@
     #id_content{
         height:100px; 
     }
+    #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+        height: 30px;
+      }
 </style>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap"
+         async defer></script>
 <script type="text/javascript">
     //구글 맵 관련 스크립트 start
     var initialLocation;
@@ -123,11 +136,66 @@
             document.getElementById("id_Latitude").value=pos.lat().toFixed(5)
             document.getElementById("id_Longitude").value=pos.lng().toFixed(5);
         }
-        
+      //지도내 검색기능 start
+      var markers = [];
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    
+      map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+      searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+              if (places.length == 0) {
+                return;
+              }
+    
+              // Clear out the old markers.
+              markers.forEach(function(marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+    
+              // For each place, get the icon, name and location.
+              var bounds = new google.maps.LatLngBounds();
+              places.forEach(function(place) {
+                if (!place.geometry) {
+                  console.log("Returned place contains no geometry");
+                  return;
+                }
+                var icon = {
+                  url: place.icon,
+                  size: new google.maps.Size(71, 71),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(17, 34),
+                  scaledSize: new google.maps.Size(25, 25)
+                };
+    
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                  map: map,
+                  icon: icon,
+                  title: place.name,
+                  position: place.geometry.location
+                }));
+    
+                if (place.geometry.viewport) {
+                  // Only geocodes have viewport.
+                  bounds.union(place.geometry.viewport);
+                } else {
+                  bounds.extend(place.geometry.location);
+                }
+              });
+              map.fitBounds(bounds);
+            });
+      //지도내 검색기능 end
     }
     //구글 맵 관련 스크립트 end
     //이미지,사운드 파일 확장자 고정.
     document.getElementById("id_imagefile").accept=".jpg,.png,.gif";
     document.getElementById("id_soundfile").accept="audio/*";
+
+
 </script>
 {% endblock %}

@@ -145,5 +145,11 @@
 			toggleDuration: true
 		});
 	});
+  function errorImg(){
+  $("img").error(function () {
+    $(this).unbind("error").attr("src", "/media/No_image.png");
+  });
+  }
+  errorImg();
     </script>
 {% endblock %}
