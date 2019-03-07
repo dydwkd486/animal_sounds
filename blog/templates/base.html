@@ -54,9 +54,13 @@
       <li class="nav-item active">
         <a class="nav-link" href="/" onclick="list_click();">목록 <span class="sr-only">(current)</span></a>
       </li>
+      {% if user.is_authenticated %}
+
       <li class="nav-item active">
         <a class="nav-link" href="/animalsave">새 위치 저장 <span class="sr-only">(current)</span></a>
       </li>
+      {% else %} 
+      {% endif %}
     </ul>
     <!-- 메뉴 바 부분 end -->
     <!-- 아이디 명 start -->

@@ -18,5 +18,5 @@ class Animal_map(models.Model):
     content = models.TextField()
     imagefile = models.FileField(null=False, upload_to='img')
     soundfile = models.FileField(null=False, upload_to='sound')
-    observed_date=models.DateTimeField(blank=True, null=False)
+    observed_date=models.CharField(max_length = 20)
     created_date = models.DateTimeField(default=timezone.now)
