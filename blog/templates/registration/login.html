@@ -1,54 +1,63 @@
-<!-- templates/registration/login.html -->
-{% extends 'base.html' %}
-{% block css %}
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
 
-<style>
-    .registration {
-        width: 360px;
-        margin: 0 auto;
-    }
-    p {
-        text-align: center;
-    }
-    label {
-        width: 50%;
-        text-align: left;
-    }
-    .control-label {
-        width: 100%;
-    }
-    .registration .form-actions > button {
-        width: 100%;
-    }
-    .panel .panel-default .registration{
-    	width: 70%;
-    }
-    h2 {
-    	text-align: center;
-    }
+<head>
+<title> Animal Sound Analysis </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content=" Master  Login Form Widget Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"/>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	{% load static %}
+<link href="//fonts.googleapis.com/css?family=Cormorant+SC:300,400,500,600,700" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+<link href="{% static "/css/style.css"%}" rel="stylesheet" >
 
-</style>
-{% endblock css %}
+</head>
 
-{% block content %}
-<div style="width: 20%;margin: 0 auto;">
-	<div class="panel-heading" style="text-align: center"> <h2>로그인</h2></div>
-    <div class="panel-body" >
-    	<form method="post">
-            <!--로그인 장고 라이브러리를 통해 불러옴 -->
+<body>
+	<div class="padding-all">
+		<div class="header">
+			<a class="navbar-brand" href="/"><img src="/media/main_login.png" style="height: 128px;"></a>
+		</div>
+
+		<div class="design-w3l" style="width: 100%;">
+			<div class="mail-form-agile">
+				<form action="#" method="post">
+					<!--로그인 장고 라이브러리를 통해 불러옴 -->
             {% csrf_token %}
                 {% for field in form %}
                     <div class="form-group {% if field.errors|length > 0 %}has-error{%endif %}">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:'' }}">
+                        <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" placeholder="..." style="width: 20%;">
                             {% for error in field.errors %}
                                 <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
                             {% endfor %}
                     </div>
                 {% endfor %}
                 <!-- 장고 라이브러리 end-->
-            <button type="submit">로그인</button>
-        </form>
-    </div>
-</div>
-{% endblock %}
+			<br>					<br>
+					<input type="submit" value="login" style="width: 20%;">
+				</form>
+				<form class="form-inline my-2 my-lg-0">
+      		{% if user.is_authenticated %}
+				<a href="{% url 'signup' %}"style="color: #FFFFFF;"> sign up for free</a>
+      		{% else %}
+        		<a href="{% url 'signup' %}"style="color: #FFFFFF;"> sign up for free</a>
+      		{% endif %}
+      			<!-- signup end -->
+    		</form>
+			</div>
+		  <div class="clear"> </div>
+		</div>
+		<br><br>
+		<div class="footer">
+		<p>© 2019 Animal Sound Analysis | Design by  <a href="https://http://mil.korea.ac.kr/" >  MILAB, w3layouts </a></p>
+		</div>
+	</div>
+</body>
+</html>
