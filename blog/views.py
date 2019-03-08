@@ -5,6 +5,9 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from .models import Animal_map
 from .forms import Animal_mapForm,AnimalmapFormMultiform
+''' 승원 수정 부분 '''
+from .forms import Animal_Sub_file
+''' end 승원 수정 부분 '''
 import json
 
 
@@ -44,21 +47,41 @@ def home(request):
 
     return render(request, 'home.html',{'animal_maps':animal_maps})
 
-
+''' 승원 수정 부분 '''
 def save(request):
     if request.method == "POST":
         form = AnimalmapFormMultiform(request.POST, request.FILES)
         if form.is_valid():
             animal = form['animal_map'].save(commit=False)
             animal.writer = request.user
+            animal.file_size_input = request.POST['file_size_input']
+            animal.file_name_input = request.POST['file_name_input']
+            animal.file_ex_input = request.POST['file_ex_input']
+            animal.duration_input = request.POST['duration_input']
             animal.save()
-            subfile=form['animal_Sub_file'].save(commit=False)
-            subfile.Animal_map=animal
-            subfile.save()
+
+            num=0
+            print(request.POST)
+            print(request.POST.get('subfile_meta%d' % num))
+
+            while request.POST.get('subfile_meta%d' % num):
+                subfile = Animal_Sub_file().save(commit=False)
+                subfile_meta = request.POST.get('subfile_meta%d' % num)
+                tokens = subfile_meta.split(",")
+                subfile.Animal_map = animal
+                subfile.file = request.FILES.get('subfile%d' % num)
+                subfile.label = tokens[6]
+                subfile.start_point = float(tokens[3])
+                subfile.end_point = float(tokens[4])
+                subfile.save()
+                print("save")
+                num += 1
+
             return redirect('/')
     else:
         form = AnimalmapFormMultiform()
     return render(request, 'animalsave.html', {'form': form})
+''' end 승원 수정 부분 '''
 
 
 def signup(request):

@@ -40,7 +40,7 @@
 
         {% endwith %}
         <div class="form-actions">
-          <button class="btn btn-primary btn-large" type="submit" onclick="">저장하기</button>
+          <button class="btn btn-primary btn-large" type="button" onclick="form_submit()">저장하기</button>
         </div>
       </form>
     </div>
@@ -519,7 +519,7 @@ display: inline-block;
     var playButton = $("<button id='play" + number + "' class='video-play'></button>");
     var stopButton = $("<button id='stop" + number + "' class='video-stop'></button>");
     var extractButton = $("<button id='extraction-button" + number + "' class='extraction-button'>extract</button>");
-    var inputName = $("<input id='input-name" + number + "' class='input-name'/>");
+    var inputName = $("<input id='input-name" + number + "' class='input-name' type='text'/>");
 
     startTime.appendTo(rangeBarControl);
     divider.appendTo(rangeBarControl);
@@ -668,8 +668,7 @@ display: inline-block;
     curLocation2 = curLocation2.slice(0, curLocation2.length-2);
     var loc1 = duration * (curLocation1 / totalWidth);
     var loc2 = duration * (curLocation2 / totalWidth);
-    diff_loc = loc2 - loc1;
-
+    diff_loc = Number(loc2) - Number(loc1);
     var return_array = new Array();
     return_array[0] = fileSize;
     return_array[1] = fileName + "." + fileEx;
@@ -889,7 +888,7 @@ display: inline-block;
      var file = extractAudioForUp(globalWavesurfer, i);
      formData.append('subfile' + i, file);
      var meta = getSubFileMeta(file, i);
-     var label = $('#input-name' + i).text();
+     var label = $('#input-name' + i).val();
      meta.push(label);
      formData.append('subfile_meta' + i, meta);
     }
@@ -910,6 +909,7 @@ display: inline-block;
     xhr.onreadystatechange = function() {
       if (xhr.readyState === xhr.DONE) {
         if (xhr.status === 200 || xhr.status === 201) {
+          $(location).attr('href', '/')
         } else {
         }
       }
