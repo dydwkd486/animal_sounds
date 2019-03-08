@@ -32,9 +32,9 @@ class Animal_Sub_file(models.Model):
     label= models.CharField(null=True,max_length = 30)
     start_point= models.IntegerField(null=True)
     end_point= models.IntegerField(null=True)
-    #file_size_input =models.IntegerField(null=True)
-    #file_name_input =models.CharField(max_length = 30,null=True)
-    #file_ex_input = models.CharField(max_length = 10,null=True)
-    #duration_input = models.IntegerField(null=True)
+    file_size_input =models.IntegerField(null=True)
+    file_name_input =models.CharField(max_length = 30,null=True)
+    file_ex_input = models.CharField(max_length = 10,null=True)
+    duration_input = models.IntegerField(null=True)
 
 
