@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from .models import Animal_map
-from .forms import Animal_mapForm
+from .forms import Animal_mapForm,AnimalmapFormMultiform
 import json
 
 
@@ -47,14 +47,17 @@ def home(request):
 
 def save(request):
     if request.method == "POST":
-        form = Animal_mapForm(request.POST, request.FILES)
+        form = AnimalmapFormMultiform(request.POST, request.FILES)
         if form.is_valid():
-            animal = form.save(commit=False)
+            animal = form['animal_map'].save(commit=False)
             animal.writer = request.user
             animal.save()
+            subfile=form['animal_Sub_file'].save(commit=False)
+            subfile.Animal_map=animal
+            subfile.save()
             return redirect('/')
     else:
-        form = Animal_mapForm()
+        form = AnimalmapFormMultiform()
     return render(request, 'animalsave.html', {'form': form})
 
 

@@ -1,5 +1,6 @@
 from django import forms
-from .models import Animal_map
+from .models import Animal_map,Animal_Sub_file
+from betterforms.multiform import MultiModelForm
 
 class DateInput(forms.DateTimeInput):
     input_type = 'datetime-local'
@@ -23,3 +24,14 @@ class Animal_mapForm(forms.ModelForm):
         self.fields['imagefile'].required = False
         self.fields['soundfile'].required = False
 
+class Animal_Sub_file(forms.ModelForm):
+    class Meta:
+        model = Animal_Sub_file
+        fields = []
+
+
+class AnimalmapFormMultiform(MultiModelForm):
+    form_classes ={
+        'animal_map':Animal_mapForm,
+        'animal_Sub_file':Animal_Sub_file, 
+    }

@@ -60,6 +60,8 @@
 			<a href="{% url 'animal_remove' pk=animal_map.pk %}">삭제</a>
 			{% else %}
 			{% endif %}
+			{{user.is_staff}}
+			{{user.professional}}
 		</span>
 		<p>작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
 	<!--mainpage left side start-->

@@ -10,7 +10,7 @@ class CreateUserForm(UserCreationForm): # 내장 회원가입 폼을 상속받�
 
     class Meta:
         model = User
-        fields = ("username","email", "password1", "password2",)
+        fields = ("username","email", "password1", "password2",'is_staff',)
 
     def save(self, commit=True): # 저장하는 부분 오버라이딩
         user = super(CreateUserForm, self).save(commit=False) # 본인의 부모를 호출해서 저장하겠다.
