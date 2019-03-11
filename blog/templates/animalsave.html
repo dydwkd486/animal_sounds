@@ -6,42 +6,45 @@
 {% block title %}동물 소리(animal_sound){% endblock %}
 
 {% block content %}
-<div class="div_wrap" style="width: 60%">
-  <h1 style="margin-top: 24px; margin-bottom: 12px;">Upload your sound</h1>
-	<div class="content" style="margin-top: 0px;">
-		<div>
+<div class="div_wrap" style="width: 80%">
+  <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>파일 첨부하기</b></h1>
+  <!--h5 style="margin-top: 24px; margin-bottom: 12px;">*동물 울음소리 및 사진 파일을 첨부합니다. 빈 부분은 인공지능을 활용하여 유추합니다.</h5-->
+   <div class="content" style="margin-top: 0px; margin-left: 15%;">
+      <div>
       <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data">
         <!--ss-->
         {% csrf_token %}
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-title">Title</label>
-          <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" value="">
+          <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" value="동물 이름을 입력. .">
         </div>
+        <br><label style="color: #339933; font-size: 125%;"><b>Locations</b></label><br>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-Latitude">Latitude</label>
-          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" value="">
+          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" value="위도. .">
         </div>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-Longitude">Longitude</label>
-          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" value="">
-        </div>
-        <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-content">Content</label>
-          <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" value="">
+          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" value="경도. .">
         </div>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-observed_date">Observed date</label>
           <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="datetime-local" value="">
         </div>
+        <br><label style="color: #339933; font-size: 125%;"><b>Files</b></label><br>
         <div class="form-group " style="text-align: left;">
           <div id="sound_dropbox">
-            <label for="id_animal_map-soundfile">Soundfile</label>
+            <label for="id_animal_map-soundfile">Soundfiles</label>
             <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" value="" placeholder="...">
           </div>
         </div>
-        <div class="form-group " style="text-align: left;">          
-          <label for="id_animal_map-imagefile">Imagefile</label>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-imagefile">Imagefiles</label>
           <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" value="">
+        </div>
+                <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-content">Content</label>
+          <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" value="세부내용. .">
         </div>
         <!--
         {% with sound_id="id_animal_map-soundfile" %}
@@ -71,14 +74,14 @@
         {% endwith %}
       -->
         <div class="form-actions">
-          <button class="btn btn-primary btn-large" type="button" onclick="form_submit()">저장하기</button>
+          <button class="btn btn-primary btn-large" type="button" onclick="form_submit()" style="background-color: #339933; border-color: #339933; width: 100%;">저장하기</button>
         </div>
       </form>
     </div>
     <body onload="initialize()">
       <!--구글 맵이 나오는 곳-->
       <input id="pac-input" class="controls" type="text" placeholder="위치 검색">
-      <div id="map_canvas" style="margin-top: 80px;"></div>
+      <div id="map_canvas" style="margin-top: 90px;"></div>
       <!--구글 맵이 나오는 곳 end-->
 
       <div id="info">
@@ -146,15 +149,15 @@
 
 .div_wrap {
 width:100%;
-height:800px; 
+height:800px;
 margin:0px auto;
-padding:0px; 
+padding:0px;
 overflow:hidden;
 text-align: center;
 }
 
 .content{
-width:90%; 
+width:90%;
 height:90%;
 margin:24px auto;
 padding:0px;
@@ -164,10 +167,10 @@ text-align:center;
 
 .content:after {content:""; clear:both; display:block;}
 
-.content > div { 
+.content > div {
 float:left;
 color:black;
-width:40%; 
+width:40%;
 height:100%;
 padding: 10px;
 text-align: center;
