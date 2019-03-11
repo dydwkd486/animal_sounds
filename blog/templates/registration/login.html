@@ -21,13 +21,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 
 <body>
-	<div class="padding-all">
-		<div class="header">
+	<div class="padding-all" style="padding-top: 75px;">
+		<div class="header" style="padding-bottom: 20px;">
 			<a class="navbar-brand" href="/"><img src="/media/main_login.png" style="height: 128px;"></a>
 		</div>
 
 		<div class="design-w3l" style="width: 100%;">
-			<div class="mail-form-agile">
+			<div class="mail-form-agile" style="padding-top: 25px;">
 				<form action="#" method="post">
 					<!--로그인 장고 라이브러리를 통해 불러옴 -->
             {% csrf_token %}
@@ -41,12 +41,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <!-- 여기서 필수사항 알림 끝 -->
                         <!-- 아이디 시작 username만 변경안하면 됩니다.-->
                         <div>
-                        <input name="username" id="id_username" class="form-control" placeholder="..." style="width: 20%;">
+                        <input name="username" id="id_username" class="form-control" placeholder="user id" type="text" style="width: 20%; margin: 10px;">
                         </div>
                         <!-- 아이디 끝 -->
                         <!-- 비밀번호 시작 password만 변경안하면 됩니다.-->
                         <div>
-                        <input name="password" id="id_password" class="form-control" placeholder="..." style="width: 20%;">
+                        <input name="password" id="id_password" class="form-control" placeholder="password"  type="password" style="width: 20%; margin: 10px;">
                         </div>
                         <!-- 비밀번호 끝 -->
 
@@ -58,9 +58,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</form>
 				<form class="form-inline my-2 my-lg-0">
       		{% if user.is_authenticated %}
-				<a href="{% url 'signup' %}"style="color: #FFFFFF;"> sign up for free</a>
+				<a href="{% url 'signup' %}"style="color: #FFFFFF; text-decoration: underline; font-size: 150%;"> sign up for free</a>
       		{% else %}
-        		<a href="{% url 'signup' %}"style="color: #FFFFFF;"> sign up for free</a>
+        		<a href="{% url 'signup' %}"style="color: #FFFFFF; text-decoration: underline; font-size: 150%;"> sign up for free</a>
       		{% endif %}
       			<!-- signup end -->
     		</form>

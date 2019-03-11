@@ -11,10 +11,10 @@
 	 <div>
 	 	<p id="title" class="d-flex justify-content-center"></p>
 	 </div>
-   <div style="height: 70px; margin-top: 20px;" class="d-flex justify-content-center">
-    <fieldset id="search_fieldset"> <input id="search_input" type="search", style="height: 40px; width: 250px; margin-left: 70px;" placeholder="animals, locations, etc..."/>
-      <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px;"><i class="fa fa-search" style="padding-top: 5px;"></i><img src="/media/iconfinder_Search_984754.png" style="height: 28px;"></button>
-      <!--button id="reload_button" type="submit"class="btn btn-primary"><i class="fa fa-search"></i>맵 다시확인</button-->
+   <div style="height: 100px; margin-top: 30px;" class="d-flex justify-content-center">
+    <fieldset id="search_fieldset"> <input id="search_input" type="search", style="height: 50%; width: 450px; margin-left: 70px;" placeholder="animals, locations, etc..."/>
+      <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px; height: 55%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 35px;"></button>
+      <button id="reload_button" type="submit"class="btn btn-primary" style="height: 55%;"><i class="fa fa-search"></i>맵 다시확인</button>
       
     </fieldset>
    </div>
@@ -22,11 +22,12 @@
   <!-- 상단 end -->
   <!--지도 start-->
   <input id="pac-input" class="controls" type="text" placeholder="위치 검색">
-  <div id="map" style="height: 500px; clear:both;"></div>
+  <div id="map" style="height: 450px; clear:both; margin-bottom: 30px;"></div>
   <!--지도 end-->
     <div id="out" style="width: 100%;">
       <!--동물 정보 start-->
-    	<div id="text" style="overflow-y:scroll; width:39%;height:300px;  display: inline-block;">
+    	<div id="text" class="table" style="overflow-y:scroll; width:33%;height:300px;  display: inline-block;">
+            <tbody>
     		<div style="width: 100%;height: 100px;">
     			{% for animal_map in animal_maps %}
     			<div class="text_img" style="width: 20%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" ></div>
@@ -34,15 +35,51 @@
           </div>
     		  {% endfor%}
     		</div>
+            </tbody>
     	</div>
     <!--동물 정보 end-->
     <!--표1 start-->
-    <div id="myDiv" style="width:30%;height:300px; display: inline-block;"></div>
-    <!--표1 end-->
-    <!--표2 start-->
-    <div id="tester2" style="width:30%;height:300px; display: inline-block;"></div>
-    <!--표2 end-->
-  </div>
+            <div id="myDiv" style="width:33%;height:300px; display: inline-block;"></div>
+            <!--표1 end-->
+            <!--표2 start-->
+            <div id="tester2" style="width:33%;height:300px; display: inline-block;"></div>
+            <!--표2 end-->
+        </div>
+<footer style="background: #ecf0f1">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted" style="text-align: center;">Copyright &copy; Animal Sound Analysis 2019</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 <style type="text/css">
         #pac-input {
         background-color: #fff;
