@@ -100,6 +100,7 @@ Superuser created successfully.
 python3 manage.py runserver
 ```
 
+
 ```
 System check identified no issues (0 silenced).
 March 05, 2019 - 17:36:26
@@ -107,6 +108,51 @@ Django version 2.1.7, using settings 'animal_sounds.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
+자주 실행하다가 데이터 베이스에서 오류가 나면 아래와 같이 하세요
+
+- 윈도우 기준
+```
+psql -U postgres
+postgres 사용자의 암호: 각자 비밀번호 입력
+postgres=# DROP DATABASE django_test;
+postgres=# CREATE DATABASE django_test OWNER postgres;
+```
+```
+python manage.py createsuperuser
+```
+```
+사용자 이름 (leave blank to use 'dydwkd486'): admin
+이메일 주소: admin@admin.com
+Password: 
+Password (again): 
+비밀번호가 이메일 주소와 너무 유사합니다.
+비밀번호가 너무 짧습니다. 최소 8 문자를 포함해야 합니다.
+비밀번호가 너무 일상적인 단어입니다.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+```
+
+- 우분투 기준
+```
+sudo -u postgres psql
+postgres=# DROP DATABASE django_test;
+postgres=# CREATE DATABASE django_test OWNER postgres;
+```
+```
+python3 manage.py createsuperuser
+```
+```
+사용자 이름 (leave blank to use 'dydwkd486'): admin
+이메일 주소: admin@admin.com
+Password: 
+Password (again): 
+비밀번호가 이메일 주소와 너무 유사합니다.
+비밀번호가 너무 짧습니다. 최소 8 문자를 포함해야 합니다.
+비밀번호가 너무 일상적인 단어입니다.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+```
+
 
 ## 추가 적으로 해야할 사항
 * 2019.03.06
@@ -174,3 +220,5 @@ Quit the server with CONTROL-C.
 - 8도 작업
 
 디비 문제 도움말 추가 하기
+
+***
