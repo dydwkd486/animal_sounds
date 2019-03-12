@@ -13,18 +13,27 @@ class Animal(models.Model):
 ''' 승원 수정 부분 '''
 
 class Animal_map(models.Model):
+    LEVEL = (
+        ('m','Mammalia'),#포유류
+        ('b','Birds'), #조류
+        ('r','Reptile'), #파충류
+        ('a','Amphibia'), # 양서류
+        ('i','Insect'), # 곤충
+        )
+
     writer = models.CharField(max_length = 100)
-    title = models.CharField(max_length = 20)
-    Latitude = models.DecimalField(max_digits=10, decimal_places=7)
-    Longitude = models.DecimalField(max_digits=10, decimal_places=7)
-    content = models.TextField()
+    Class = models.CharField(max_length=1,choices=LEVEL, blank=True, default='m', help_text='class_Level')
+    title = models.CharField(max_length = 20, blank=True, null=True)
+    Latitude = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    Longitude = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    content = models.TextField(blank=True, null=True)
     imagefile = models.FileField(null=False, upload_to='img')
     soundfile = models.FileField(null=False, upload_to='sound')
     file_size_input =models.IntegerField(null=True)
     file_name_input =models.CharField(max_length = 30,null=True)
     file_ex_input = models.CharField(max_length = 10,null=True)
     duration_input = models.DecimalField(max_digits=10, decimal_places=7, null=True)
-    observed_date=models.CharField(max_length = 20)
+    observed_date=models.DateField(default=timezone.now, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
 
@@ -35,10 +44,10 @@ class Animal_Sub_file(models.Model):
     label= models.CharField(null=True,max_length = 30)
     start_point= models.DecimalField(max_digits=10, decimal_places=7, null=True)
     end_point= models.DecimalField(max_digits=10, decimal_places=7, null=True)
-    #file_size_input =models.IntegerField(null=True)
-    #file_name_input =models.CharField(max_length = 30,null=True)
-    #file_ex_input = models.CharField(max_length = 10,null=True)
-    #duration_input = models.IntegerField(null=True)
+    file_size_input =models.IntegerField(null=True)
+    file_name_input =models.CharField(max_length = 30,null=True)
+    file_ex_input = models.CharField(max_length = 10,null=True)
+    duration_input = models.IntegerField(null=True)
 ''' end 승원 수정 부분 '''
 
 

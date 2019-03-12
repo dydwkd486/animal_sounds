@@ -14,38 +14,85 @@
       <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data">
         <!--ss-->
         {% csrf_token %}
+
+        {% if request.user.profile.professional %}
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-title">Title</label>
-          <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" value="동물 이름을 입력. .">
+          <label for="id_animal_map-title">Title<b style="color:red;">*</b></label>
+          <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" placeholder="동물 이름을 입력. ." required>
         </div>
         <br><label style="color: #339933; font-size: 125%;"><b>Locations</b></label><br>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Latitude">Latitude</label>
-          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" value="위도. .">
+          <label for="id_animal_map-Latitude">Latitude<b style="color:red;">*</b></label>
+          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. ." required>
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Longitude">Longitude</label>
-          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" value="경도. .">
+          <label for="id_animal_map-Longitude">Longitude<b style="color:red;">*</b></label>
+          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. ." required>
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-observed_date">Observed date</label>
-          <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="datetime-local" value="">
+          <label for="id_animal_map-observed_date">Observed date<b style="color:red;">*</b></label>
+          <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="datetime-local" required>
         </div>
         <br><label style="color: #339933; font-size: 125%;"><b>Files</b></label><br>
         <div class="form-group " style="text-align: left;">
           <div id="sound_dropbox">
-            <label for="id_animal_map-soundfile">Soundfiles</label>
-            <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" value="" placeholder="...">
+            <label for="id_animal_map-soundfile">Soundfiles<b style="color:red;">*</b></label>
+            <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" placeholder="..." required>
           </div>
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-imagefile">Imagefiles</label>
-          <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" value="">
+          <label for="id_animal_map-imagefile">Imagefiles<b style="color:red;">*</b></label>
+          <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" required>
+        </div>
+                <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-content">Content<b style="color:red;">*</b></label>
+          <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" placeholder="세부내용. ." required>
+        </div>
+        {% else %} 
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-title">Title</label>
+          <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" placeholder="동물 이름을 입력. .">
+        </div>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-title">Title</label>
+          <select name="animal_map-Class" id="id_animal_map-Class" class="form-control" type="select" value="m">
+              <option value="m">Mammalia</option>
+              <option value="b">Birds</option>
+              <option value="r">Reptile</option>
+              <option value="a">Amphibia</option>
+              <option value="i">Insect</option>
+            </select>
+        </div>
+        <br><label style="color: #339933; font-size: 125%;"><b>Locations</b></label><br>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-Latitude">Latitude</label>
+          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text">
+        </div>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-Longitude">Longitude</label>
+          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text">
+        </div>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-observed_date">Observed date<b style="color:red;">*</b></label>
+          <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="date" required>
+        </div>
+        <br><label style="color: #339933; font-size: 125%;"><b>Files</b></label><br>
+        <div class="form-group " style="text-align: left;">
+          <div id="sound_dropbox">
+            <label for="id_animal_map-soundfile">Soundfiles<b style="color:red;">*</b></label>
+            <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" placeholder="..." required>
+          </div>
+        </div>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-imagefile">Imagefiles<b style="color:red;">*</b></label>
+          <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" required>
         </div>
                 <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-content">Content</label>
-          <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" value="세부내용. .">
+          <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" placeholder="세부내용. .">
         </div>
+
+        {% endif %}
         <!--
         {% with sound_id="id_animal_map-soundfile" %}
 

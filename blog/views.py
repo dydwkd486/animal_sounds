@@ -11,9 +11,10 @@ from .forms import Animal_Sub_file
 import json
 
 
-@login_required
+#@login_required
 def home(request):
     animal_maps=Animal_map.objects.filter()
+
     if request.GET.get('sw_lat'):
         results =[]
         sw_lat = request.GET['sw_lat']
@@ -78,11 +79,54 @@ def save(request):
                 num += 1
 
             return redirect('/')
+        else:
+            print(form)
+            animal = form['animal_map'].save(commit=False)
+            animal.writer = request.user
+            animal.file_size_input = request.POST['file_size_input']
+            animal.file_name_input = request.POST['file_name_input']
+            animal.file_ex_input = request.POST['file_ex_input']
+            animal.duration_input = request.POST['duration_input']
+            animal.save()
+            return redirect('/')
     else:
         form = AnimalmapFormMultiform()
     return render(request, 'animalsave.html', {'form': form})
 ''' end 승원 수정 부분 '''
+def list(request):
+    animal_maps=Animal_map.objects.filter()
+    if request.GET.get('sw_lat'):
+        results =[]
+        sw_lat = request.GET['sw_lat']
+        sw_lng = request.GET['sw_lng']
+        ne_lat = request.GET['ne_lat']
+        ne_lng = request.GET['ne_lng']
+        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)):
+            results.append(odject)
+        context = {'animal_maps':results} 
+        return render(request, 'homelist.html',context)
 
+    if request.GET.get('search_key'):
+        results =[]
+        query = request.GET['search_key']
+        
+        for odject in animal_maps.filter(title__contains=query):
+            results.append(odject)
+        context = {'animal_maps':results} 
+        return render(request, 'homelist.html',context)
+
+    if request.GET.get('sw_lat'):
+        results =[]
+        sw_lat = request.GET['sw_lat']
+        sw_lng = request.GET['sw_lng']
+        ne_lat = request.GET['ne_lat']
+        ne_lng = request.GET['ne_lng']
+        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)):
+            results.append(odject)
+        context = {'animal_maps':results} 
+        return render(request, 'homelist.html',context)
+
+    return render(request, 'homelist.html',{'animal_maps':animal_maps})
 
 def signup(request):
     if request.method == 'POST':

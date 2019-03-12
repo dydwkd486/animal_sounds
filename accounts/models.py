@@ -6,3 +6,4 @@ from django.contrib.auth.models import AbstractUser
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     professional = models.BooleanField(default=False)
+

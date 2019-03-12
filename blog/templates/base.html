@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	{% load static %}
     <link rel="stylesheet" href="{% static "css/skin/blue.monday/css/jplayer.blue.monday.min.css"%}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-slider.css"%}">
     <link rel="stylesheet" href="{% static "css/bootstrap.css"%}">
 
   <meta charset="utf-8">
@@ -27,9 +28,15 @@
   </style>
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
 	<script type="text/javascript" src="{% static "js/jplayer/jquery.jplayer.min.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/bootstrap-slider.js"%}"></script>
   <script>
-  function list_click() {
-    alert("미완성 된 기능입니다.");
+  function login_click() {
+    {% if user.is_authenticated %} 
+      location.href="/animalsave";
+    {% else %}
+      alert("로그인후 이용바랍니다.");
+      location.href="/accounts/login";
+    {% endif %}
   }
   </script>
 </head>
@@ -44,7 +51,7 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <!-- 메뉴 바 부분 start -->
-    <ul class="navbar-nav m-auto" style="width: 50%; padding-left: 20%;">
+    <ul class="navbar-nav m-auto" style="width: 50%; padding-left: 10%;">
       <li class="nav-item active" style="margin: 5%; width: 20%;">
         <a class="nav-link" href="/"><b style="font-size: 150%;">Home</b> <span class="sr-only">(current)</span></a>
       </li>
@@ -52,13 +59,13 @@
           <a class="nav-link" href="/"><b style="font-size: 150%;">지도</b> <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active" style="margin: 5%; width: 20%;">
-        <a class="nav-link" href="/" onclick="list_click();"><b style="font-size: 150%;">목록</b> <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/animallist"><b style="font-size: 150%;">목록</b> <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <!-- 메뉴 바 부분 end -->
     <!-- 아이디 명 start -->
     <form class="form-inline my-2 my-lg-0">
-          <a class="nav-link" href="/animalsave"><img src="/media/iconfinder_backup_326537.png" style="height: 35px;"><span class="sr-only">(current)</span></a>
+          <a class="nav-link" onclick="login_click();"><img src="/media/iconfinder_backup_326537.png" style="height: 35px;"><span class="sr-only">(current)</span></a>
       {% if user.is_authenticated %}
         <p class="navbar-brand" style="margin-bottom: 0px;"><span class="writer_name">{{ user.username }} </span>님</p>
     <div class="btn-group" role="group" aria-label="Basic example">

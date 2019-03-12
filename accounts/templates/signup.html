@@ -43,6 +43,13 @@
     <div class="design-w3l" style="width: 100%; font-size: 125%;">
     <div class="mail-form-agile">
         <form action="." method="post">
+            <!--{% for field in form %}   
+                {% for error in field.errors %}
+                    <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
+                {% endfor %} 
+            {% endfor %}
+        -->
+
             {% csrf_token %}
             <div class="form-group " style="text-align: right; padding: 10px;">
                 <label for="id_user-username" id="id_user-username_field" class="field" style="color: #FFFFFF;">사용자 이름</label>
@@ -52,7 +59,7 @@
         
             <div class="form-group " style="text-align: right; padding: 10px;">
                 <label for="id_user-email" id="id_user-email_field" class="field" style="color: #FFFFFF;">Email</label>
-                <input name="user-email" id="id_user-email" class="form-control" type="email" value="" placeholder="...">
+                <input name="user-email" id="id_user-email" class="form-control" type="text" value="" placeholder="...">
                 
             </div>
         
@@ -65,14 +72,17 @@
             <div class="form-group " style="text-align: right; padding: 10px;">
                 <label for="id_user-password2" id="id_user-password2_field" class="field" style="color: #FFFFFF;">비밀번호 확인</label>
                 <input name="user-password2" id="id_user-password2" class="form-control" type="password" value="" placeholder="...">
+
                 
             </div>
         
             <div class="form-group " style="text-align: right; padding: 10px;">
-                <label for="id_user-is_staff" id="id_user-is_staff_field" class="field" style="color: #FFFFFF;">스태프 권한</label>
-                <input name="user-is_staff" id="id_user-is_staff" class="form-control" type="checkbox" value="False" placeholder="...">
-                
-            </div>           
+                <label for="id_profile-professional" id="id_profile-professional_field" class="field" style="color: #FFFFFF;">전문가 유/무</label>
+                <input name="profile-professional" id="id_profile-professional" class="form-control" type="checkbox" placeholder="...">
+                <p style="font-size:13px;  color: #FFFFFF;">전문가인 분들만 선택해 주세요</p>
+            </div>      
+
+            <!--
             <!--장고 라이브러리를 통해 자동으로 폼이 나옴
             
             {% for field in form %}
