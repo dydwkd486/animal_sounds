@@ -28,80 +28,72 @@
     </fieldset>
 
    </div>
+      <p>구분</p>
       <div class="" data-toggle="buttons">
         <label class="btn btn-primary">
-          <input type="checkbox"  autocomplete="off"> 전체
+          <input type="radio" name="checkbox" checked="" value="" autocomplete="off"> 전체
         </label>
         <label class="btn btn-primary">
-          <input type="checkbox" checked="" autocomplete="off"> 포유류
+          <input type="radio" name="checkbox" autocomplete="off" value="m" id="cd2"> 포유류
         </label>
         <label class="btn btn-primary">
-          <input type="checkbox" autocomplete="off"> 조류
+          <input type="radio" name="checkbox" autocomplete="off" value="b"> 조류
         </label>
         <label class="btn btn-primary">
-          <input type="checkbox" autocomplete="off"> 파충류
+          <input type="radio" name="checkbox" autocomplete="off" value="r"> 파충류
         </label>
         <label class="btn btn-primary">
-          <input type="checkbox" autocomplete="off"> 양서류
+          <input type="radio" name="checkbox" autocomplete="off" value="a"> 양서류
         </label>
         <label class="btn btn-primary">
-          <input type="checkbox" autocomplete="off"> 곤충
+          <input type="radio" name="checkbox" autocomplete="off" value="i"> 곤충
         </label>
+      </div> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
+
+<div class="" data-toggle="buttons">
+  <p>지역</p>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="" id="option1" autocomplete="off" checked=""> 전체
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="a" id="option2" autocomplete="off"> 서울시
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="b" id="option3" autocomplete="off"> 경기도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="c" id="option4" autocomplete="off"> 강원도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="d" id="option5" autocomplete="off"> 충청북도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="e" id="option6" autocomplete="off"> 충청남도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="f" id="option7" autocomplete="off"> 경상북도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="g" id="option8" autocomplete="off"> 경상남도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="h" id="option9" autocomplete="off"> 전라북도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="i" id="option10" autocomplete="off"> 전라남도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="j" id="option11" autocomplete="off"> 제주도
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="k" id="option12" autocomplete="off"> 북한
+  </label>
+</div>
+      <div>
+        <p>기간</p>
+        <input type="date" id="startdate"> ~ <input type="date" id="enddate"> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
       </div>
-          <script>
-        $(function() {
-            $("#slider-range-max").slider({
-                range: "max",
-                min: 1,
-                max: 10,
-                value: 2,
-                slide: function(event, ui) {
-                    $("#amount").val(ui.value);
-                }
-            });
-            $("#amount").val($("#slider-range-max").slider("value"));
- 
- 
-            $("#slider-range").slider({
-                range: true,
-                min: 0,
-                max: 500,
-                values: [75, 300],
-                slide: function(event, ui) {
-                    $("#amount2").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                }
-            });
-            $("#amount2").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
- 
-            $("#slider").slider({
-                value:10,
-                min: 0,
-                max: 100,
-                step: 10,
-                slide: function( event, ui ) {
-                    $( "#amount3" ).val( "$" + ui.value );
-                }
-            });
-            $( "#amount3" ).val( "$" + $( "#slider" ).slider( "value" ) );
-        });
-    </script>
     </div>
-        <p>
-        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-    </p>
-    <div id="slider-range-max"></div>
- 
-    <p>
-        <input type="text" id="amount2" readonly style="border:0; color:#f6931f; font-weight:bold;">
-    </p>
-    <div id="slider-range"></div>
- 
-    <p>
-        <input type="text" id="amount3" readonly style="border:0; color:#f6931f; font-weight:bold;">
-    </p>
-    <div id="slider"></div>
-
-
   <!--지도 end-->
       <div class="collapse navbar-collapse" id="navbarColor01" style="width: 100%; display: block;">
             <ul class="navbar-nav m-auto" style="flex-direction: unset;">
@@ -339,7 +331,7 @@ $('#reload_button').click(function(){
 
 // 검색 기능 start
 $('#search_button').click(function(){ 
-   var url = '/?search_key='+document.getElementById('search_input').value;
+   var url = '/?search_key='+document.getElementById('search_input').value+'&address_key='+$('input[name="options"]:checked').val()+'&class_key='+ $('input[name="checkbox"]:checked').val()+"&startdate="+document.getElementById("startdate").value+"&enddate="+document.getElementById("enddate").value;
     window.open(url,'_self')
 }) 
 // 검색 기능 end

@@ -14,39 +14,49 @@ import json
 #@login_required
 def home(request):
     animal_maps=Animal_map.objects.filter()
-
-    if request.GET.get('sw_lat'):
-        results =[]
-        sw_lat = request.GET['sw_lat']
-        sw_lng = request.GET['sw_lng']
-        ne_lat = request.GET['ne_lat']
-        ne_lng = request.GET['ne_lng']
-        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)):
-            results.append(odject)
-        context = {'animal_maps':results} 
-        return render(request, 'home.html',context)
+    #조건이 6가지 (이름, 구분, 지역, 시작날짜, 끝날짜, 맵다시확인)
+    query=""
+    sw_lat="0"
+    sw_lng="0"
+    ne_lat="180"
+    ne_lng="180"
+    address=""
+    class_key=""
+    startdate="1900-03-06"
+    enddate="2200-03-06"
+    results =[]
 
     if request.GET.get('search_key'):
-        results =[]
-        query = request.GET['search_key']
-        
-        for odject in animal_maps.filter(title__contains=query):
-            results.append(odject)
-        context = {'animal_maps':results} 
-        return render(request, 'home.html',context)
+        query=request.GET['search_key']
+        print("search_key")
 
     if request.GET.get('sw_lat'):
-        results =[]
         sw_lat = request.GET['sw_lat']
         sw_lng = request.GET['sw_lng']
         ne_lat = request.GET['ne_lat']
         ne_lng = request.GET['ne_lng']
-        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)):
-            results.append(odject)
-        context = {'animal_maps':results} 
-        return render(request, 'home.html',context)
 
-    return render(request, 'home.html',{'animal_maps':animal_maps})
+    if request.GET.get('address_key'):
+        address=request.GET['address_key']
+        print("address")
+
+    if request.GET.get('class_key'):
+        class_key=request.GET['class_key']
+        print("class_key")
+
+    if request.GET.get('startdate'):
+        startdate=request.GET['startdate']
+        print("startdate")
+
+    if request.GET.get('enddate'):
+        enddate=request.GET['enddate']
+        print("enddate")
+
+    for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__contains=address,Class__contains=class_key,observed_date__range=(startdate,enddate)):
+        results.append(odject)
+    context = {'animal_maps':results} 
+
+    return render(request, 'home.html',context)
 
 ''' 승원 수정 부분 '''
 def save(request):
@@ -62,8 +72,11 @@ def save(request):
             animal.save()
 
             num=0
+            print("request.POST:")
             print(request.POST)
             print(request.POST.get('subfile_meta%d' % num))
+            Latitude = request.POST['animal_map-Latitude']
+            Longitude = request.POST['animal_map-Longitude']
 
             while request.POST.get('subfile_meta%d' % num):
                 subfile = Animal_Sub_file().save(commit=False)
