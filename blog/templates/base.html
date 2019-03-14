@@ -53,7 +53,7 @@
     <!-- 메뉴 바 부분 start -->
     <ul class="navbar-nav m-auto" style="width: 50%; padding-left: 10%;">
       <li class="nav-item active" style="margin: 5%; width: 20%;">
-        <a class="nav-link" href="/"><b style="font-size: 150%;">Home</b> <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/"><b style="font-size: 150%;">검색</b> <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active" style="margin: 5%; width: 20%;">
           <a class="nav-link" href="/"><b style="font-size: 150%;">지도</b> <span class="sr-only">(current)</span></a>
@@ -64,8 +64,8 @@
     </ul>
     <!-- 메뉴 바 부분 end -->
     <!-- 아이디 명 start -->
-    <form class="form-inline my-2 my-lg-0">
-          <a class="nav-link" onclick="login_click();"><img src="/media/iconfinder_backup_326537.png" style="height: 35px;"><span class="sr-only">(current)</span></a>
+    <form class="form-inline my-2 my-lg-0" style="margin-right: 15px;">
+          <a class="nav-link" onclick="login_click();"><img src="/media/upload.png" style="height: 70px; margin-right: 10px;"><span class="sr-only">(current)</span></a>
       {% if user.is_authenticated %}
         <p class="navbar-brand" style="margin-bottom: 0px;"><span class="writer_name">{{ user.username }} </span>님</p>
     <div class="btn-group" role="group" aria-label="Basic example">
@@ -74,7 +74,7 @@
     <button type="button" class="btn btn-secondary"><a href="{% url 'logout' %}">logout</a></button>
     </div>
       {% else %}
-        <a href="{% url 'login' %}" style="margin-right: 15px;color: #000000;">login</a><a href="{% url 'signup' %}"style="margin-right: 15px;color: #000000;"> signup</a>
+        <a href="{% url 'login' %}" style="margin-right: 15px;color: #000000; font-size: 112%;"><b>로그인</b></a>또는&nbsp;&nbsp;&nbsp;<a href="{% url 'signup' %}"style="margin-right: 15px;color: #000000;  font-size: 112%;"> <b>가입하기</b></a>
       {% endif %}
       <!-- 로그인/로그아웃 end -->
     </form>

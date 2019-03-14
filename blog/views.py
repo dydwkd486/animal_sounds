@@ -20,8 +20,8 @@ def home(request):
     sw_lng="0"
     ne_lat="180"
     ne_lng="180"
-    address=""
-    class_key=""
+    address="abcdefghijk"
+    class_key="mbrai"
     startdate="1900-03-06"
     enddate="2200-03-06"
     results =[]
@@ -42,7 +42,7 @@ def home(request):
 
     if request.GET.get('class_key'):
         class_key=request.GET['class_key']
-        print("class_key")
+        print(class_key)
 
     if request.GET.get('startdate'):
         startdate=request.GET['startdate']
@@ -52,7 +52,7 @@ def home(request):
         enddate=request.GET['enddate']
         print("enddate")
 
-    for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__contains=address,Class__contains=class_key,observed_date__range=(startdate,enddate)):
+    for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__in=address,Class__in=class_key,observed_date__range=(startdate,enddate)):
         results.append(odject)
     context = {'animal_maps':results} 
 

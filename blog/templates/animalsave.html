@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="div_wrap" style="width: 80%">
-  <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>파일 첨부하기</b></h1>
+  <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>동물 정보 업로드</b></h1>
   <!--h5 style="margin-top: 24px; margin-bottom: 12px;">*동물 울음소리 및 사진 파일을 첨부합니다. 빈 부분은 인공지능을 활용하여 유추합니다.</h5-->
    <div class="content" style="margin-top: 0px; margin-left: 15%;">
       <div>
@@ -16,8 +16,9 @@
         {% csrf_token %}
 
         {% if request.user.profile.professional %}
+        <label style="color: #339933; font-size: 125%;"><b>Species</b></label><br>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-title">Title<b style="color:red;">*</b></label>
+          <label for="id_animal_map-title">Species<b style="color:red;">*</b></label>
           <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" placeholder="동물 이름을 입력. ." required>
         </div>
         <div class="form-group " style="text-align: left;">
@@ -75,8 +76,9 @@
           <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" placeholder="세부내용. ." required>
         </div>
         {% else %} 
+        <label style="color: #339933; font-size: 125%;"><b>Species</b></label><br>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-title">Title</label>
+          <label for="id_animal_map-title">Species</label>
           <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" placeholder="동물 이름을 입력. .">
         </div>
         <div class="form-group " style="text-align: left;">
@@ -92,11 +94,11 @@
         <br><label style="color: #339933; font-size: 125%;"><b>Locations</b></label><br>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-Latitude">Latitude</label>
-          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text">
+          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. .">
         </div>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-Longitude">Longitude</label>
-          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text">
+          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. .">
         </div>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-address">address<b style="color:red;">*</b></label>
