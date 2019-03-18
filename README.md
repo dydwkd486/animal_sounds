@@ -222,3 +222,5 @@ Superuser created successfully.
 디비 문제 도움말 추가 하기
 
 ***
+
+ - 나중을 위한 디비 백업 방법과 디비, 파일 저장 방법 알기
