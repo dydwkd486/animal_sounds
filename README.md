@@ -153,6 +153,11 @@ Bypass password validation and create user anyway? [y/N]: y
 Superuser created successfully.
 ```
 
+sudo -u postgres pg_restore -d django_test test.dump
+
+sudo vi /etc/postgresql/9.5/main/pg_hba.conf
+--md5로 변경
+
 
 ## 추가 적으로 해야할 사항
 * 2019.03.06
