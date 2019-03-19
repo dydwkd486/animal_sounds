@@ -6,6 +6,9 @@
 {% block title %}동물 소리(animal_sound){% endblock %}
 
 {% block content %}
+<div id="loading">
+  <img src="/media/loading.gif" alt="loading">
+</div>
 <div class="div_wrap" style="width: 80%">
   <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>동물 정보 업로드</b></h1>
   <!--h5 style="margin-top: 24px; margin-bottom: 12px;">*동물 울음소리 및 사진 파일을 첨부합니다. 빈 부분은 인공지능을 활용하여 유추합니다.</h5-->
@@ -390,8 +393,28 @@ text-align: center;
 display: inline-block;
 }
 
+#loading {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: block;
+  opacity: 0.8;
+  background: white;
+  z-index: 99;
+  text-align: center;
+}
+
+#loading > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+} 
 
 </style>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Google Maps Library load -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap" async defer></script>
 
@@ -411,7 +434,21 @@ display: inline-block;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
+<script>
+
+$(document).ready(function() {
+  $('#loading').hide();
+  $('#mForm').submit(function(){
+    $('#loading').show();
+    return true;
+  });
+});
+
+</script>
+
 <script type="text/javascript">
+
+
     //구글 맵 관련 스크립트 start
     var initialLocation;
     var siberia = new google.maps.LatLng(60, 105);
