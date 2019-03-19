@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'animal_sounds.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_test1',
+        'NAME': 'django_test',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': 'localhost',
