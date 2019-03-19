@@ -47,12 +47,12 @@ width:7%;
 }
 
 p ,a{
- font-family: 'Cormorant SC', serif;
+ 
 }
 .header h1 {
     font-size: 50px;
     color: #fff;
-    font-family: 'Cormorant SC', serif;
+    font-family: 'Arial', serif;
     letter-spacing: 3px;
     margin: 0 auto;
     text-shadow: 1px 1px 4px #000;

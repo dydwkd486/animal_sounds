@@ -35,13 +35,13 @@
 {% endblock css %}
 
 {% block content %}
-<div class="panel panel-default registration" style="margin-top: 5%; auto;">
-    <div class="header" style="padding-bottom: 20px;">
-         <a class="navbar-brand" href="/"><img src="/media/main_login.png" style="height: 128px;"></a>
+<div class="padding-all" style="margin-left: 65%;">
+    <div class="header" style="padding-bottom: 20px; background-color: #339933; padding-top: 20px;">
+         <a class="navbar-brand" href="/"><img src="/media/logo.png" style="width: 90%;"></a>
       </div>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <div class="design-w3l" style="width: 100%; font-size: 125%;">
-    <div class="mail-form-agile">
+    <div class="mail-form-agile" style="background-color: #339933;">
         <form action="." method="post">
             <!--{% for field in form %}   
                 {% for error in field.errors %}
@@ -51,35 +51,35 @@
         -->
 
             {% csrf_token %}
-            <div class="form-group " style="text-align: right; padding: 10px;">
-                <label for="id_user-username" id="id_user-username_field" class="field" style="color: #FFFFFF;">사용자 이름</label>
-                <input name="user-username" id="id_user-username" class="form-control" type="text" value="" placeholder="...">
+            <div class="form-group " style="text-align: left; padding: 10px;">
+                <label for="id_user-username" id="id_user-username_field" class="field" style="color: #FFFFFF;"></label>
+                <input name="user-username" id="id_user-username" class="form-control" type="text" value="" placeholder="사용자 아이디..">
                 
             </div>
         
-            <div class="form-group " style="text-align: right; padding: 10px;">
-                <label for="id_user-email" id="id_user-email_field" class="field" style="color: #FFFFFF;">Email</label>
-                <input name="user-email" id="id_user-email" class="form-control" type="text" value="" placeholder="...">
+            <div class="form-group " style="text-align: left; padding: 10px;">
+                <label for="id_user-email" id="id_user-email_field" class="field" style="color: #FFFFFF;"></label>
+                <input name="user-email" id="id_user-email" class="form-control" type="text" value="" placeholder="이메일 주소..">
                 
             </div>
         
-            <div class="form-group " style="text-align: right; padding: 10px;">
-                <label for="id_user-password1" id="id_user-password1_field" class="field" style="color: #FFFFFF;">비밀번호</label>
-                <input name="user-password1" id="id_user-password1" class="form-control" type="password" value="" placeholder="...">
+            <div class="form-group " style="text-align: left; padding: 10px;">
+                <label for="id_user-password1" id="id_user-password1_field" class="field" style="color: #FFFFFF;"></label>
+                <input name="user-password1" id="id_user-password1" class="form-control" type="password" value="" placeholder="비밀번호..">
                 
             </div>
         
-            <div class="form-group " style="text-align: right; padding: 10px;">
-                <label for="id_user-password2" id="id_user-password2_field" class="field" style="color: #FFFFFF;">비밀번호 확인</label>
-                <input name="user-password2" id="id_user-password2" class="form-control" type="password" value="" placeholder="...">
+            <div class="form-group " style="text-align: left; padding: 10px;">
+                <label for="id_user-password2" id="id_user-password2_field" class="field" style="color: #FFFFFF;"></label>
+                <input name="user-password2" id="id_user-password2" class="form-control" type="password" value="" placeholder="비밀번호 확인..">
 
                 
             </div>
         
-            <div class="form-group " style="text-align: right; padding: 10px;">
+            <div class="form-group " style="padding: 10px;">
                 <label for="id_profile-professional" id="id_profile-professional_field" class="field" style="color: #FFFFFF;">전문가 유/무</label>
                 <input name="profile-professional" id="id_profile-professional" class="form-control" type="checkbox" placeholder="...">
-                <p style="font-size:13px;  color: #FFFFFF;">전문가인 분들만 선택해 주세요</p>
+                <br><label style="font-size:13px;  color: #FFFFFF; text-decoration: underline;">전문가인 분들만 선택해 주세요</label>
             </div>      
 
             <!--
@@ -96,7 +96,7 @@
             {% endfor %}
             <!--장고 라리브러리 사용 끝-->
             <div class="form-actions" style="padding-top: 30px;">
-                <input class="btn btn-primary btn-large" type="submit" value="가입하기" style="width: 100%;">
+                <input class="btn btn-primary btn-large" type="submit" value="가입하기" style="width: 100%; background-color: #FFFFFF; color: #339933; font-weight: bold;">
             </div>
         </form>
     </div>
