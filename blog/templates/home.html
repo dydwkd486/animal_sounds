@@ -57,49 +57,52 @@
       </div> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
 
 <br>
-<div class="" data-toggle="buttons">
   <p><b>지역</b></p>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <div class="" data-toggle="buttons" style="width: 100%; text-align: center;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="" id="option1" autocomplete="off" checked=""> 전체
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="a" id="option2" autocomplete="off"> 서울시
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="b" id="option3" autocomplete="off"> 경기도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="c" id="option4" autocomplete="off"> 강원도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="d" id="option5" autocomplete="off"> 충청북도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="e" id="option6" autocomplete="off"> 충청남도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="f" id="option7" autocomplete="off"> 경상북도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="g" id="option8" autocomplete="off"> 경상남도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="h" id="option9" autocomplete="off"> 전라북도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="i" id="option10" autocomplete="off"> 전라남도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="j" id="option11" autocomplete="off"> 제주도
   </label>
-  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px;">
+  <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
     <input type="checkbox" name="options" value="k" id="option12" autocomplete="off"> 북한
   </label>
 </div>
 <br>
       <div>
+
         <p><b>기간</b></p>
-        <input type="date" id="startdate"> ~ <input type="date" id="enddate"> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
+          <div class="" data-toggle="buttons" style="width: 100%; text-align: center;">
+        <input type="date" id="startdate" style="background-color: #669966;"> ~ <input type="date" id="enddate" style="background-color: #669966;"> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
+      </div>
         <br>
         <br>
       </div>
@@ -107,20 +110,18 @@
   <!--지도 end-->
       <div class="collapse navbar-collapse" id="navbarColor01" style="width: 100%; display: block;">
             <ul class="navbar-nav m-auto" style="flex-direction: unset;">
-      <li class="nav-item active" style="margin-left: 10px; width: 33%">
-        <a class="nav-link" href="/"><b style="font-size: 150%; color: #339933; text-align: left;">목 록</b> </a>
-      </li>
               <li class="nav-item active" style="margin-left: 10px; width: 66%">
-                <a class="nav-link" href="/"><b style="font-size: 150%; color: #339933; text-align: left;">통 계</b> </a>
+                <b style="font-size: 150%; color: #339933; text-align: left;">통 계</b>
               </li>
     </ul>
       </div>
     <div id="out" style="width: 100%;">
       <!--동물 정보 start-->
-       <div id="text" class="table" style="overflow-y:scroll; width:33%;height:300px;  display: inline-block;">
+       <div id="pac-text" class="table" style="overflow-y:scroll; width:33%;height:400px;  display: inline-block; background-color: #ffffff">
             <tbody>
           <div style="width: 100%;height: 100px;">
              {% for animal_map in animal_maps %}
+             <hr style="margin-top: 0.1rem;margin-bottom:0px;">
 
 
              <div class="text_img" style="width: 20%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" ></div>
@@ -228,6 +229,9 @@
 p{
   margin-bottom: 0;
 }
+img{
+  vertical-align: bottom;
+}
         #pac-input {
         background-color: #fff;
         font-family: Roboto;
@@ -268,7 +272,6 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: parseInt(centerzoom),
     center: myLatLng,
-    mapTypeId: 'satellite'
   });
   {% for animal_map in animal_maps %}
     {% if animal_map.Latitude is null %}
@@ -292,8 +295,10 @@ function initMap() {
   //지도내 검색기능 start
   var markers = [];
   var input = document.getElementById('pac-input');
+  var pactext = document.getElementById('pac-text');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.TOP].push(input);
+  map.controls[google.maps.ControlPosition.RIGHT].push(pactext);
 
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
@@ -504,6 +509,7 @@ $('input:checkbox[name="options"]:checked').each(function() {
 
 </script>
 <script type="text/javascript">
+  //검색결과가 없는 경우 여기서 결과 출력 중.
   if({{animal_maps}} != null){
     alert("검색 결과가 없습니다.");
   }

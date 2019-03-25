@@ -38,7 +38,7 @@
 	}
 	p {text-align: left;}
 	.img img {
-		height: 500px;
+		height: 80%;
 		width: 80%;
 	}
 	a{
@@ -60,11 +60,9 @@
 			{% else %}
 			{% endif %}
 			<!--수정과 삭제 부분 -->
-			{{user.is_staff}}
-			{{user.profile.professional}}
-			{{user.id}}
 		</span>
 		<p>작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
+		<p>업로드 일자: <span class="observed_date">{{animal_map.observed_date}}</span></p>
 	<!--mainpage left side start-->
     <div class="img" style="border: 1px solid;">
     	<img src="/media/{{animal_map.imagefile}}">
@@ -73,11 +71,10 @@
     <!--mainpage right side start-->
     <div class="sound" style="border: 1px solid;">
     	<div class=map style="height: 300px; border: 1px solid;">
-    		<h4>지도</h4>지도가 들어갈 예정.
+    		지도가 들어갈 예정.
     	</div>
     	<!---->
     	<div style="border: 1px solid; height: 200px;">
-    		<h4>동물 소리</h4>
     		<!--jplater start-->
 			<div id="jquery_jplayer_1" class="jp-jplayer"></div>
 			<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">

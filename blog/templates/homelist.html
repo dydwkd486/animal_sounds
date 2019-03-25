@@ -14,7 +14,6 @@
    <div style="height: 100px; margin-top: 30px;" class="d-flex justify-content-center">
     <fieldset id="search_fieldset"> <input id="search_input" type="search", style="height: 50%; width: 450px; margin-left: 70px;" placeholder="animals, locations, etc..."/>
       <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px; height: 55%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 35px;"></button>
-      <button id="reload_button" type="submit"class="btn btn-primary" style="height: 55%;"><i class="fa fa-search"></i>맵 다시확인</button>
       
     </fieldset>
    </div>
@@ -23,21 +22,76 @@
       <div class="collapse navbar-collapse" id="navbarColor01" style="width: 100%; display: block;">
             <ul class="navbar-nav m-auto" style="flex-direction: unset;">
       <li class="nav-item active" style="margin-left: 10px; width: 33%">
-        <a class="nav-link" href="/"><b style="font-size: 150%; color: #339933; text-align: left;">목 록</b> </a>
+        <b style="font-size: 150%; color: #339933; text-align: left;">목 록</b>
       </li>
     </ul>
       </div>
     <div id="out" style="width: 100%;">
       <!--동물 정보 start-->
-       <div id="text" class="table" style="overflow-y:scroll; width:33%;height:300px;  display: inline-block;">
+       <div id="pac-text" class="table" style="overflow-y:scroll; width:100%;height:400px;  display: inline-block; background-color: #ffffff">
             <tbody>
-          <div style="width: 100%;height: 100px;">
+
              {% for animal_map in animal_maps %}
-             <div class="text_img" style="width: 20%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" ></div>
-             <div style="width: 60%;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; ">{{ animal_map.title }}</a></h5> <p>(Lat:{{ animal_map.Latitude }}, Log:{{animal_map.Longitude}})</p>
+             <hr >
+          <div style="width: 100%;">
+
+             <div class="text_img" style="width: 10%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" ></div>
+             <div style="width: 60%; height: 100px;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; ">{{ animal_map.title }}</a></h5> 
+              <p>
+
+              발견장소:
+                {%if animal_map.address == 'a' %}
+                서울시
+                {%elif animal_map.address == 'b'%} 
+                경기도
+                {%elif animal_map.address == 'c'%} 
+                강원도
+                {%elif animal_map.address == 'd'%}
+                충청북도
+                {%elif animal_map.address == 'e'%}
+                충청남도
+                {%elif animal_map.address == 'f'%}
+                경상북도
+                {%elif animal_map.address == 'g'%}
+                경상남도
+                {%elif animal_map.address == 'h'%}
+                전라북도
+                {%elif animal_map.address == 'i'%}
+                전라남도
+                {%elif animal_map.address == 'j'%}
+                제주도
+                {%elif animal_map.address == 'k'%}
+                북한
+                {%endif%}
+
+             </p>
+             <p> 발견시각:{{animal_map.observed_date}}</p>
+              <p>구분:
+              {%if animal_map.Class == 'm' %}
+              포유류
+              {%elif animal_map.Class == 'b'%}
+              조류
+              {%elif animal_map.Class == 'r'%}
+              파충류
+              {%elif animal_map.Class == 'a'%}
+              양서류
+              {%elif animal_map.Class == 'i'%}
+              곤충
+              {%endif%}
+
+
+
+
+
+
+              </p>
+          
+
+          </div>
+            
           </div>
             {% endfor%}
-          </div>
+
             </tbody>
        </div>
     <!--동물 정보 end-->
@@ -78,6 +132,12 @@
     </div>
   </footer>
 <style type="text/css">
+  p{
+  margin-bottom: 0;
+}
+img{
+  vertical-align: bottom;
+}
         #pac-input {
         background-color: #fff;
         font-family: Roboto;
