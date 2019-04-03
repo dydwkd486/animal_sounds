@@ -52,20 +52,31 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <!-- 메뉴 바 부분 start -->
     <ul class="navbar-nav m-auto" style="width: 50%; padding-left: 10%;">
-      <li class="nav-item active" style="margin: 5%; width: 20%;">
-        <a class="nav-link" href=javascript:void(0);" onclick="login_click();"><b style="font-size: 150%;">업로드</b> <span class="sr-only">(current)</span></a>
+      <li class="nav-item active" style="margin: 5%; margin-right: 0%; margin-left: 0%; width: 5%;">
+        <a class="nav-link" href="/"><b style="font-size: 150%; color: #666666;">|</b> <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active" style="margin: 5%; width: 20%;">
-          <a class="nav-link" href="/"><b style="font-size: 150%;">지도</b> <span class="sr-only">(current)</span></a>
+      <li class="nav-item active" style="margin: 5%; width: 25%;">
+        <a class="nav-link" href=javascript:void(0);" onclick="login_click();" style="text-align: center;"><b style="font-size: 150%;">업로드</b> <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active" style="margin: 5%; width: 20%;">
-        <a class="nav-link" href="/animallist"><b style="font-size: 150%;">목록</b> <span class="sr-only">(current)</span></a>
+      <li class="nav-item active" style="margin: 5%; margin-right: 0%; margin-left: 0%; width: 5%;">
+        <a class="nav-link" href="/"><b style="font-size: 150%; color: #666666;">|</b> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active" style="margin: 5%; width: 25%;">
+          <a class="nav-link" href="/" style="text-align: center;"><b style="font-size: 150%;">지도</b> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active" style="margin: 5%; margin-right: 0%; margin-left: 0%; width: 5%;">
+        <a class="nav-link" href="/"><b style="font-size: 150%;">|</b> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active" style="margin: 5%; width: 25%;">
+        <a class="nav-link" href="/animallist" style="text-align: center;"><b style="font-size: 150%;">목록</b> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active" style="margin: 5%; margin-right: 0%; margin-left: 0%; width: 5%;">
+        <a class="nav-link" href="/"><b style="font-size: 150%; color: #666666;">|</b> <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <!-- 메뉴 바 부분 end -->
     <!-- 아이디 명 start -->
     <form class="form-inline my-2 my-lg-0" style="margin-right: 15px;">
-          <a class="nav-link" onclick="login_click();"><img src="/media/upload.png" style="height: 70px; margin-right: 10px;"><span class="sr-only">(current)</span></a>
       {% if user.is_authenticated %}
         <p class="navbar-brand" style="margin-bottom: 0px;"><span class="writer_name">{{ user.username }} </span>님</p>
     <div class="btn-group" role="group" aria-label="Basic example">

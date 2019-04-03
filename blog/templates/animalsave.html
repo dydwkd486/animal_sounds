@@ -19,13 +19,24 @@
         {% csrf_token %}
 
         {% if request.user.profile.professional %}
-        <label style="color: #339933; font-size: 125%;"><b>Species</b></label><br>
+        <br><label style="color: #339933; font-size: 125%;"><b>동물 소리</b></label><br>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-title">Species<b style="color:red;">*</b></label>
+          <div id="sound_dropbox">
+            <label for="id_animal_map-soundfile">소리 파일<b style="color:red;">*</b></label>
+            <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" placeholder="..." required>
+          </div>
+        </div>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-imagefile">이미지 파일<b style="color:red;">*</b></label>
+          <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" required>
+        </div>
+        <label style="color: #339933; font-size: 125%;"><b>동물 구분</b></label><br>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-title">종 이름<b style="color:red;">*</b></label>
           <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" placeholder="동물 이름을 입력. ." required>
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Class">class<b style="color:red;">*</b></label>
+          <label for="id_animal_map-Class">종 구분<b style="color:red;">*</b></label>
           <select name="animal_map-Class" id="id_animal_map-Class" class="form-control" type="select" value="m">
               <option value="m">Mammalia(포유류)</option>
               <option value="b">Birds(조류)</option>
@@ -34,17 +45,17 @@
               <option value="i">Insect(곤충)</option>
             </select>
         </div>
-        <br><label style="color: #339933; font-size: 125%;"><b>Locations</b></label><br>
+        <br><label style="color: #339933; font-size: 125%;"><b>발견 정보</b></label><br>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Latitude">Latitude<b style="color:red;">*</b></label>
+          <label for="id_animal_map-Latitude">위도<b style="color:red;">*</b></label>
           <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. ." required>
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Longitude">Longitude<b style="color:red;">*</b></label>
+          <label for="id_animal_map-Longitude">경도<b style="color:red;">*</b></label>
           <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. ." required>
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-address">address<b style="color:red;">*</b></label>
+          <label for="id_animal_map-address">주소<b style="color:red;">*</b></label>
           <select name="animal_map-address" id="id_animal_map-address" class="form-control" type="select" value="a">
               <option value="a">서울특별시</option>
               <option value="b">경기도</option>
@@ -62,30 +73,30 @@
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-observed_date">Observed date<b style="color:red;">*</b></label>
           <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="date" required>
-        </div>
-        <br><label style="color: #339933; font-size: 125%;"><b>Files</b></label><br>
-        <div class="form-group " style="text-align: left;">
-          <div id="sound_dropbox">
-            <label for="id_animal_map-soundfile">Soundfiles<b style="color:red;">*</b></label>
-            <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" placeholder="..." required>
-          </div>
-        </div>
-        <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-imagefile">Imagefiles<b style="color:red;">*</b></label>
-          <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" required>
         </div>
                 <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-content">Content<b style="color:red;">*</b></label>
           <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" placeholder="세부내용. ." required>
         </div>
         {% else %} 
-        <label style="color: #339933; font-size: 125%;"><b>Species</b></label><br>
+        <br><label style="color: #339933; font-size: 125%;"><b>동물 소리</b></label><br>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-title">Species</label>
+          <div id="sound_dropbox">
+            <label for="id_animal_map-soundfile"><b>소리 파일</b><b style="color:red;">*</b></label>
+            <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" placeholder="..." required>
+          </div>
+        </div>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-imagefile"><b>이미지 파일</b><b style="color:red;">*</b></label>
+          <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" required>
+        </div>
+        <br><label style="color: #339933; font-size: 125%;"><b>동물 구분</b></label><br>
+        <div class="form-group " style="text-align: left;">
+          <label for="id_animal_map-title"><b>종 이름</b></label>
           <input name="animal_map-title" id="id_animal_map-title" class="form-control" type="text" placeholder="동물 이름을 입력. .">
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-title">class<b style="color:red;">*</b></label>
+          <label for="id_animal_map-title"><b>종 구분</b><b style="color:red;">*</b></label>
           <select name="animal_map-Class" id="id_animal_map-Class" class="form-control" type="select" value="m">
               <option value="m">Mammalia(포유류)</option>
               <option value="b">Birds(조류)</option>
@@ -94,18 +105,18 @@
               <option value="i">Insect(곤충)</option>
             </select>
         </div>
-        <br><label style="color: #339933; font-size: 125%;"><b>Locations</b></label><br>
-        <label style="color: #669966; font-size: 100%;"><b>Tip: 구글 지도에서 위치를 클릭하면 위도/경도가 기록됩니다.</b></label><br>
+        <br><label style="color: #339933; font-size: 125%;"><b>발견 정보</b></label><br>
+        <label style="color: #669966; font-size: 80%;"><b>Tip: 구글 지도에서 위치를 클릭하면 위도/경도가 기록됩니다.</b></label><br>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Latitude">Latitude</label>
+          <label for="id_animal_map-Latitude"><b>위도</b></label>
           <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. .">
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Longitude">Longitude</label>
+          <label for="id_animal_map-Longitude"><b>경도</b></label>
           <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. .">
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-address">address<b style="color:red;">*</b></label>
+          <label for="id_animal_map-address"><b>주소</b><b style="color:red;">*</b></label>
           <select name="animal_map-address" id="id_animal_map-address" class="form-control" type="select" value="a">
               <option value="a">서울특별시</option>
               <option value="b">경기도</option>
@@ -121,22 +132,11 @@
             </select>
         </div>
         <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-observed_date">Observed date<b style="color:red;">*</b></label>
+          <label for="id_animal_map-observed_date"><b>발견 날짜</b><b style="color:red;">*</b></label>
           <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="date" required>
         </div>
-        <br><label style="color: #339933; font-size: 125%;"><b>Files</b></label><br>
-        <div class="form-group " style="text-align: left;">
-          <div id="sound_dropbox">
-            <label for="id_animal_map-soundfile">Soundfiles<b style="color:red;">*</b></label>
-            <input name="animal_map-soundfile" id="id_animal_map-soundfile" class="form-control" type="file" placeholder="..." required>
-          </div>
-        </div>
-        <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-imagefile">Imagefiles<b style="color:red;">*</b></label>
-          <input name="animal_map-imagefile" id="id_animal_map-imagefile" class="form-control" type="file" required>
-        </div>
                 <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-content">Content</label>
+          <label for="id_animal_map-content"><b>세부내용</b></label>
           <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" placeholder="세부내용. .">
         </div>
 
