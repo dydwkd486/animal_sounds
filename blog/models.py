@@ -66,4 +66,8 @@ class Animal_Sub_file(models.Model):
     duration_input = models.IntegerField(null=True)
 ''' end 승원 수정 부분 '''
 
+class Animal_total_info(models.Model):
+    name = models.CharField(max_length = 20)
+    content = models.TextField()
+
 

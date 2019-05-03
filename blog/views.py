@@ -3,8 +3,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
-from .models import Animal_map
+from .models import Animal_map, Animal_total_info
 from .forms import Animal_mapForm,AnimalmapFormMultiform
+from django.core.exceptions import ObjectDoesNotExist
 ''' 승원 수정 부분 '''
 from .forms import Animal_Sub_file
 ''' end 승원 수정 부분 '''
@@ -157,7 +158,17 @@ def signup(request):
 
 def animal_detail(request, pk):
     animal_map = get_object_or_404(Animal_map, pk=pk)
-    return render(request, 'animal_detail.html', {'animal_map': animal_map})
+    animal_maps = animal_map
+    print("aa",animal_maps.title)
+    try:
+        animal_total_info=Animal_total_info.objects.get(name__contains=animal_maps.title)
+    except ObjectDoesNotExist:
+        animal_total_info=None
+
+    print("bb",animal_total_info)
+
+
+    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info})
 
 def search_table(request):
     all_class=Animal_map.objects.filter()
