@@ -9,6 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 ''' 승원 수정 부분 '''
 from .forms import Animal_Sub_file
 ''' end 승원 수정 부분 '''
+import urllib.request
 import json
 
 
@@ -166,9 +167,23 @@ def animal_detail(request, pk):
         animal_total_info=None
 
     print("bb",animal_total_info)
+    ##json
+    url = 'http://lod.nature.go.kr/data/Pelophylax_chosenicus_Okada_1952?output=json'  # 요청할 주소
 
+    text_data = urllib.request.urlopen(url).read().decode('utf-8')
 
-    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info})
+    animals = json.loads(text_data)
+    animalsinfo=""
+    print(type(animal_total_info))
+    print(type(animals))
+    for i in animals:
+        for j in animals[i]:
+            # print(j)
+            if (animals[i][j][0]["type"] == "literal"):
+                print(animals[i][j][0]["value"])
+                animalsinfo=animalsinfo+"\n"+animals[i][j][0]["value"]
+
+    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo})
 
 def search_table(request):
     all_class=Animal_map.objects.filter()
