@@ -20,8 +20,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </head>
 
-<body>
-   <div class="padding-all" style="margin-left: 65%;">
+<body style="background-color: #ecf0f0">
+   <div class="padding-all" style="width: 480px; margin-left: auto; margin-right: auto;">
       <div class="header" style="padding-bottom: 20px; background-color: #339933; padding-top: 20px;">
          <a class="navbar-brand" href="/"><img src="/media/logo.png" style="width: 90%;"></a>
       </div>
@@ -40,13 +40,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             {% endfor %}
                         <!-- 여기서 필수사항 알림 끝 -->
                         <!-- 아이디 시작 username만 변경안하면 됩니다.-->
-                        <div>
-                        <input name="username" id="id_username" class="form-control" placeholder="아이디.." type="text" style="width: 60%; margin: 10px;">
+                        <div style="width: 90%; margin: 10px;">
+                            <p style="color: #FFFFFF; display: inline;">아이디&nbsp;&nbsp;</p>
+                        <input name="username" id="id_username" class="form-control" placeholder="" type="text" style="width: 45%;">
                         </div>
                         <!-- 아이디 끝 -->
                         <!-- 비밀번호 시작 password만 변경안하면 됩니다.-->
-                        <div>
-                        <input name="password" id="id_password" class="form-control" placeholder="비밀번호.."  type="password" style="width: 60%; margin: 10px;">
+                        <div style="width: 90%; margin: 10px;">
+                            <p style="color: #FFFFFF; display: inline; ">비밀번호</p>
+                        <input name="password" id="id_password" class="form-control" placeholder=""  type="password" style="width: 45%;">
                         </div>
                         <!-- 비밀번호 끝 -->
 
@@ -56,6 +58,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
          <br>               <br>
                <input type="submit" value="로그인" style="width: 60%; background: #FFFFFF; color: #339933;">
             </form>
+             <br>
             <form>
             {% if user.is_authenticated %}
             <a href="{% url 'signup' %}"style="color: #FFFFFF; text-decoration: underline; font-size: 125%;"> 가입하기</a>

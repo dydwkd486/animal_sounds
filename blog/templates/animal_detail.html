@@ -48,36 +48,36 @@
 
 {% endblock%}
 
-<div class="in">
+<div class="in"  style="width: 960px; margin-top: 10px; margin-left: auto; margin-right: auto;">
 	<!--mainpage top start-->
-    <div class="post" style="border: 1px solid;">
-    	<h1 class='title'>{{ animal_map.title }}</h1>
-	    <span class="control hidden" id = "control_id{{ forloop.counter0 }}">
-		<!--수정과 삭제 부분 -->
+	<br>
+    <div class="post" style="text-align: left; margin-left: auto; margin-right: auto;">
+		<div style="display: contents; width: 100px; height: 100px; margin-right: auto; margin-left: auto;">
+    	<img src="/media/{{animal_map.imagefile}}" style="vertical-align: top;">&nbsp;&nbsp;
+		</div>
+			<div style="display: inline-block; width: 500px; margin-right: auto; margin-left: auto;">
+				<h1 class='title' style="display: inline;">{{ animal_map.title }}</h1>
+			<span class="control hidden" id = "control_id{{ forloop.counter0 }}">
+			<a>종: __ 속: __ 과: __ 목: __ 강: __ 문: __ 계: __ </a>
+								<br>
+				<a style="text-align: left; font-size: 150%;">관리등급: <b>멸종위기종</b></a>
+		</span>
+    </div>
+	</div>
+	<!--수정과 삭제 부분 -->
 			{% if user.username == animal_map.writer %}
-			<a href="{% url 'animal_edit' pk=animal_map.pk %}">수정</a>
-			<a href="{% url 'animal_remove' pk=animal_map.pk %}">삭제</a>
 			{% else %}
 			{% endif %}
+				<br>
+				<a href="{% url 'animal_remove' pk=animal_map.pk %}" style="text-decoration: underline; float: right;">삭제</a>
+				<a href="{% url 'animal_edit' pk=animal_map.pk %}" style="text-decoration: underline; float: right;">수정</a>
 			<!--수정과 삭제 부분 -->
-		</span>
-		<p>작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
-		<p>업로드 일자: <span class="observed_date">{{animal_map.observed_date}}</span></p>
-	<!--mainpage left side start-->
-    <div class="img" style="border: 1px solid;">
-    	<img src="/media/{{animal_map.imagefile}}">
-    </div>
-    <!--mainpage left side end-->
-    <!--mainpage right side start-->
-    <div class="sound" style="border: 1px solid;">
-    	<div class=map style="height: 300px; border: 1px solid;">
-    		지도가 들어갈 예정.
-    	</div>
-    	<!---->
-    	<div style="border: 1px solid; height: 200px;">
+	<br>
+	<br>
+    <div style="height: 200px;">
     		<!--jplater start-->
 			<div id="jquery_jplayer_1" class="jp-jplayer"></div>
-			<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+			<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player" style="margin-left: auto; margin-right: auto;">
 				<div class="jp-type-single">
 					<div class="jp-gui jp-interface">
 						<div class="jp-controls">
@@ -114,16 +114,26 @@
 				</div>
 			</div>
 			<!--jplater end-->
-    	</div>
     </div>
+    	<div class=map style="width: 80%; height: 300px; border: 1px solid; margin-right: auto; margin-left: auto;">
+    		지도가 들어갈 예정.
+    	</div>
+    	<!---->
+    	</div>
     <!--새부 내용 start-->
-    <div class='content' style="height: 400px;"> 
-    	<h4>세부 내용</h4>
-    	<p>{{ total_info.content }}</p>
-    	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>s
+<br>
+<br>
+    <div class='content' style="width: 960px; height: 400px; margin-right: auto; margin-left: auto;">
+		<div class='content_2' style="width: 80%; margin-right: auto; margin-left: auto;">
+			<h4 style="text-align: center;">세부 내용</h4>
+			<p>{{ total_info.content }}</p>
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		       <br>
+		<p style="text-align: right; margin-bottom: 0px;">작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
+		<p style="text-align: right;">업로드 일자: <span class="observed_date">{{animal_map.observed_date}}</span></p>
+		</div>
     </div>
     <!--새부 내용 end-->
-       
     </div>
 </div>
 

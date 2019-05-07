@@ -19,6 +19,7 @@
    </div>
   </div>
   <!-- 상단 end -->
+<div style="width: 60%; margin-left: auto; margin-right: auto;">
       <div class="collapse navbar-collapse" id="navbarColor01" style="width: 100%; display: block;">
             <ul class="navbar-nav m-auto" style="flex-direction: unset;">
       <li class="nav-item active" style="margin-left: 10px; width: 33%">
@@ -36,7 +37,7 @@
           <div style="width: 100%;">
 
              <div class="text_img" style="width: 10%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" ></div>
-             <div style="width: 60%; height: 100px;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; ">{{ animal_map.title }}</a></h5> 
+              <div style="width: 60%; height: 100px;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; text-decoration: underline;"><b>{{ animal_map.title }}</b></a></h5>
               <p>
 
               발견장소:
@@ -96,7 +97,8 @@
        </div>
     <!--동물 정보 end-->
         </div>
-<footer style="background: #ecf0f1">
+</div>
+    <footer style="background: #ecf0f1">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">

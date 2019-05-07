@@ -45,15 +45,6 @@
               <option value="i">Insect(곤충)</option>
             </select>
         </div>
-        <br><label style="color: #339933; font-size: 125%;"><b>발견 정보</b></label><br>
-        <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Latitude">위도<b style="color:red;">*</b></label>
-          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. ." required>
-        </div>
-        <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Longitude">경도<b style="color:red;">*</b></label>
-          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. ." required>
-        </div>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-address">주소<b style="color:red;">*</b></label>
           <select name="animal_map-address" id="id_animal_map-address" class="form-control" type="select" value="a">
@@ -70,6 +61,7 @@
               <option value="k">북한</option>
             </select>
         </div>
+          <br><label style="color: #339933; font-size: 125%;"><b>발견 정보</b></label><br>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-observed_date">Observed date<b style="color:red;">*</b></label>
           <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="date" required>
@@ -105,16 +97,6 @@
               <option value="i">Insect(곤충)</option>
             </select>
         </div>
-        <br><label style="color: #339933; font-size: 125%;"><b>발견 정보</b></label><br>
-        <label style="color: #669966; font-size: 80%;"><b>Tip: 구글 지도에서 위치를 클릭하면 위도/경도가 기록됩니다.</b></label><br>
-        <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Latitude"><b>위도</b></label>
-          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. .">
-        </div>
-        <div class="form-group " style="text-align: left;">
-          <label for="id_animal_map-Longitude"><b>경도</b></label>
-          <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. .">
-        </div>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-address"><b>주소</b><b style="color:red;">*</b></label>
           <select name="animal_map-address" id="id_animal_map-address" class="form-control" type="select" value="a">
@@ -131,6 +113,7 @@
               <option value="k">북한</option>
             </select>
         </div>
+          <br><label style="color: #339933; font-size: 125%;"><b>발견 정보</b></label><br>
         <div class="form-group " style="text-align: left;">
           <label for="id_animal_map-observed_date"><b>발견 날짜</b><b style="color:red;">*</b></label>
           <input name="animal_map-observed_date" id="id_animal_map-observed_date" class="form-control" type="date" required>
@@ -173,34 +156,52 @@
         </div>
       </form>
     </div>
+       <div class="content" style="margin-top: 0px; margin-left: 0%;">
+       {% if request.user.profile.professional %}
+       <br><label style="color: #339933; font-size: 125%;"><b>위치 정보</b></label><br>
+        <label style="color: #669966; font-size: 100%;"><b>Tip: 구글 지도에서 위치를 클릭하면 위도/경도가 기록됩니다.</b></label><br>
+        <div class="form-group " style="text-align: left; width: 55%;">
+          <label for="id_animal_map-Latitude" style="width: 50%;"><b>위도</b><b style="color:red;">*</b></label>
+            <label for="id_animal_map-Longitude" style="width: 50%; float: right;"><b>경도</b><b style="color:red;">*</b></label>
+          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. ." style="width: 50%; display: inline; ">
+            <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. ." style="width: 50%; display: inline; float: right;">
+        </div>
+       {% else %}
+              <br><label style="color: #339933; font-size: 125%;"><b>위치 정보</b></label><br>
+        <label style="color: #669966; font-size: 80%;"><b>Tip: 구글 지도에서 위치를 클릭하면 위도/경도가 기록됩니다.</b></label><br>
+        <div class="form-group " style="text-align: left; width: 100%; padding: 0px;">
+          <label for="id_animal_map-Latitude" style="width: 50%;"><b>위도</b></label>
+            <label for="id_animal_map-Longitude" style="width: 50%; float: right;"><b>경도</b></label>
+          <input name="animal_map-Latitude" id="id_animal_map-Latitude" class="form-control" type="text" placeholder="위도. ." style="width: 50%; display: inline; ">
+            <input name="animal_map-Longitude" id="id_animal_map-Longitude" class="form-control" type="text" placeholder="경도. ." style="width: 50%; display: inline; float: right;">
+        </div>
+       {% endif %}
     <body onload="initialize()">
       <!--구글 맵이 나오는 곳-->
       <input id="pac-input" class="controls" type="text" placeholder="위치 검색">
-      <div id="map_canvas" style="margin-top: 20px;"></div>
+      <div id="map_canvas" style="margin-top: 20px; width: 100%;"></div>
       <!--구글 맵이 나오는 곳 end-->
 
-      <div id="info">
-        <div id="mainControl">
+      <div id="info" style="width: 100%;">
+        <div id="mainControl" style="margin-left: auto; margin-right: auto; width: 100%;">
           <div id="waveform"></div>
-          <div id="controlBar">
-            <div class="control_bar_row">
-              <div id="curTime" class="time-indicator">00:00:00</div>
+          <div id="controlBar" style="margin-top: 0px;">
+            <div class="control_bar_row" style="margin-top: auto; margin-bottom: auto;">
+              <div id="curTime" class="time-indicator" style="margin-top: auto; margin-bottom: auto;">00:00:00</div>
               <div class="time-indicator-divider">/</div>
               <div id="fullTime" class="time-indicator">00:00:00</div>
               <button id="play" class="video-play"></button>
               <button id="stop" class="video-stop"></button>
-            </div>
-            <div class="control_bar_row">
-              <button id="add-button">ADD</button>
-              <button id="register-button">Register</button>
+                <button class="btn btn-primary btn-large" id="add-button" style="font-size: 120%; display: inline-block; width: 37%; background-color: #339933; border: none; float: right;">구간추가</button>
             </div>
           </div>
         </div>
 
-        <div id="addControl"></div>
+
       </div>
     </body>
   </div>
+   </div>
 </div>
 <footer style="background: #ecf0f1">
     <div class="container">
