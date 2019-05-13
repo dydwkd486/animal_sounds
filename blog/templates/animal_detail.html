@@ -66,11 +66,13 @@
 	</div>
 	<!--수정과 삭제 부분 -->
 			{% if user.username == animal_map.writer %}
-			{% else %}
-			{% endif %}
-				<br>
+		<br>
 				<a href="{% url 'animal_remove' pk=animal_map.pk %}" style="text-decoration: underline; float: right;">삭제</a>
 				<a href="{% url 'animal_edit' pk=animal_map.pk %}" style="text-decoration: underline; float: right;">수정</a>
+			{% else %}
+
+			{% endif %}
+
 			<!--수정과 삭제 부분 -->
 	<br>
 	<br>
@@ -115,9 +117,7 @@
 			</div>
 			<!--jplater end-->
     </div>
-    	<div class=map style="width: 80%; height: 300px; border: 1px solid; margin-right: auto; margin-left: auto;">
-    		지도가 들어갈 예정.
-    	</div>
+    	<div id="map" style="height: 500px; clear:both; margin-bottom: 30px;" > </div>
     	<!---->
     	</div>
     <!--새부 내용 start-->
@@ -166,4 +166,28 @@
   }
   errorImg();
     </script>
+
+
+    <script>
+
+      function initMap() {
+        var myLatLng = {lat: {{animal_map.Latitude}}, lng: {{animal_map.Longitude}}};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: '{{animal_map.title}} 발견 장소'
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap"
+         async defer></script>
+
+
+
 {% endblock %}

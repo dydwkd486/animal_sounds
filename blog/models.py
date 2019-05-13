@@ -70,4 +70,13 @@ class Animal_total_info(models.Model):
     name = models.CharField(max_length = 20)
     content = models.TextField()
 
+class district(models.Model):
+    ogc_fid =models.IntegerField(null=False)
+    objectid=models.IntegerField(null=False)
+    adm_nm = models.TextField(null=True)
+    adm_cd = models.TextField(null=True)
+    adm_cd2 = models.TextField(null=True)
+    wkb_geometry = models.TextField(null=True)
+
+
 

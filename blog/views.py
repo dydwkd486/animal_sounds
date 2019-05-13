@@ -12,6 +12,9 @@ from .forms import Animal_Sub_file
 import urllib.request
 import json
 
+from SPARQLWrapper import SPARQLWrapper, JSON
+import xml.etree.ElementTree as ET
+
 
 #@login_required
 def home(request):
@@ -166,23 +169,80 @@ def animal_detail(request, pk):
     except ObjectDoesNotExist:
         animal_total_info=None
 
-    print("bb",animal_total_info)
     ##json
-    url = 'http://lod.nature.go.kr/data/Pelophylax_chosenicus_Okada_1952?output=json'  # 요청할 주소
+    ##
+    animal = animal_maps.title
 
-    text_data = urllib.request.urlopen(url).read().decode('utf-8')
+    sparql = SPARQLWrapper("http://lod.nature.go.kr/main/sparql/index.jsp")
+    sparql.setQuery("""
+        prefix wildlife: <http://lod.nature.go.kr/resource/>
+    prefix wlo: <http://lod.nature.go.kr/ontology/>
+    select ?species ?sName where { 
+      ?species wlo:commonName '""" + animal + """'@ko . 
+      ?species wlo:scientificName ?sName .
+    }
+    """)
 
-    animals = json.loads(text_data)
-    animalsinfo=""
-    print(type(animal_total_info))
-    print(type(animals))
-    for i in animals:
-        for j in animals[i]:
-            # print(j)
-            if (animals[i][j][0]["type"] == "literal"):
-                print(animals[i][j][0]["value"])
-                animalsinfo=animalsinfo+"\n"+animals[i][j][0]["value"]
+    '''
+    sparql = SPARQLWrapper("http://ko.dbpedia.org/sparql")
+    sparql.setQuery("""
+        prefix kdbr: <http://ko.dbpedia.org/resource/>
+    prefix dbr: <http://dbpedia.org/resource/>
+    prefix dbo: <http://dbpedia.org/ontology/>
+    select ?species ?id where { 
+      ?species dbo:class kdbr:양서류 . 
+      ?species dbo:division kdbr:척삭동물 .
+      ?species dbo:wikiPageID ?id .
+    }limit 10
+    """)
+    '''
 
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    report_file_name = "./sparql_test.tsv"
+    report_file = open(report_file_name, mode='w', encoding='utf-8')
+    print("report file name : %s" % report_file_name)
+
+    test = results.decode("utf-8")
+    print(test)
+
+    tree = ET.fromstring(test)
+
+    # for child in tree.iter('{http://www.w3.org/2005/sparql-results#}results/result'):
+    #    print(child.tag, child.attrib)
+    spe = tree.find(
+        './{http://www.w3.org/2005/sparql-results#}results/{http://www.w3.org/2005/sparql-results#}result/{http://www.w3.org/2005/sparql-results#}binding[@name="species"]/{http://www.w3.org/2005/sparql-results#}uri')
+
+    if(spe==None):
+        print("이상발생")
+        animalsinfo = ""
+    else:
+        species_uri = spe.text
+        print("spe.text:", spe.text)
+
+        tokens = species_uri.split('/')
+        species_name = tokens[-1]
+
+        url = 'http://lod.nature.go.kr/data/' + species_name + '?output=json'  # 요청할 주소
+
+        text_data = urllib.request.urlopen(url).read().decode('utf-8')
+
+        animals = json.loads(text_data)
+        animalsinfo = ""
+        print(type(animals))
+        for i in animals:
+            for j in animals[i]:
+                # print(j)
+                if (animals[i][j][0]["type"] == "literal"):
+                    print(animals[i][j][0]["value"])
+                    animalsinfo = animalsinfo + "\n" + animals[i][j][0]["value"]
+
+    # report_file.write(results)
+
+    # for result in results["results"]["bindings"]:
+    #    report_file.write('%s: %s\n' % (result["label"]["xml:lang"], result["label"]["value"]))
+    ##
     return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo})
 
 def search_table(request):
@@ -211,3 +271,7 @@ def animal_edit(request,pk):
         return redirect('animal_detail', pk=article.pk )
 
     return render(request, 'animal_edit.html', {'feed': article})
+
+def statistics(request):
+
+    return render(request,'statistics.html')

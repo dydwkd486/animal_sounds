@@ -9,7 +9,7 @@ urlpatterns = [
 	path('<int:pk>/remove',views.animal_remove,name='animal_remove'),
 	path('<int:pk>/edit',views.animal_edit,name='animal_edit'),
 	path('search/',views.search_table,name="search_table"),
-	
+	path('statistics/',views.statistics,name="statistics"),
 ]
 
 
