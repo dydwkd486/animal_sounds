@@ -1,13 +1,19 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.shortcuts import render, get_object_or_404
-from .models import Animal_map, Animal_total_info
+from django.shortcuts import render, get_object_or_404,HttpResponse
+from .models import Animal_map, Animal_total_info,district
 from .forms import Animal_mapForm,AnimalmapFormMultiform
 from django.core.exceptions import ObjectDoesNotExist
 ''' 승원 수정 부분 '''
 from .forms import Animal_Sub_file
+from accounts.models import Profile
+from django.db.models import Sum
+from django.db.models import Avg
+from django.db.models import Max
+from django.db.models import Min
 ''' end 승원 수정 부분 '''
 import urllib.request
 import json
@@ -18,6 +24,98 @@ import xml.etree.ElementTree as ET
 
 #@login_required
 def home(request):
+    animap = Animal_map.objects.filter()
+
+    file_meta_dict = dict()
+    # file size stat
+    testing = Animal_map.objects.aggregate(file_size_avg=Avg('file_size_input'), file_size_max=Max('file_size_input'),
+                                           file_size_min=Min('file_size_input'))
+
+    for p in testing:
+        print(p)
+        print(testing[p])
+        file_meta_dict[p] = testing[p]
+
+    # file duration stat
+    testing = Animal_map.objects.aggregate(file_duration_avg=Avg('duration_input'),
+                                           file_duration_max=Max('duration_input'),
+                                           file_duration_min=Min('duration_input'))
+
+    for p in testing:
+        print(p)
+        print(testing[p])
+        file_meta_dict[p] = testing[p]
+
+    # writer stat
+    testing = Animal_map.objects.raw("SELECT writer as id, count(*) as cnt FROM blog_animal_map group by writer")
+    print(testing)
+    writer_dict = dict()
+    for p in testing:
+        print(p)
+        print(p.id)
+        print(p.cnt)
+        writer_dict[p.id] = p.cnt
+    file_meta_dict['file_count_writer'] = writer_dict
+
+    testing = Animal_map.objects.raw(
+        "SELECT writer as id, count(*) as cnt FROM blog_animal_map where observed_date >= '2010-02-10' and observed_date <= '2010-02-10' group by writer")
+    print(testing)
+    writer_data_dict = dict()
+    for p in testing:
+        print(p)
+        print(p.id)
+        print(p.cnt)
+        writer_data_dict[p.id] = p.cnt
+    file_meta_dict['file_count_writer_given_date'] = writer_data_dict
+
+    # file extension stat
+    testing = Animal_map.objects.raw(
+        "SELECT file_ex_input as id, count(*) as cnt FROM blog_animal_map group by file_ex_input")
+    print(testing)
+    file_ex_dict = dict()
+    for p in testing:
+        print(p)
+        print(p.id)
+        print(p.cnt)
+        file_ex_dict[p.id] = p.cnt
+    file_meta_dict['file_count_ex'] = file_ex_dict
+    '''
+    # class stat
+    testing = Animal_map.objects.raw(
+        "SELECT count(*) as cnt, class as id FROM blog_animal_map group by class")
+    print(testing)
+    for p in testing:
+        print(p)
+        print(p.id)
+        print(p.cnt)
+    '''
+
+    # title stat
+    testing = Animal_map.objects.raw(
+        "SELECT title as id, count(*) as cnt FROM blog_animal_map group by title")
+    print("testing: ",testing)
+    title_dict = dict()
+    for p in testing:
+        print(p)
+        print(p.id)
+        print(p.cnt)
+        title_dict[p.id] = p.cnt
+    file_meta_dict['file_count_ex'] = title_dict
+
+    # address stat
+    testing = Animal_map.objects.raw(
+        "SELECT address as id, count(*) as cnt FROM blog_animal_map group by address")
+    print(testing)
+    address_dict = dict()
+    for p in testing:
+        print(p)
+        print(p.id)
+        print(p.cnt)
+        print(Animal_map.ADDRESS_DICT[p.id])
+        address_dict[Animal_map.ADDRESS_DICT[p.id]] = p.cnt
+    file_meta_dict['file_count_address'] = address_dict
+    print(file_meta_dict)
+
     animal_maps=Animal_map.objects.filter()
     #조건이 6가지 (이름, 구분, 지역, 시작날짜, 끝날짜, 맵다시확인)
     query=""
@@ -57,7 +155,7 @@ def home(request):
         enddate=request.GET['enddate']
         print("enddate")
 
-    for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__in=address,Class__in=class_key,observed_date__range=(startdate,enddate)):
+    for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__in=address,animalclass__in=class_key,observed_date__range=(startdate,enddate)):
         results.append(odject)
     context = {'animal_maps':results} 
 
@@ -273,5 +371,74 @@ def animal_edit(request,pk):
     return render(request, 'animal_edit.html', {'feed': article})
 
 def statistics(request):
+    s=request.GET.get('s', None)
+    print("s는 무엇일까요??:",s)
+    animaldistrict = district.objects.filter()
 
-    return render(request,'statistics.html')
+    file_meta_dict = dict()
+    if s=='all' or s==None:
+        # address stat
+        testing = Animal_map.objects.raw(
+            "SELECT address as id, count(*) as cnt FROM blog_animal_map group by address")
+        print(testing)
+        address_dict = dict()
+        for p in testing:
+            print(p)
+            print(p.id)
+            print(p.cnt)
+            print(Animal_map.ADDRESS_DICT[p.id])
+            address_dict[Animal_map.ADDRESS_DICT[p.id]] = p.cnt
+        file_meta_dict['file_count_address'] = address_dict
+        print(file_meta_dict)
+    else:
+        # address stat
+        testing = Animal_map.objects.raw(
+            "SELECT address as id, count(*) as cnt FROM blog_animal_map where animalclass='"+s+"' group by address")
+        print(testing)
+        address_dict = dict()
+        for p in testing:
+            print(p)
+            print(p.id)
+            print(p.cnt)
+            print(Animal_map.ADDRESS_DICT[p.id])
+            address_dict[Animal_map.ADDRESS_DICT[p.id]] = p.cnt
+        file_meta_dict['file_count_address'] = address_dict
+        print(file_meta_dict)
+
+    context = {'animaldistricts':animaldistrict,'file_meta_dict':file_meta_dict}
+    return render(request,'statistics.html',context)
+
+require_POST
+def list_dn(request):
+    pk = request.POST.get('pk', None)
+    statistics=request.POST.get('statistics', None)
+    print('pk:',pk,"   statistics:",statistics)
+    file_meta_dict = dict()
+    if statistics=='all'or statistics=="":
+        # title stat
+        testing = Animal_map.objects.raw(
+            "SELECT animalclass as id, count(*) as cnt FROM blog_animal_map where address='"+pk+"' group by animalclass;")
+        print("testing: ", testing)
+        title_dict = dict()
+        for p in testing:
+            print(p)
+            print(p.id)
+            print(p.cnt)
+            title_dict[p.id] = p.cnt
+        file_meta_dict['region_count_ex'] = title_dict
+    else:
+        # title stat
+        testing = Animal_map.objects.raw(
+            "SELECT to_char(observed_date,'YYYY') as id, count(*) as cnt FROM blog_animal_map where animalclass='"+statistics+"'and address='"+pk+"' group by to_char(observed_date,'YYYY')")
+        print("testing: ", testing)
+        title_dict = dict()
+        for p in testing:
+            print(p)
+            print(p.id)
+            print(p.cnt)
+            title_dict[p.id] = p.cnt
+        file_meta_dict['year_count_ex'] = title_dict
+
+    context = file_meta_dict
+
+    return HttpResponse(json.dumps(context), content_type="application/json")

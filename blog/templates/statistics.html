@@ -47,5 +47,172 @@
 </style>
 
 {% endblock%}
-asdasd
+
+
+    <div id="map" style="width:75%; height: 800px;float: left; border-radius:0.8em;" >  </div>
+
+    <div style="width:24%;float: left;">
+        <p>{{file_meta_dict.file_count_address}}</p>
+        <p>포유류: <span id="m"></span></p>
+        <p>조류: <span id="b"></span></p>
+        <p>파충류: <span id="r"></span></p>
+        <p>양서류: <span id="a"></span></p>
+        <p>곤충: <span id="i"></span></p>
+        <p>연도 별 통계<br>
+            <span id="year"></span></p>
+    </div>
+
+    <div id="pac-input" style="background-color:white; width:180px; border-radius:0.5em;">
+        <p style="font-size:20px;"> <a href="/statistics/?s=all">모든 종 별 통계</a></p>
+        <p style="font-size:20px;"> <a href="/statistics/?s=m">포유류 지역별 통계</a></p>
+        <p style="font-size:20px;"> <a href="/statistics/?s=b">조류 지역별 통계</a></p>
+        <p style="font-size:20px;"> <a href="/statistics/?s=r">파충류 지역별 통계</a></p>
+        <p style="font-size:20px;"> <a href="/statistics/?s=a">양서류 지역별 통계</a></p>
+        <p style="font-size:20px;"> <a href="/statistics/?s=i">곤충 지역별 통계</a></p>
+    </div>
+    <script>
+    function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+    var statistics = getParameterByName('s');
+
+      // This example creates a simple polygon representing the Bermuda Triangle.
+      // When the user clicks on the polygon an info window opens, showing
+      // information about the polygon's coordinates.
+
+      var map;
+      var infoWindow;
+         var bermudaTriangle1 = [];
+        var aa=[];
+        var geo;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 36.489, lng: 127.398},
+          mapTypeId: 'terrain'
+        });
+        var input = document.getElementById('pac-input');
+        map.controls[google.maps.ControlPosition.LEFT].push(input);
+
+{% for animaldistrict in animaldistricts %}
+
+        aa=[]
+        var j=0;
+        geo="{{animaldistrict.WKT}}";
+        var geos=geo.split('MULTIPOLYGON (((')[1].split(')),')[0].split('),')[0].split(',');
+        for (var i in geos) {
+            aa[i]={lat: parseFloat(geos[i].split(' ')[1]), lng: parseFloat(geos[i].split(' ')[0])}
+        }
+        var triangleCoords1 = aa;
+        bermudaTriangle1[j]=new google.maps.Polygon({
+          paths: triangleCoords1,
+          strokeColor: '#FFFF00',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+        bermudaTriangle1[j].setMap(map);
+        bermudaTriangle1[j].addListener('click',function(event) {
+
+        // Since this polygon has only one path, we can call getPath() to return the
+        // MVCArray of LatLngs.
+        var contentString = "{{animaldistrict.CTP_KOR_NM}}";
+        asd(contentString,statistics);
+        $('.test').text("{{animaldistrict.CTP_KOR_NM}}");
+        // Replace the info window's content and position.
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(event.latLng);
+        infoWindow.open(map);
+      });
+
+        j=j+1;
+
+
+{% endfor %}
+
+        infoWindow = new google.maps.InfoWindow;
+      }
+
+
+    </script>
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap"
+         async defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+function  asd(contentString,statistics){
+
+var pk ="";
+
+if(contentString=="서울시")
+    pk="a";
+else if(contentString=="경기도")
+    pk="b";
+else if(contentString=="강원도")
+    pk="c";
+else if(contentString=="충청북도")
+    pk="d";
+else if(contentString=="충청남도")
+    pk="e";
+else if(contentString=="경상북도")
+    pk="f";
+else if(contentString=="경상남도")
+    pk="g";
+else if(contentString=="전라북도")
+    pk="h";
+else if(contentString=="전라남도")
+    pk="i";
+else if(contentString=="제주도")
+    pk="j";
+else if(contentString=="이북")
+    pk="k";
+$.ajax({
+      type: "POST",
+      url: "{% url 'dn' %}", // 통신할 url을 지정
+      data: {'pk': pk,'statistics':statistics,'csrfmiddlewaretoken': '{{ csrf_token }}'}, // 서버로 데이터 전송시 옵션
+      dataType: "json", // 서버측에서 전송한 데이터를 어떤 형식의 데이터로서 해석할 것인가를 지정, 없으면 알아서 판단
+      // 서버측에서 전송한 Response 데이터 형식 (json)
+      success: function(response){ // 통신 성공시 - 동적으로 좋아요 갯수 변경, 유저 목록 변경
+        //초기화
+        $("#m").text(0);
+        $("#b").text(0);
+        $("#r").text(0);
+        $("#a").text(0);
+        $("#i").text(0);
+        $("#year").text("");
+
+
+        if(statistics=='all'||statistics==''){
+            $("#m").text(response.region_count_ex.m);
+            $("#b").text(response.region_count_ex.b);
+            $("#r").text(response.region_count_ex.r);
+            $("#a").text(response.region_count_ex.a);
+            $("#i").text(response.region_count_ex.i);
+        }
+
+        for(key in response.year_count_ex) {
+            $("#year").append('연도:' + key + ' / ' + '결과 값:' + response.year_count_ex[key]+'<br>');
+         }
+
+      },
+      error: function(request, status, error){ // 통신 실패시
+        alert("실패")
+        //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      },
+    });
+}
+
+
+
+
+</script>
+
+
+
+
 {% endblock %}

@@ -56,15 +56,15 @@
              </p>
              <p> 발견시각:{{animal_map.observed_date}}</p>
               <p>구분:
-              {%if animal_map.Class == 'm' %}
+              {%if animal_map.animalclass == 'm' %}
               포유류
-              {%elif animal_map.Class == 'b'%}
+              {%elif animal_map.animalclass == 'b'%}
               조류
-              {%elif animal_map.Class == 'r'%}
+              {%elif animal_map.animalclass == 'r'%}
               파충류
-              {%elif animal_map.Class == 'a'%}
+              {%elif animal_map.animalclass == 'a'%}
               양서류
-              {%elif animal_map.Class == 'i'%}
+              {%elif animal_map.animalclass == 'i'%}
               곤충
               {%endif%}
 
