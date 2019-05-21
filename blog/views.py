@@ -407,7 +407,7 @@ def statistics(request):
 
     context = {'animaldistricts':animaldistrict,'file_meta_dict':file_meta_dict}
     return render(request,'statistics.html',context)
-
+#
 require_POST
 def list_dn(request):
     pk = request.POST.get('pk', None)
@@ -438,6 +438,18 @@ def list_dn(request):
             print(p.cnt)
             title_dict[p.id] = p.cnt
         file_meta_dict['year_count_ex'] = title_dict
+
+        # title stat
+        testing = Animal_map.objects.raw(
+            "SELECT to_char(observed_date,'YYYY-MM') as id, count(*) as cnt FROM blog_animal_map where animalclass='" + statistics + "'and address='" + pk + "' group by to_char(observed_date,'YYYY-MM')")
+        print("testing: ", testing)
+        title_dict = dict()
+        for p in testing:
+            print(p)
+            print(p.id)
+            print(p.cnt)
+            title_dict[p.id] = p.cnt
+        file_meta_dict['month_count_ex'] = title_dict
 
     context = file_meta_dict
 

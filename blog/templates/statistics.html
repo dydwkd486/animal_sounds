@@ -60,6 +60,8 @@
         <p>곤충: <span id="i"></span></p>
         <p>연도 별 통계<br>
             <span id="year"></span></p>
+        <p>월 별 통계<br>
+            <span id="month"></span></p>
     </div>
 
     <div id="pac-input" style="background-color:white; width:180px; border-radius:0.5em;">
@@ -198,7 +200,9 @@ $.ajax({
         for(key in response.year_count_ex) {
             $("#year").append('연도:' + key + ' / ' + '결과 값:' + response.year_count_ex[key]+'<br>');
          }
-
+        for(key in response.month_count_ex) {
+            $("#month").append('월별:' + key + ' / ' + '결과 값:' + response.month_count_ex[key]+'<br>');
+         }
       },
       error: function(request, status, error){ // 통신 실패시
         alert("실패")
