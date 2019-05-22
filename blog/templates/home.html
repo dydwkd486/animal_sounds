@@ -186,14 +186,7 @@
               </li>
     </ul>
       </div>
-    <div id="out" style="width: 100%;">
-    <!--표1 start-->
-            <div id="myDiv" style="width:33%;height:300px; display: inline-block;"></div>
-            <!--표1 end-->
-            <!--표2 start-->
-            <div id="tester2" style="width:33%;height:300px; display: inline-block;"></div>
-            <!--표2 end-->
-        </div>
+
 <footer style="background: #ecf0f1">
     <div class="container">
       <div class="row">
@@ -520,38 +513,8 @@ $('input:checkbox[name="options"]:checked').each(function() {
   
 </script>
 <!-- Plotly.js -->
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script type="text/javascript">
-//표1 나오는 스크립트
-var x = [];
-for (var i = 0; i < 100; i ++) {
-    x[i] = Math.random();
-}
-
-var trace = {
-    x: x,
-    type: 'histogram',marker: {
-    color: 'grey',
-   },
-  };
-var data = [trace];
-Plotly.newPlot('myDiv', data, {}, {showSendToCloud: true});
-//표1 나오는 스크립트 end
-</script>
 
 
-
-<script type="text/javascript">
-  //표2 나오는 스크립트
-   var data = [{
-     values: [19, 26, 55],
-     labels: ['Residential', 'Non-Residential', 'Utility'],
-     type: 'pie'
-   }];
-   
-   Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
-  //표2 나오는 스크립트 end
-</script>
 <script type="text/javascript">
   function errorImg(){
   $("img").error(function () {

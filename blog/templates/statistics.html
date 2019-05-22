@@ -52,6 +52,14 @@
     <div id="map" style="width:75%; height: 800px;float: left; border-radius:0.8em;" >  </div>
 
     <div style="width:24%;float: left;">
+            <div id="out" style="width: 100%;">
+    <!--표1 start-->
+            <div id="myDiv" ></div>
+            <!--표1 end-->
+            <!--표2 start-->
+            <div id="tester2"></div>
+            <!--표2 end-->
+        </div>
         <p>{{file_meta_dict.file_count_address}}</p>
         <p>포유류: <span id="m"></span></p>
         <p>조류: <span id="b"></span></p>
@@ -214,6 +222,39 @@ $.ajax({
 
 
 
+</script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+//표1 나오는 스크립트
+var x = [];
+for(var )
+for (var i = 0; i < 100; i ++) {
+    x[i] = Math.random();
+}
+
+var trace = {
+    x: x,
+    type: 'histogram',marker: {
+    color: 'grey',
+   },
+  };
+var data = [trace];
+Plotly.newPlot('myDiv', data, {}, {showSendToCloud: true});
+//표1 나오는 스크립트 end
+</script>
+
+
+
+<script type="text/javascript">
+  //표2 나오는 스크립트
+   var data = [{
+     values: [19, 26, 55],
+     labels: ['Residential', 'Non-Residential', 'Utility'],
+     type: 'pie'
+   }];
+
+   Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
+  //표2 나오는 스크립트 end
 </script>
 
 

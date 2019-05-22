@@ -53,7 +53,7 @@
 	<br>
     <div class="post" style="text-align: left; margin-left: auto; margin-right: auto;">
 		<div style="display: contents; width: 100px; height: 100px; margin-right: auto; margin-left: auto;">
-    	<img src="/media/{{animal_map.imagefile}}" style="vertical-align: top;">&nbsp;&nbsp;
+    	<img src="/media/{{animal_map.imagefile}}" style="vertical-align: top; width:640px">&nbsp;&nbsp;
 		</div>
 			<div style="display: inline-block; width: 500px; margin-right: auto; margin-left: auto;">
 				<h1 class='title' style="display: inline;">{{ animal_map.title }}</h1>
@@ -126,8 +126,11 @@
     <div class='content' style="width: 960px; height: 400px; margin-right: auto; margin-left: auto;">
 		<div class='content_2' style="width: 80%; margin-right: auto; margin-left: auto;">
 			<h4 style="text-align: center;">세부 내용</h4>
+			내부 정보
 			<p>{{ total_info.content }}</p>
+			LOD 정보
 			<pre style="white-space: pre-wrap;">{{ animals }}</pre>
+			<a href="{{url}}">더 자세한 정보</a>
 
 		       <br>
 		<p style="text-align: right; margin-bottom: 0px;">작성자: <span class="writer_name">{{animal_map.writer}}</span></p>

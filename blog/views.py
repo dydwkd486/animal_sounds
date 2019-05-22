@@ -335,13 +335,13 @@ def animal_detail(request, pk):
                 if (animals[i][j][0]["type"] == "literal"):
                     print(animals[i][j][0]["value"])
                     animalsinfo = animalsinfo + "\n" + animals[i][j][0]["value"]
-
+    url = 'http://lod.nature.go.kr/page/' + species_name
     # report_file.write(results)
 
     # for result in results["results"]["bindings"]:
     #    report_file.write('%s: %s\n' % (result["label"]["xml:lang"], result["label"]["value"]))
     ##
-    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo})
+    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo ,'url':url})
 
 def search_table(request):
     all_class=Animal_map.objects.filter()
