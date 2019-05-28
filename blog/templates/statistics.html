@@ -60,6 +60,7 @@
             <div id="tester2"></div>
             <!--표2 end-->
         </div>
+        <!--
         <p>{{file_meta_dict.file_count_address}}</p>
         <p>포유류: <span id="m"></span></p>
         <p>조류: <span id="b"></span></p>
@@ -69,7 +70,7 @@
         <p>연도 별 통계<br>
             <span id="year"></span></p>
         <p>월 별 통계<br>
-            <span id="month"></span></p>
+            <span id="month"></span></p>-->
     </div>
 
     <div id="pac-input" style="background-color:white; width:180px; border-radius:0.5em;">
@@ -203,15 +204,68 @@ $.ajax({
             $("#r").text(response.region_count_ex.r);
             $("#a").text(response.region_count_ex.a);
             $("#i").text(response.region_count_ex.i);
-        }
 
-        for(key in response.year_count_ex) {
-            $("#year").append('연도:' + key + ' / ' + '결과 값:' + response.year_count_ex[key]+'<br>');
+            var data = [{
+            values: [0, 0, 0,0,0],
+            labels: ['포유류', '조류', '파충류','양서류','곤충'],
+            type: 'pie'
+            }];
+            var data = [{
+            values: [response.region_count_ex.m, response.region_count_ex.b, response.region_count_ex.r,response.region_count_ex.a,response.region_count_ex.i],
+            labels: ['포유류', '조류', '파충류','양서류','곤충'],
+            type: 'pie'
+            }];
+
+        Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
+        }
+        else{
+            var statisticsname;
+            if(statistics =='m'){
+                statisticsname="포유류"
+            }
+            else if(statistics =='b'){
+                statisticsname="조류"
+            }
+            else if(statistics =='r'){
+                statisticsname="파충류"
+            }
+            else if(statistics =='a'){
+                statisticsname="양서류"
+            }
+            else if(statistics =='i'){
+                statisticsname="곤충"
+            }
+            var yearname=[];
+            var yearvalue=[];
+            for(key in response.year_count_ex) {
+                $("#year").append('연도:' + key + ' / ' + '결과 값:' + response.year_count_ex[key]+'<br>');
+                yearname.push(key);
+                yearvalue.push(response.year_count_ex[key]);
+             }
+            for(key in response.month_count_ex) {
+                $("#month").append('월별:' + key + ' / ' + '결과 값:' + response.month_count_ex[key]+'<br>');
+             }
+            var data = [
+              {
+                x: yearname,
+                y: yearvalue,
+                type: 'bar',
+                    marker: {
+                    color: '#C8A2C8',
+                    line: {
+                        width: 2
+                    }
+                }
+              }
+            ];
+            var layout = {
+              title: statisticsname,
+              font: {size: 11}
+            };
+            Plotly.newPlot('tester2', data,layout);
          }
-        for(key in response.month_count_ex) {
-            $("#month").append('월별:' + key + ' / ' + '결과 값:' + response.month_count_ex[key]+'<br>');
-         }
-      },
+      }
+      ,
       error: function(request, status, error){ // 통신 실패시
         alert("실패")
         //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -225,35 +279,40 @@ $.ajax({
 </script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript">
-//표1 나오는 스크립트
-var x = [];
-for(var )
-for (var i = 0; i < 100; i ++) {
-    x[i] = Math.random();
-}
+//표1 스크립트
+var data = [
+  {
+    x: ['서울', '경기도','강원도', '충북', '충남','경북','경남','전북','전남','제주','이북'],
+    y: [{{file_meta_dict.file_count_address.서울특별시}}, {{file_meta_dict.file_count_address.경기도}}, {{file_meta_dict.file_count_address.강원도}},{{file_meta_dict.file_count_address.충청북도}},{{file_meta_dict.file_count_address.충청남도}},{{file_meta_dict.file_count_address.경상북도}},{{file_meta_dict.file_count_address.경상남도}},{{file_meta_dict.file_count_address.전라북도}},{{file_meta_dict.file_count_address.전라남도}},{{file_meta_dict.file_count_address.제주도}},{{file_meta_dict.file_count_address.이북}}],
+    type: 'bar',
+        marker: {
+        color: '#C8A2C8',
+        line: {
+            width: 2.5
+        }
+    }
+  }
+];
+var layout = {
+  title: '각 지역별 통계',
+  font: {size: 11}
+};
+Plotly.newPlot('myDiv', data,layout);
 
-var trace = {
-    x: x,
-    type: 'histogram',marker: {
-    color: 'grey',
-   },
-  };
-var data = [trace];
-Plotly.newPlot('myDiv', data, {}, {showSendToCloud: true});
 //표1 나오는 스크립트 end
 </script>
 
-
-
 <script type="text/javascript">
   //표2 나오는 스크립트
+  /*
    var data = [{
-     values: [19, 26, 55],
-     labels: ['Residential', 'Non-Residential', 'Utility'],
+     values: [19, 26, 55,0,0],
+     labels: ['Residential', 'Non-Residential', 'Utility','ㅁㄴㅇ','ㅁㅋ'],
      type: 'pie'
    }];
 
    Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
+   */
   //표2 나오는 스크립트 end
 </script>
 

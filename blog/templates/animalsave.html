@@ -12,9 +12,10 @@
 <div class="div_wrap" style="width: 80%">
   <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>동물 정보 업로드</b></h1>
   <!--h5 style="margin-top: 24px; margin-bottom: 12px;">*동물 울음소리 및 사진 파일을 첨부합니다. 빈 부분은 인공지능을 활용하여 유추합니다.</h5-->
+    <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data">
    <div class="content" style="margin-top: 0px; margin-left: 15%;">
       <div>
-      <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data">
+
         <!--ss-->
         {% csrf_token %}
 
@@ -154,7 +155,7 @@
         <div class="form-actions">
           <button class="btn btn-primary btn-large" type="button" onclick="form_submit()" style="background-color: #339933; border-color: #339933; width: 100%;">저장하기</button>
         </div>
-      </form>
+      <!--</form>-->
     </div>
        <div class="content" style="margin-top: 0px; margin-left: 0%;">
        {% if request.user.profile.professional %}
@@ -179,29 +180,33 @@
     <body onload="initialize()">
       <!--구글 맵이 나오는 곳-->
       <input id="pac-input" class="controls" type="text" placeholder="위치 검색">
-      <div id="map_canvas" style="margin-top: 20px; width: 100%;"></div>
+      <div id="map_canvas" style="margin-top: 20px;"></div>
       <!--구글 맵이 나오는 곳 end-->
 
-      <div id="info" style="width: 100%;">
-        <div id="mainControl" style="margin-left: auto; margin-right: auto; width: 100%;">
+      <div id="info">
+        <div id="mainControl">
           <div id="waveform"></div>
-          <div id="controlBar" style="margin-top: 0px;">
-            <div class="control_bar_row" style="margin-top: auto; margin-bottom: auto;">
-              <div id="curTime" class="time-indicator" style="margin-top: auto; margin-bottom: auto;">00:00:00</div>
+          <div id="controlBar">
+            <div class="control_bar_row">
+              <div id="curTime" class="time-indicator">00:00:00</div>
               <div class="time-indicator-divider">/</div>
               <div id="fullTime" class="time-indicator">00:00:00</div>
               <button id="play" class="video-play"></button>
               <button id="stop" class="video-stop"></button>
-                <button class="btn btn-primary btn-large" id="add-button" style="font-size: 120%; display: inline-block; width: 37%; background-color: #339933; border: none; float: right;">구간추가</button>
+            </div>
+            <div class="control_bar_row">
+              <button id="add-button">ADD</button>
+              <button id="register-button">Register</button>
             </div>
           </div>
         </div>
 
-
+        <div id="addControl"></div>
       </div>
     </body>
   </div>
    </div>
+        </form>
 </div>
 <footer style="background: #ecf0f1">
     <div class="container">
@@ -1075,7 +1080,6 @@ $(document).ready(function() {
   });
 
   function form_submit(){
-
     var myForm = document.getElementById('mForm');
     var formData = new FormData(myForm);
 

@@ -10,6 +10,7 @@ urlpatterns = [
 	path('<int:pk>/edit',views.animal_edit,name='animal_edit'),
 	path('search/',views.search_table,name="search_table"),
 	path('statistics/',views.statistics,name="statistics"),
+	path('detailsearch/',views.detailsearch,name="detailsearch"),
 	path('dn/',views.list_dn,name="dn")
 ]
 

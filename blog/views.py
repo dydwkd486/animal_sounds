@@ -128,7 +128,7 @@ def home(request):
     startdate="1900-03-06"
     enddate="2200-03-06"
     results =[]
-
+    print("enddate", enddate)
     if request.GET.get('search_key'):
         query=request.GET['search_key']
         print("search_key")
@@ -149,14 +149,15 @@ def home(request):
 
     if request.GET.get('startdate'):
         startdate=request.GET['startdate']
-        print("startdate")
+        print("startdate",startdate)
 
     if request.GET.get('enddate'):
         enddate=request.GET['enddate']
-        print("enddate")
+        print("enddate",enddate)
 
     for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__in=address,animalclass__in=class_key,observed_date__range=(startdate,enddate)):
         results.append(odject)
+        print(odject.title)
     context = {'animal_maps':results} 
 
     return render(request, 'home.html',context)
@@ -167,19 +168,49 @@ def save(request):
         form = AnimalmapFormMultiform(request.POST, request.FILES)
         if form.is_valid():
             animal = form['animal_map'].save(commit=False)
+
+            Latitude = request.POST['animal_map-Latitude'] #위도
+            Longitude = request.POST['animal_map-Longitude'] #경도
+            url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+Latitude+","+Longitude+"&key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&language=ko"
+            text_data = urllib.request.urlopen(url).read().decode('utf-8')
+            address = json.loads(text_data)
+            print(address['results'][0]['address_components'][0])
+            for a in address['results'][0]['address_components']:
+                for i in a['types']:
+                    if (i == "administrative_area_level_1"):
+                        print("administrative_area_level_1 :", a['long_name'])
+                        animal.address1 = a['long_name']
+                    elif (i == "locality"):
+                        print("locality :", a['long_name'])
+                        animal.address2 = a['long_name']
+                    elif (i == "sublocality_level_1"):
+                        print("sublocality_level_1 :", a['long_name'])
+                        animal.address3 = a['long_name']
+                    elif (i == "sublocality_level_2"):
+                        print("sublocality_level_2 :", a['long_name'])
+                        animal.address4 = a['long_name']
+                    elif (i == "sublocality_level_3"):
+                        print("sublocality_level_3 :", a['long_name'])
+                        animal.address5 = a['long_name']
+                    elif (i == "sublocality_level_4"):
+                        print("sublocality_level_4 :", a['long_name'])
+                        animal.address6 = a['long_name']
+
             animal.writer = request.user
             animal.file_size_input = request.POST['file_size_input']
             animal.file_name_input = request.POST['file_name_input']
             animal.file_ex_input = request.POST['file_ex_input']
             animal.duration_input = request.POST['duration_input']
+            animal.Latitude = request.POST['animal_map-Latitude']  # 위도
+            animal.Longitude = request.POST['animal_map-Longitude']  # 경도
             animal.save()
 
             num=0
             print("request.POST:")
             print(request.POST)
             print(request.POST.get('subfile_meta%d' % num))
-            Latitude = request.POST['animal_map-Latitude']
-            Longitude = request.POST['animal_map-Longitude']
+
+            #print("url:",url)
 
             while request.POST.get('subfile_meta%d' % num):
                 subfile = Animal_Sub_file().save(commit=False)
@@ -226,7 +257,7 @@ def list(request):
         results =[]
         query = request.GET['search_key']
         
-        for odject in animal_maps.filter(title__contains=query):
+        for odject in animal_maps.filter(title__startswith=query):
             results.append(odject)
         context = {'animal_maps':results} 
         return render(request, 'homelist.html',context)
@@ -263,7 +294,7 @@ def animal_detail(request, pk):
     animal_maps = animal_map
     print("aa",animal_maps.title)
     try:
-        animal_total_info=Animal_total_info.objects.get(name__contains=animal_maps.title)
+        animal_total_info=Animal_total_info.objects.get(name__startswith=animal_maps.title)
     except ObjectDoesNotExist:
         animal_total_info=None
 
@@ -311,13 +342,18 @@ def animal_detail(request, pk):
     #    print(child.tag, child.attrib)
     spe = tree.find(
         './{http://www.w3.org/2005/sparql-results#}results/{http://www.w3.org/2005/sparql-results#}result/{http://www.w3.org/2005/sparql-results#}binding[@name="species"]/{http://www.w3.org/2005/sparql-results#}uri')
-
-    if(spe==None):
+    spename = tree.find(
+        './{http://www.w3.org/2005/sparql-results#}results/{http://www.w3.org/2005/sparql-results#}result/{http://www.w3.org/2005/sparql-results#}binding[@name="sName"]/{http://www.w3.org/2005/sparql-results#}literal')
+    if(spe==None or spename==None):
         print("이상발생")
         animalsinfo = ""
+        urlpage =""
+        spename=animal_map.title
     else:
         species_uri = spe.text
+        spename=spename.text.split('(')[0]
         print("spe.text:", spe.text)
+        print("name:" ,spename)
 
         tokens = species_uri.split('/')
         species_name = tokens[-1]
@@ -335,13 +371,15 @@ def animal_detail(request, pk):
                 if (animals[i][j][0]["type"] == "literal"):
                     print(animals[i][j][0]["value"])
                     animalsinfo = animalsinfo + "\n" + animals[i][j][0]["value"]
-    url = 'http://lod.nature.go.kr/page/' + species_name
+        urlpage = 'http://lod.nature.go.kr/page/' + species_name
     # report_file.write(results)
 
     # for result in results["results"]["bindings"]:
     #    report_file.write('%s: %s\n' % (result["label"]["xml:lang"], result["label"]["value"]))
     ##
-    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo ,'url':url})
+    ###
+
+    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo ,'url':urlpage,'spename':spename})
 
 def search_table(request):
     all_class=Animal_map.objects.filter()
@@ -454,3 +492,6 @@ def list_dn(request):
     context = file_meta_dict
 
     return HttpResponse(json.dumps(context), content_type="application/json")
+
+def detailsearch(request):
+    return render(request, 'detailsearch.html')

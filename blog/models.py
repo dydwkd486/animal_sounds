@@ -41,6 +41,12 @@ class Animal_map(models.Model):
     title = models.CharField(max_length = 20, blank=True, null=True)
     Latitude = models.DecimalField(max_digits=10, decimal_places=7, null=True)
     Longitude = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    address1 = models.CharField(max_length = 30,null=True)
+    address2 = models.CharField(max_length=30, null=True)
+    address3 = models.CharField(max_length=30, null=True)
+    address4 = models.CharField(max_length=30, null=True)
+    address5 = models.CharField(max_length=30, null=True)
+    address6 = models.CharField(max_length=30, null=True)
     address = models.CharField(max_length=1,choices=ADDRESS, blank=True, default='a', help_text='address_Level')
     content = models.TextField(blank=True, null=True)
     imagefile = models.FileField(null=False, upload_to='img')
@@ -63,11 +69,22 @@ class Animal_Sub_file(models.Model):
     file_ex_input = models.CharField(max_length = 10,null=True)
     duration_input = models.IntegerField(null=True)
 ''' end 승원 수정 부분 '''
-
+'''내부 디비 부분'''
 class Animal_total_info(models.Model):
-    name = models.CharField(max_length = 20)
+    name = models.CharField(max_length = 50)
+    scientific_name= models.CharField(max_length = 50)
+    kingdom = models.CharField(max_length = 20)
+    divisio = models.CharField(max_length = 20)
+    classis = models.CharField(max_length = 20)
+    ordo = models.CharField(max_length = 20)
+    familia = models.CharField(max_length = 20)
+    genus = models.CharField(max_length = 20)
+    species = models.CharField(max_length = 20)
+    redlist = models.CharField(max_length = 20)
+    food = models.TextField()
+    habitat = models.TextField()
     content = models.TextField()
-
+'''내부 디비 부분 end'''
 class district(models.Model):
     CTPRVN_CD=models.IntegerField(null=False)
     CTP_ENG_NM = models.TextField(null=True)

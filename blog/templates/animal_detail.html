@@ -136,6 +136,16 @@
 		<p style="text-align: right; margin-bottom: 0px;">작성자: <span class="writer_name">{{animal_map.writer}}</span></p>
 		<p style="text-align: right;">업로드 일자: <span class="observed_date">{{animal_map.observed_date}}</span></p>
 		</div>
+		<div class='youtube' style="width: 960px; height: 400px; margin-right: auto; margin-left: auto;">
+			<h4 style="text-align: center;">관련 동영상</h4>
+<div class="youtube" style="width: 960px; height: 400px; margin-right: auto; margin-left: auto;">
+  <div style="width: 80%; margin-right: auto; margin-left: auto;">
+    <div id="youtube-player"></div>
+	  <p id="video-title"></p>
+    <iframe id="youtube" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+		</div>
     </div>
     <!--새부 내용 end-->
     </div>
@@ -188,6 +198,23 @@
         });
       }
     </script>
+<script>
+	$.ajax({
+  dataType: "json",
+  url:
+    'https://www.googleapis.com/youtube/v3/search'+
+    '?part=snippet'+
+    '&maxResults=10'+
+    '&q={{ spename }}'+
+    '&type=video'+
+    '&videoDefinition=high'+
+    '&key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk'
+}).done(function(data){
+	$('#video-title').text(data.items[0].snippet.title);
+	document.getElementById("youtube").src = "https://www.youtube.com/embed/"+data.items[0].id.videoId;
+ });
+</script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap"
          async defer></script>
 
