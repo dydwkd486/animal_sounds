@@ -493,5 +493,57 @@ def list_dn(request):
 
     return HttpResponse(json.dumps(context), content_type="application/json")
 
+def detail_dn(request):
+    formDatas = request.POST.get('formData', None)
+    formData = formDatas.split('&')
+    name = formData[0].split('=')[1]
+    division =formData[1].split('=')[1]
+    sido=formData[2].split('=')[1]
+    gugun=formData[3].split('=')[1]
+    dong =formData[4].split('=')[1]
+    startdate=formData[5].split('=')[1]
+    enddate=formData[6].split('=')[1]
+    print('formData:',formData)
+    print("name:",name)
+    print("division:",division)
+    print("sido:",sido)
+    print("gugun:",gugun)
+    print("dong:", dong)
+    print("startdate:",startdate)
+    print("enddate:", enddate)
+    if sido == "시/도+선택":
+        sido = ""
+    if gugun == "전체":
+        gugun = ""
+    if startdate == "" :
+        startdate = "1900-03-06"
+    if enddate == "":
+        enddate = "2200-03-06"
+    print("aaa",type(division))
+    file_meta_dict = dict()
+
+    testing = Animal_map.objects.raw("SELECT * FROM blog_animal_map where title LIKE '%%"+name+"%%'and animalclass like '%%"+division+"%%' and (address1 like '%%"+sido+"%%') and (address2 like '%%"+gugun+"%%' or address2 is null and address3 like '%%"+gugun+"%%' or address3 is null) and (address4 like '%%"+dong+"%%' or address4 is null and address5 like '%%"+dong+"%%' or address5 is null and address6 like '%%"+dong+"%%' or address6 is null) and observed_date >='"+startdate+"' and observed_date <='"+enddate+"'")
+    print("testing: ", testing)
+    title_dict = dict()
+    observed_date_dict = dict()
+    img_dict = dict()
+    address_dict = dict()
+    for p in testing:
+        print(p)
+        print(p.id)
+        print(p.title)
+        print(p.observed_date)
+        title_dict[p.id] = p.title
+        observed_date_dict[p.id] = str(p.observed_date)
+        img_dict[p.id]=str(p.imagefile)
+        address_dict[p.id]=p.address
+    file_meta_dict['title'] = title_dict
+    file_meta_dict['observed_date'] = observed_date_dict
+    file_meta_dict['image'] = img_dict
+    file_meta_dict['address'] = address_dict
+    context = file_meta_dict
+
+    return HttpResponse(json.dumps(context), content_type="application/json")
+
 def detailsearch(request):
     return render(request, 'detailsearch.html')

@@ -57,7 +57,8 @@
             <div id="myDiv" ></div>
             <!--표1 end-->
             <!--표2 start-->
-            <div id="tester2"></div>
+            <div id="tester2"> </div>
+                <p>좀 더 자세히 검색하고 싶다면? </p><a href="../detailsearch">클릭클릭!</a>
             <!--표2 end-->
         </div>
         <!--
@@ -81,54 +82,49 @@
         <p style="font-size:20px;"> <a href="/statistics/?s=a">양서류 지역별 통계</a></p>
         <p style="font-size:20px;"> <a href="/statistics/?s=i">곤충 지역별 통계</a></p>
     </div>
-    <script>
-    function getParameterByName(name) {
+<script>
+function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
+    results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-    var statistics = getParameterByName('s');
 
-      // This example creates a simple polygon representing the Bermuda Triangle.
-      // When the user clicks on the polygon an info window opens, showing
-      // information about the polygon's coordinates.
-
-      var map;
-      var infoWindow;
-         var bermudaTriangle1 = [];
-        var aa=[];
-        var geo;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+var statistics = getParameterByName('s');
+var map;
+var infoWindow;
+var bermudaTriangle1 ;
+var aa=[];
+var geo;
+var j=0;
+var input = document.getElementById('pac-input');
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
           center: {lat: 36.489, lng: 127.398},
           mapTypeId: 'terrain'
-        });
-        var input = document.getElementById('pac-input');
-        map.controls[google.maps.ControlPosition.LEFT].push(input);
+    });
+    map.controls[google.maps.ControlPosition.LEFT].push(input);
 
 {% for animaldistrict in animaldistricts %}
-
-        aa=[]
-        var j=0;
-        geo="{{animaldistrict.WKT}}";
-        var geos=geo.split('MULTIPOLYGON (((')[1].split(')),')[0].split('),')[0].split(',');
-        for (var i in geos) {
-            aa[i]={lat: parseFloat(geos[i].split(' ')[1]), lng: parseFloat(geos[i].split(' ')[0])}
-        }
-        var triangleCoords1 = aa;
-        bermudaTriangle1[j]=new google.maps.Polygon({
-          paths: triangleCoords1,
-          strokeColor: '#FFFF00',
-          strokeOpacity: 0.8,
-          strokeWeight: 3,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
-        });
-        bermudaTriangle1[j].setMap(map);
-        bermudaTriangle1[j].addListener('click',function(event) {
-
+    var triangleCoords=[];
+    geo="{{animaldistrict.WKT}}";
+    var geos=geo.split('MULTIPOLYGON (((')[1].split(')),')[0].split('),')[0].split(',');
+    for (var i in geos) {
+        triangleCoords[i]={lat: parseFloat(geos[i].split(' ')[1]), lng: parseFloat(geos[i].split(' ')[0])};
+    }
+    var triangleCoord = triangleCoords;
+    aa[j]=triangleCoords;
+    bermudaTriangle1=new google.maps.Polygon({
+      paths: triangleCoord,
+      strokeColor: '#FFFF00',
+      strokeOpacity: 0.8,
+      strokeWeight: 3,
+      fillColor: '#669966',
+      fillOpacity: 0.35
+    });
+    bermudaTriangle1.setMap(map);
+    bermudaTriangle1.addListener('click',function(event) {
         // Since this polygon has only one path, we can call getPath() to return the
         // MVCArray of LatLngs.
         var contentString = "{{animaldistrict.CTP_KOR_NM}}";
@@ -138,155 +134,190 @@
         infoWindow.setContent(contentString);
         infoWindow.setPosition(event.latLng);
         infoWindow.open(map);
-      });
-
-        j=j+1;
-
-
+    });
+    j=j+1;
 {% endfor %}
-
-        infoWindow = new google.maps.InfoWindow;
-      }
-
-
-    </script>
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap"
-         async defer></script>
+    infoWindow = new google.maps.InfoWindow;
+} //initMap end
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap"async defer></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 function  asd(contentString,statistics){
-
-var pk ="";
-
-if(contentString=="서울시")
-    pk="a";
-else if(contentString=="경기도")
-    pk="b";
-else if(contentString=="강원도")
-    pk="c";
-else if(contentString=="충청북도")
-    pk="d";
-else if(contentString=="충청남도")
-    pk="e";
-else if(contentString=="경상북도")
-    pk="f";
-else if(contentString=="경상남도")
-    pk="g";
-else if(contentString=="전라북도")
-    pk="h";
-else if(contentString=="전라남도")
-    pk="i";
-else if(contentString=="제주도")
-    pk="j";
-else if(contentString=="이북")
-    pk="k";
-$.ajax({
-      type: "POST",
-      url: "{% url 'dn' %}", // 통신할 url을 지정
-      data: {'pk': pk,'statistics':statistics,'csrfmiddlewaretoken': '{{ csrf_token }}'}, // 서버로 데이터 전송시 옵션
-      dataType: "json", // 서버측에서 전송한 데이터를 어떤 형식의 데이터로서 해석할 것인가를 지정, 없으면 알아서 판단
-      // 서버측에서 전송한 Response 데이터 형식 (json)
-      success: function(response){ // 통신 성공시 - 동적으로 좋아요 갯수 변경, 유저 목록 변경
-        //초기화
-        $("#m").text(0);
-        $("#b").text(0);
-        $("#r").text(0);
-        $("#a").text(0);
-        $("#i").text(0);
-        $("#year").text("");
-
-
-        if(statistics=='all'||statistics==''){
-            $("#m").text(response.region_count_ex.m);
-            $("#b").text(response.region_count_ex.b);
-            $("#r").text(response.region_count_ex.r);
-            $("#a").text(response.region_count_ex.a);
-            $("#i").text(response.region_count_ex.i);
-
-            var data = [{
-            values: [0, 0, 0,0,0],
-            labels: ['포유류', '조류', '파충류','양서류','곤충'],
-            type: 'pie'
-            }];
-            var data = [{
-            values: [response.region_count_ex.m, response.region_count_ex.b, response.region_count_ex.r,response.region_count_ex.a,response.region_count_ex.i],
-            labels: ['포유류', '조류', '파충류','양서류','곤충'],
-            type: 'pie'
-            }];
-
-        Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
+    initMap();
+    var triangleCoord;
+    var pk ="";
+    if(contentString=="서울시"){
+        pk="a";
+        triangleCoord=aa[0];
         }
-        else{
-            var statisticsname;
-            if(statistics =='m'){
-                statisticsname="포유류"
+    else if(contentString=="경기도"){
+        pk="b";
+        triangleCoord=aa[17];
+        }
+    else if(contentString=="강원도"){
+        pk="c";
+        triangleCoord=aa[1];
+        }
+    else if(contentString=="충청북도"){
+        pk="d";
+        triangleCoord=aa[11];
+        }
+    else if(contentString=="충청남도"){
+        pk="e";
+        triangleCoord=aa[4];
+        }
+    else if(contentString=="경상북도"){
+        pk="f";
+        triangleCoord=aa[12];
+        }
+    else if(contentString=="경상남도"){
+        pk="g";
+        triangleCoord=aa[3];
+        }
+    else if(contentString=="전라북도"){
+        pk="h";
+        triangleCoord=aa[6];
+        }
+    else if(contentString=="전라남도"){
+        triangleCoord=aa[8];
+        pk="i";
+        }
+    else if(contentString=="제주도"){
+        triangleCoord=aa[13];
+        pk="j";
+        }
+    else if(contentString=="이북"){
+        pk="k";
+        }
+        bermudaTriangle1=new google.maps.Polygon({
+          paths: triangleCoord,
+          strokeColor: '#FFFF00',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#669966',
+          fillOpacity: 0.7
+        });
+        bermudaTriangle1.setMap(map);
+
+    $.ajax({
+          type: "POST",
+          url: "{% url 'dn' %}", // 통신할 url을 지정
+          data: {'pk': pk,'statistics':statistics,'csrfmiddlewaretoken': '{{ csrf_token }}'}, // 서버로 데이터 전송시 옵션
+          dataType: "json", // 서버측에서 전송한 데이터를 어떤 형식의 데이터로서 해석할 것인가를 지정, 없으면 알아서 판단
+          // 서버측에서 전송한 Response 데이터 형식 (json)
+          success: function(response){ // 통신 성공시 - 동적으로 좋아요 갯수 변경, 유저 목록 변경
+            //초기화
+            $("#m").text(0);
+            $("#b").text(0);
+            $("#r").text(0);
+            $("#a").text(0);
+            $("#i").text(0);
+            $("#year").text("");
+
+            if(statistics=='all'||statistics==''){
+                $("#m").text(response.region_count_ex.m);
+                $("#b").text(response.region_count_ex.b);
+                $("#r").text(response.region_count_ex.r);
+                $("#a").text(response.region_count_ex.a);
+                $("#i").text(response.region_count_ex.i);
+
+                var data = [{
+                values: [0, 0, 0,0,0],
+                labels: ['포유류', '조류', '파충류','양서류','곤충'],
+                type: 'pie'
+                }];
+                var data = [{
+                values: [response.region_count_ex.m, response.region_count_ex.b, response.region_count_ex.r,response.region_count_ex.a,response.region_count_ex.i],
+                labels: ['포유류', '조류', '파충류','양서류','곤충'],
+                type: 'pie'
+                }];
+
+            Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
             }
-            else if(statistics =='b'){
-                statisticsname="조류"
-            }
-            else if(statistics =='r'){
-                statisticsname="파충류"
-            }
-            else if(statistics =='a'){
-                statisticsname="양서류"
-            }
-            else if(statistics =='i'){
-                statisticsname="곤충"
-            }
-            var yearname=[];
-            var yearvalue=[];
-            for(key in response.year_count_ex) {
-                $("#year").append('연도:' + key + ' / ' + '결과 값:' + response.year_count_ex[key]+'<br>');
-                yearname.push(key);
-                yearvalue.push(response.year_count_ex[key]);
-             }
-            for(key in response.month_count_ex) {
-                $("#month").append('월별:' + key + ' / ' + '결과 값:' + response.month_count_ex[key]+'<br>');
-             }
-            var data = [
-              {
-                x: yearname,
-                y: yearvalue,
-                type: 'bar',
-                    marker: {
-                    color: '#C8A2C8',
-                    line: {
-                        width: 2
-                    }
+            else{
+                var statisticsname;
+                if(statistics =='m'){
+                    statisticsname=contentString+"에 있는 표유류 연도별 계체수"
                 }
-              }
-            ];
-            var layout = {
-              title: statisticsname,
-              font: {size: 11}
-            };
-            Plotly.newPlot('tester2', data,layout);
-         }
-      }
-      ,
-      error: function(request, status, error){ // 통신 실패시
-        alert("실패")
-        //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      },
-    });
+                else if(statistics =='b'){
+                    statisticsname=contentString+"에 있는 조류 연도별 계체수"
+                }
+                else if(statistics =='r'){
+                    statisticsname=contentString+"에 있는 파충류 연도별 계체수"
+                }
+                else if(statistics =='a'){
+                    statisticsname=contentString+"에 있는 양서류 연도별 계체수"
+                }
+                else if(statistics =='i'){
+                    statisticsname=contentString+"에 있는 곤충 연도별 계체수"
+                }
+                var yearname=[];
+                var yearvalue=[];
+                for(key in response.year_count_ex) {
+                    $("#year").append('연도:' + key + ' / ' + '결과 값:' + response.year_count_ex[key]+'<br>');
+                    yearname.push(key);
+                    yearvalue.push(String(response.year_count_ex[key]));
+                 }
+                for(key in response.month_count_ex) {
+                    $("#month").append('월별:' + key + ' / ' + '결과 값:' + response.month_count_ex[key]+'<br>');
+                 }
+                var data = [
+                  {
+                    x: yearname,
+                    y: yearvalue,
+                    type: 'bar',
+                        marker: {
+                        color: '#669966',
+                        line: {
+                            width: 2
+                        }
+                    }
+                  }
+                ];
+                var layout = {
+                  title: statisticsname,
+                  xaxis: {tickformat:'.0f'},
+                  font: {size: 11}
+                };
+                Plotly.newPlot('tester2', data,layout);
+             }
+          },
+          error: function(request, status, error){ // 통신 실패시
+            alert("실패")
+          },
+        });
 }
-
-
-
-
 </script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript">
 //표1 스크립트
+var name;
+if(statistics =='m'){
+    name="표유류"
+}
+else if(statistics =='b'){
+    name="조류"
+}
+else if(statistics =='r'){
+    name="파충류"
+}
+else if(statistics =='a'){
+    name="양서류"
+}
+else if(statistics =='i'){
+    name="곤충"
+} else {
+ name="모든"
+}
 var data = [
   {
     x: ['서울', '경기도','강원도', '충북', '충남','경북','경남','전북','전남','제주','이북'],
     y: [{{file_meta_dict.file_count_address.서울특별시}}, {{file_meta_dict.file_count_address.경기도}}, {{file_meta_dict.file_count_address.강원도}},{{file_meta_dict.file_count_address.충청북도}},{{file_meta_dict.file_count_address.충청남도}},{{file_meta_dict.file_count_address.경상북도}},{{file_meta_dict.file_count_address.경상남도}},{{file_meta_dict.file_count_address.전라북도}},{{file_meta_dict.file_count_address.전라남도}},{{file_meta_dict.file_count_address.제주도}},{{file_meta_dict.file_count_address.이북}}],
     type: 'bar',
         marker: {
-        color: '#C8A2C8',
+        color: '#669966',
         line: {
             width: 2.5
         }
@@ -294,11 +325,10 @@ var data = [
   }
 ];
 var layout = {
-  title: '각 지역별 통계',
+  title: name+' 계체 통계',
   font: {size: 11}
 };
 Plotly.newPlot('myDiv', data,layout);
-
 //표1 나오는 스크립트 end
 </script>
 
