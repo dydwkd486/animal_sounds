@@ -21,7 +21,8 @@ import json
 from SPARQLWrapper import SPARQLWrapper, JSON
 import xml.etree.ElementTree as ET
 
-
+def test(request):
+    return render(request, 'test.html')
 #@login_required
 def home(request):
     animap = Animal_map.objects.filter()
