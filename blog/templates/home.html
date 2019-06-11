@@ -6,6 +6,7 @@
 {% block title %}동물 소리(animal_sound){% endblock %}
 
 {% block content %}
+<!--
 <div class="visible-xs-block"  style="background-color:#CCCCCC;height:30px;">
 이글은 xs의 경우에만 보입니다.
 </div>
@@ -21,6 +22,7 @@
 <div class="visible-lg-block"  style="background-color:red;height:30px;">
 이글은 lg의 경우에만 보입니다.
 </div>
+-->
 <div class="container-fluid">
     <div class="row">
 <!--지도 start-->
@@ -106,27 +108,27 @@
       <div class="" data-toggle="buttons" style="width: 100%; text-align: center;">
         <label class="btn btn-p stylerimary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
           <img src="/media/iconspe_01.png" ><br>
-          <input type="checkbox" name="checkbox" id="class1" checked="" value="" autocomplete="off" style="position: inherit;"> 전체
+            <input type="checkbox" name="checkbox" id="class1" checked="" value="" autocomplete="off" style="position: inherit;"> <p style="color:#fff"> 전체</p>
         </label>
         <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
           <img src="/media/iconspe_02.png" ><br>
-          <input type="checkbox" name="checkbox" id="class2" autocomplete="off" value="m" id="cd2" style="position: inherit;"> 포유류
+            <input type="checkbox" name="checkbox" id="class2" autocomplete="off" value="m" id="cd2" style="position: inherit;"> <p style="color:#fff">포유류</p>
         </label>
         <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
           <img src="/media/iconspe_03.png" ><br>
-          <input type="checkbox" name="checkbox" id="class3" autocomplete="off" value="b" style="position: inherit;"> 조류
+            <input type="checkbox" name="checkbox" id="class3" autocomplete="off" value="b" style="position: inherit;"> <p style="color:#fff">조류</p>
         </label>
         <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
           <img src="/media/iconspe_04.png" ><br>
-          <input type="checkbox" name="checkbox" id="class4" autocomplete="off" value="r" style="position: inherit;"> 파충류
+            <input type="checkbox" name="checkbox" id="class4" autocomplete="off" value="r" style="position: inherit;"> <p style="color:#fff">파충류</p>
         </label>
         <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
           <img src="/media/iconspe_05.png" ><br>
-          <input type="checkbox" name="checkbox" id="class5" autocomplete="off" value="a" style="position: inherit;"> 양서류
+            <input type="checkbox" name="checkbox" id="class5" autocomplete="off" value="a" style="position: inherit;"> <p style="color:#fff">양서류</p>
         </label>
         <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
           <img src="/media/iconspe_07.png"><br>
-          <input type="checkbox" name="checkbox" id="class6"autocomplete="off" value="i" style="position: inherit;"> 곤충
+            <input type="checkbox" name="checkbox" id="class6"autocomplete="off" value="i" style="position: inherit;"> <p style="color:#fff">곤충</p>
         </label>
       </div> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
 
@@ -134,40 +136,40 @@
   <p style="padding-left: 5%;"><b>지역</b></p>
   <div class="" data-toggle="buttons" style="width: 100%; text-align: center;">
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="" id="option1" autocomplete="off" checked="" style="position: inherit;"> 전체
+    <input type="checkbox" name="options" value="" id="option1" autocomplete="off" checked="" style="position: inherit;"> <p style="color:#fff"> 전체</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="a" id="option2" autocomplete="off" style="position: inherit;"> 서울시
+    <input type="checkbox" name="options" value="a" id="option2" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 서울시</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="b" id="option3" autocomplete="off" style="position: inherit;"> 경기도
+    <input type="checkbox" name="options" value="b" id="option3" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 경기도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="c" id="option4" autocomplete="off" style="position: inherit;"> 강원도
+    <input type="checkbox" name="options" value="c" id="option4" autocomplete="off" style="position: inherit;"><p style="color:#fff">강원도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="d" id="option5" autocomplete="off" style="position: inherit;"> 충청북도
+    <input type="checkbox" name="options" value="d" id="option5" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 충청북도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="e" id="option6" autocomplete="off" style="position: inherit;"> 충청남도
+    <input type="checkbox" name="options" value="e" id="option6" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 충청남도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="f" id="option7" autocomplete="off" style="position: inherit;"> 경상북도
+    <input type="checkbox" name="options" value="f" id="option7" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 경상북도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="g" id="option8" autocomplete="off" style="position: inherit;"> 경상남도
+    <input type="checkbox" name="options" value="g" id="option8" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 경상남도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="h" id="option9" autocomplete="off" style="position: inherit;"> 전라북도
+    <input type="checkbox" name="options" value="h" id="option9" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 전라북도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="i" id="option10" autocomplete="off" style="position: inherit;"> 전라남도
+    <input type="checkbox" name="options" value="i" id="option10" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 전라남도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="j" id="option11" autocomplete="off" style="position: inherit;"> 제주도
+    <input type="checkbox" name="options" value="j" id="option11" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 제주도</p>
   </label>
   <label class="btn btn-primary" style="background-color: #669966; border-color: transparent; margin-bottom: 2px; width: 30%;">
-    <input type="checkbox" name="options" value="k" id="option12" autocomplete="off" style="position: inherit;"> 이북
+      <input type="checkbox" name="options" value="k" id="option12" autocomplete="off" style="position: inherit;"><p style="color:#fff"> 이북</p>
   </label>
 </div>
 <br>

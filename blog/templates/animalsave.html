@@ -6,19 +6,18 @@
 {% block title %}동물 소리(animal_sound){% endblock %}
 
 {% block content %}
+
 <div id="loading">
   <img src="/media/loading.gif" alt="loading">
 </div>
-<div class="div_wrap" style="width: 80%">
+<div class="div_wrap" style="width: 100%">
   <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>동물 정보 업로드</b></h1>
   <!--h5 style="margin-top: 24px; margin-bottom: 12px;">*동물 울음소리 및 사진 파일을 첨부합니다. 빈 부분은 인공지능을 활용하여 유추합니다.</h5-->
     <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data">
-   <div class="content" style="margin-top: 0px; margin-left: 15%;">
-      <div>
-
-        <!--ss-->
+   <div class="content" style="margin-top: 0px;">
+<!--왼쪽-->
+       <div>
         {% csrf_token %}
-
         {% if request.user.profile.professional %}
         <br><label style="color: #339933; font-size: 125%;"><b>동물 소리</b></label><br>
         <div class="form-group " style="text-align: left;">
@@ -71,7 +70,7 @@
           <label for="id_animal_map-content">Content<b style="color:red;">*</b></label>
           <input name="animal_map-content" id="id_animal_map-content" class="form-control" type="" placeholder="세부내용. ." required>
         </div>
-        {% else %} 
+        {% else %}
         <br><label style="color: #339933; font-size: 125%;"><b>동물 소리</b></label><br>
         <div class="form-group " style="text-align: left;">
           <div id="sound_dropbox">
@@ -125,38 +124,13 @@
         </div>
 
         {% endif %}
-        <!--
-        {% with sound_id="id_animal_map-soundfile" %}
-
-        {% for field in form %}
-
-        <div class="form-group {% if field.errors|length > 1 %}has-error{%endif %}" style="text-align: left;">
-          {% if field.id_for_label == sound_id %}
-          <div id="sound_dropbox">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:''  }}" placeholder="...">
-            {% for error in field.errors %}
-            <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
-            {% endfor %}
-          </div>
-          {% else %}
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:''  }}">
-          {% for error in field.errors %}
-          <label class="control-label" for="{{ field.id_for_label }}">{{ error }}</label>
-          {% endfor %}
-
-          {% endif %}
-        </div>
-        {% endfor %}
-
-        {% endwith %}
-      -->
+           <div class="visible-lg-block">
         <div class="form-actions">
           <button class="btn btn-primary btn-large" type="button" onclick="form_submit()" style="background-color: #339933; border-color: #339933; width: 100%;">저장하기</button>
         </div>
-      <!--</form>-->
+           </div>
     </div>
+       <!--오른쪽-->
        <div class="content" style="margin-top: 0px; margin-left: 0%;">
        {% if request.user.profile.professional %}
        <br><label style="color: #339933; font-size: 125%;"><b>위치 정보</b></label><br>
@@ -205,7 +179,13 @@
       </div>
     </body>
   </div>
+       <div class="hidden-lg">
+       <div class="form-actions">
+          <button class="btn btn-primary btn-large" type="button" onclick="form_submit()" style="background-color: #339933; border-color: #339933; width: 100%;">저장하기</button>
+        </div>
+       </div>
    </div>
+
         </form>
 </div>
 <footer style="background: #ecf0f1">
@@ -244,7 +224,9 @@
     </div>
   </footer>
 <style type="text/css">
-#map_canvas { height:400px; width:60%; }
+
+
+#map_canvas { height:400px; width:100%; }
 
 #id_file{ background-color: #FFFFFF; }
 
@@ -277,15 +259,16 @@ text-align: center;
 box-sizing:border-box;
 }
 
+
 .btn.btn-primary.btn-large {
 margin-top: 10px;
 width:60%;
-height:60px; 
+height:60px;
 font-size: 30px;
 }
 
 #id_content{
-height:100px; 
+height:100px;
 }
 
 #pac-input {
@@ -300,7 +283,7 @@ width: 400px;
 height: 30px;
 }
 
-#info { height:50%; width:60%; }
+#info { height:50%; width:100%; }
 
 #mainControl {
 width: 45%;
@@ -417,7 +400,27 @@ display: inline-block;
   top: 50%;
   left: 50%;
   z-index: 100;
-} 
+}
+.content{
+    margin-left: 15%;
+}
+@media only screen and (max-width: 1200px) {
+
+html{font-size:10px;}
+div{font-size:1.2em;}
+p{font-size:1.1em;}
+.form-control{
+font-size: 1.2em;
+    height: auto;
+}
+    .content{
+        margin-left: auto;
+    }
+    .content > div{
+        width: auto;
+        float: none;
+    }
+}
 
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
