@@ -456,7 +456,22 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-
+      var centerlat=37.58098;
+      var centerlng=127.01487;
+    $(function() {
+        // Geolocation API에 액세스할 수 있는지를 확인
+        if (navigator.geolocation) {
+            //위치 정보를 얻기
+            navigator.geolocation.getCurrentPosition (function(pos) {
+                $('#id_animal_map-Latitude').val(pos.coords.latitude);   // 위도
+                $('#id_animal_map-Longitude').val(pos.coords.longitude); // 경도
+                centerlat=pos.coords.latitude;
+                centerlng=pos.coords.longitude;
+            });
+        } else {
+            alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
+        }
+    });
 
     //구글 맵 관련 스크립트 start
     var initialLocation;
@@ -466,8 +481,8 @@ $(document).ready(function() {
 
 
     function initialize() {
-      var centerlat=37.58098;
-      var centerlng=127.01487;
+    centerlat=parseFloat(centerlat);
+    centerlng=parseFloat(centerlng);
       var myLatLng = {lat:centerlat, lng:centerlng};
       var myOptions = {
         zoom: 16,
@@ -475,7 +490,13 @@ $(document).ready(function() {
       };
       var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-      var marker;
+      var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+
+
 
       myListener = google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
