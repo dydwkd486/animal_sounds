@@ -7,10 +7,14 @@
 
 {% block content %}
 
+
+
 <div id="loading">
   <img src="/media/loading.gif" alt="loading">
 </div>
+
 <div class="div_wrap" style="width: 100%">
+<input type="file" accept="audio/*;capture=microphone">
   <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>동물 정보 업로드</b></h1>
   <!--h5 style="margin-top: 24px; margin-bottom: 12px;">*동물 울음소리 및 사진 파일을 첨부합니다. 빈 부분은 인공지능을 활용하여 유추합니다.</h5-->
     <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data">
