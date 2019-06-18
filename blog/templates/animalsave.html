@@ -14,7 +14,6 @@
 </div>
 
 <div class="div_wrap" style="width: 100%">
-<input type="file" accept="audio/*;capture=microphone">
   <h1 style="margin-top: 24px; margin-bottom: 12px; color: #339933;"><b>동물 정보 업로드</b></h1>
   <!--h5 style="margin-top: 24px; margin-bottom: 12px;">*동물 울음소리 및 사진 파일을 첨부합니다. 빈 부분은 인공지능을 활용하여 유추합니다.</h5-->
     <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data">
@@ -290,14 +289,20 @@ height: 30px;
 #info { height:50%; width:100%; }
 
 #mainControl {
+/*
 width: 45%;
 height: 100%;
-float: left;
+
+
+*/
 margin-right: 30px;
+float: left;
 }
 #addControl {
+
 width: 45%;
 height: 100%;
+
 float: left;
 }
 
@@ -375,7 +380,7 @@ left:100%;
 }
 
 .time-indicator{
-width:55px;
+/* width:55px;*/
 margin: 0 10px 0 10px;
 display: inline-block;
 }
@@ -424,7 +429,21 @@ font-size: 1.2em;
         width: auto;
         float: none;
     }
+    #addControl{
+    width: 100%;
+float: left;
 }
+#mainControl {
+
+float: none;
+}
+.video-stop,.video-play{
+width: 1.2em;
+    height: 1.2em;
+    background-size: cover;
+}
+}
+
 
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -913,12 +932,15 @@ $(document).ready(function() {
   // file: 대상 파일
   function addFileIcon(file){
     var fileInfoDiv = document.createElement("div");
+    fileInfoDiv.style="font-size: small";
     var fileIconDiv = document.createElement("img");
     fileIconDiv.src = "{% static 'img/video-file-48.png' %}";
+    fileIconDiv.style= "width: auto";
     var fileNameDiv = document.createElement("div");
     fileNameDiv.innerHTML = file.name;
     var fileDeleteDiv = document.createElement("img");
     fileDeleteDiv.src = "{% static 'img/delete-26.png' %}";
+    fileDeleteDiv.style= "width: auto";
     fileInfoDiv.appendChild(fileIconDiv);
     fileInfoDiv.appendChild(fileNameDiv);
     fileInfoDiv.appendChild(fileDeleteDiv);
