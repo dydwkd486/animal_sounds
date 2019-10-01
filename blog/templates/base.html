@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap" rel="stylesheet">
     <meta name="google-site-verification" content="JSwCvyDGkjg1dWXhULOBwiih9LWfPRc35kk07DAYeoA" />
 	{% load static %}
     <link rel="stylesheet" href="{% static "css/skin/blue.monday/css/jplayer.blue.monday.min.css"%}">
@@ -27,6 +28,7 @@
   <meta charset="utf-8">
   <title>{% block title %}동물 소리(animal_sound){% endblock %}</title>
   <style>
+
     <span class="metadata-marker" style="display: none;" data-region_tag="css"></span>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
@@ -45,7 +47,7 @@
 @media only screen and (max-width: 1200px) {
 
 html{font-size:10px;}
-b{font-size: 2.7em;}
+b{font-size: 2em;}
 p{font-size:2em;}
 .form-control{
 font-size: 1.2em;
@@ -74,45 +76,55 @@ height:50%;
 
 <body>
 	<header>
-  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" >
+      <nav class=" navbar-expand-md" style="background-color: #669966;" >
+            <div style="width: 70%;margin-left: 15%;margin-right: 15%;padding-top: 5px; padding-bottom: 5px;text-align: right; ">
+               <form class="" style="margin-right: 15px;">
+      {% if user.is_authenticated %}
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <p style="padding: 0px;margin-bottom: 0px;"><span class="writer_name">{{ user.username }} </span>님</p>
+    <!-- 아이디 명 end -->
+    <!-- 로그인/로그아웃 start -->
+
+    </div>
+                   <button type="button" class="btn btn-secondary"><a href="{% url 'logout' %}">logout</a></button>
+      {% else %}
+        <a href="{% url 'login' %}" ><b style="color: #FFFFFF;font-family: 'Noto Sans KR', sans-serif;font-weight: 400;">로그인</b></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'signup' %}"> <b style="color: #FFFFFF;font-family: 'Noto Sans KR', sans-serif;font-weight: 400;">회원가입</b></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'signup' %}"> <b style="color: #FFFFFF;font-family: 'Noto Sans KR', sans-serif;font-weight: 400;">사이트맵</b></a>
+      {% endif %}
+      <!-- 로그인/로그아웃 end -->
+    </form>
+  </div>
+      </nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" >
+    <div style="width: 70%;margin-left: 15%;margin-right: 15%;padding-top: 5px; padding-bottom: 5px;">
   <a class="navbar-brand" href="/" style="padding: 0px;"><img src="/media/logo_black.png" style="height: 65px; width: auto;"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="float: right;    font-size: x-large;">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <!-- 메뉴 바 부분 start -->
-    <ul class="navbar-nav m-auto" style="width: 80%;">
-      <li class="nav-item active" style="width: 20%;">
-        <a class="nav-link" href=javascript:void(0);" onclick="login_click();" style="text-align: center;"><b style="font-size: 150%; text-decoration: underline;">업로드</b> </a>
+    <ul class="navbar-nav m-auto" style="width: 70%;">
+      <li class="nav-item active" style="margin-left: 10%;">
+        <a class="nav-link" href=javascript:void(0);" onclick="login_click();" style="text-align: center;"><b style="font-size: 150%;font-family: 'Noto Sans KR', sans-serif; font-weight: 600;">업로드</b> </a>
       </li>
-      <li class="nav-item active" style="width: 20%;">
-          <a class="nav-link" href="/" style="text-align: center;"><b style="font-size: 150%; text-decoration: underline;">지도</b> </a>
+      <li class="nav-item active" style="margin-left: 10%;">
+          <a class="nav-link" href="/" style="text-align: center;"><b style="font-size: 150%; font-family: 'Noto Sans KR', sans-serif;">지도</b> </a>
       </li>
-      <li class="nav-item active" style="width: 20%;">
-        <a class="nav-link" href="/animallist" style="text-align: center;"><b style="font-size: 150%; text-decoration: underline;">목록</b> </a>
+      <li class="nav-item active" style="margin-left: 10%;">
+        <a class="nav-link" href="/animallist" style="text-align: center;"><b style="font-size: 150%;font-family: 'Noto Sans KR', sans-serif; ">목록</b> </a>
       </li>
-      <li class="nav-item active" style="width: 20%;">
-        <a class="nav-link" href="/statistics" style="text-align: center;"><b style="font-size: 150%; text-decoration: underline;">통계</b> </a>
+      <li class="nav-item active" style="margin-left: 10%;">
+        <a class="nav-link" href="/statistics" style="text-align: center;"><b style="font-size: 150%; font-family: 'Noto Sans KR', sans-serif;">통계</b> </a>
       </li>
 
     </ul>
     <!-- 메뉴 바 부분 end -->
     <!-- 아이디 명 start -->
-    <form class="form-inline my-2 my-lg-0" style="margin-right: 15px;">
-      {% if user.is_authenticated %}
-        <p class="navbar-brand" style="margin-bottom: 0px;"><span class="writer_name">{{ user.username }} </span>님</p>
-    <div class="btn-group" role="group" aria-label="Basic example">
-    <!-- 아이디 명 end -->
-    <!-- 로그인/로그아웃 start -->
-    <button type="button" class="btn btn-secondary"><a href="{% url 'logout' %}">logout</a></button>
-    </div>
-      {% else %}
-        <a href="{% url 'login' %}" style="margin-right: 15px;color: #000000; font-size: 112%;"><b>로그인</b></a>또는&nbsp;&nbsp;&nbsp;<a href="{% url 'signup' %}"style="margin-right: 15px;color: #000000;  font-size: 112%;"> <b>가입하기</b></a>
-      {% endif %}
-      <!-- 로그인/로그아웃 end -->
-    </form>
+
   </div>
+
+    </div>
 </nav>
     </header>
   <main>
