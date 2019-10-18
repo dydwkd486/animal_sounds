@@ -13,7 +13,7 @@ import math
 2. 저장한 이미지에 저작권 적어주기 0
 3. 데이터 베이스에 저장할수있게 코드화 0
 4. 서버에서 바로 실행할수있게 세팅하기
-
+DELETE FROM public.blog_animal_map WHERE id BETWEEN 382226 AND 383755;
 '''
 ## 시작 페이지, 마지막 페이지, 디비 아이디, 비밀번호, 이미지 폴더
 parse = argparse.ArgumentParser(description="테스트입니다.")
@@ -87,7 +87,42 @@ for page in range(math.ceil(last_page)):
 
             #print(animalclass)  # 동물 분류 종류
 
-            #print(" ".join(bsObject_sub.find("div", {"class": "obsinfo__item-content"}).text.split()))  # 주소
+            print(" ".join(bsObject_sub.find("div", {"class": "obsinfo__item-content"}).text.split()))  # 주소
+            address = " ".join(bsObject_sub.find("div", {"class": "obsinfo__item-content"}).text.split())
+            addresssub = address.split(" ")[0]
+            print(addresssub)
+            if addresssub=='서울':
+                addresssub="a"
+            elif addresssub=='경기': #새
+                addresssub="b"
+            elif addresssub=='강원': #포유류
+                addresssub="c"
+            elif addresssub=='충남' or addresssub=='충청남도': #양서류
+                addresssub="d"
+            elif addresssub=='충북' or addresssub=='충청북도': #파충류
+                addresssub="e"
+            elif addresssub=='경남' or addresssub=='경상남도': #새
+                addresssub="f"
+            elif addresssub=='경북' or addresssub=='경상북도': #포유류
+                addresssub="g"
+            elif addresssub=='전남' or addresssub=='전라남도' or addresssub=='광주': #양서류
+                addresssub="h"
+            elif addresssub=='전북': #파충류
+                addresssub="i"
+            elif addresssub=='제주특별자치도': #새
+                addresssub="j"
+            elif addresssub=='세종특별자치시': #포유류
+                addresssub="l"
+            elif addresssub=='인천광역시' or addresssub=='인천': #양서류
+                addresssub="m"
+            elif addresssub=='대전': #파충류
+                addresssub="n"
+            elif addresssub=='울산': #새
+                addresssub="o"
+            elif addresssub=='대구': #포유류
+                addresssub="p"
+            elif addresssub=='부산': #양서류
+                addresssub="q"
             observed_date=bsObject_sub.find_all("div", {"class": "obsinfo__item-content"})[3].text.strip()
             observed_date=observed_date.replace("년 ","-").replace("월 ","-").split("일 ")[0]
             #print(observed_date)  # 관찰 날짜
@@ -99,20 +134,22 @@ for page in range(math.ceil(last_page)):
             cc="(C) " + bsObject_sub.find("p", {"class": "obsauthor__name"}).text.strip() + " at 네이처링"
             modify(id,cc)
 
-            address="a"
+
             imagefile="/img/"+id+".jpg"
             soundfile="sound/170605_세종시_금개구리1.wav"
-            #데이터 베이스에 저장
+
+            # 데이터 베이스에 저장
             conn_string = "host='localhost' dbname ='django_test' user='"+args.id+"' password='"+args.passward+"'"
             conn = psycopg2.connect(conn_string)
             cur= conn.cursor()
             cur.execute('select id from blog_animal_map where id='+id+';')
             result= cur.fetchall()
             if result==[]:
-                cur.execute('insert into blog_animal_map(id, writer , animalclass, title, "Latitude", "Longitude", address, imagefile, soundfile, observed_date, created_date ) values ('+id+",'"+writer+"','"+animalclass+"','"+title+"','"+Latitude+"','"+Longitude+"','"+address+"','"+imagefile+"','"+soundfile+"','"+observed_date+"','"+created_date+"');")
+                cur.execute('insert into blog_animal_map(id, writer , animalclass, title, "Latitude", "Longitude", address, imagefile, soundfile, observed_date, created_date ) values ('+id+",'"+writer+"','"+animalclass+"','"+title+"','"+Latitude+"','"+Longitude+"','"+addresssub+"','"+imagefile+"','"+soundfile+"','"+observed_date+"','"+created_date+"');")
                 conn.commit()
+
         except AttributeError:
             pass
-
+    break
 
 

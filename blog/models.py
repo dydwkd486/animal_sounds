@@ -31,10 +31,16 @@ class Animal_map(models.Model):
         ('h','전라북도'),#
         ('i','전라남도'),
         ('j','제주도'),
-        ('k','북한'))
+        ('k','북한'),
+        ('l','세종시'),
+        ('m','인천'),
+        ('n','대전'),
+        ('o','울산'),
+        ('p','대구'),
+        ('q','부산'))
     LEVEL_DICT = {'m':'Mammalia', 'b':'Birds', 'r':'Reptile', 'a':'Amphibia', 'i':'Insect'}
     ADDRESS_DICT = {'a': '서울특별시','b': '경기도','c': '강원도','d': '충청북도','e': '충청남도','f': '경상북도','g': '경상남도',
-        'h': '전라북도','i': '전라남도','j': '제주도','k': '북한', '1':'test'}
+        'h': '전라북도','i': '전라남도','j': '제주도','k': '북한', 'l': '세종시', 'm': '인천', 'n': '대전', 'o': '울산', 'p': '대구', 'q': '부산', '1':'test'}
 
     writer = models.CharField(max_length = 100)
     animalclass = models.CharField(max_length=1,choices=LEVEL, blank=True, default='m', help_text='class_Level')
