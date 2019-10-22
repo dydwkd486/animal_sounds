@@ -14,6 +14,8 @@ import math
 3. 데이터 베이스에 저장할수있게 코드화 0
 4. 서버에서 바로 실행할수있게 세팅하기
 DELETE FROM public.blog_animal_map WHERE id BETWEEN 382226 AND 383755;
+DELETE FROM public.blog_animal_map;
+DELETE FROM public.blog_animal_sub_file ;
 '''
 ## 시작 페이지, 마지막 페이지, 디비 아이디, 비밀번호, 이미지 폴더
 parse = argparse.ArgumentParser(description="테스트입니다.")
@@ -61,8 +63,10 @@ for page in range(math.ceil(last_page)):
             id = link.get('href')
             print(id)  # id
             Latitude=bsObject_sub.find("div", {"id": "map"}).get("data-lat")
+            Latitude=("{:.7f}".format(float(Latitude)))
             print(Latitude)  # 좌표 lat
             Longitude=bsObject_sub.find("div", {"id": "map"}).get("data-lng")
+            Longitude = ("{:.7f}".format(float(Longitude)))
             print(Longitude)  # 좌표 lng
             title=bsObject_sub.find("meta", {"property": "og:title"}).get("content")
             print(title)  # 한글 이름.
@@ -85,7 +89,7 @@ for page in range(math.ceil(last_page)):
             elif animalclass=='reptilia': #파충류
                 animalclass="r"
 
-            #print(animalclass)  # 동물 분류 종류
+            print(animalclass)  # 동물 분류 종류
 
             print(" ".join(bsObject_sub.find("div", {"class": "obsinfo__item-content"}).text.split()))  # 주소
             address = " ".join(bsObject_sub.find("div", {"class": "obsinfo__item-content"}).text.split())
@@ -93,7 +97,7 @@ for page in range(math.ceil(last_page)):
             print(addresssub)
             if addresssub=='서울':
                 addresssub="a"
-            elif addresssub=='경기': #새
+            elif addresssub=='경기'or addresssub=='경기도': #새
                 addresssub="b"
             elif addresssub=='강원': #포유류
                 addresssub="c"
@@ -107,7 +111,7 @@ for page in range(math.ceil(last_page)):
                 addresssub="g"
             elif addresssub=='전남' or addresssub=='전라남도' or addresssub=='광주': #양서류
                 addresssub="h"
-            elif addresssub=='전북': #파충류
+            elif addresssub=='전북' or  addresssub == '전라북도': #파충류
                 addresssub="i"
             elif addresssub=='제주특별자치도': #새
                 addresssub="j"
@@ -121,14 +125,20 @@ for page in range(math.ceil(last_page)):
                 addresssub="o"
             elif addresssub=='대구': #포유류
                 addresssub="p"
-            elif addresssub=='부산': #양서류
+            elif addresssub=='부산' or addresssub == '부산광역시': #양서류
                 addresssub="q"
             observed_date=bsObject_sub.find_all("div", {"class": "obsinfo__item-content"})[3].text.strip()
-            observed_date=observed_date.replace("년 ","-").replace("월 ","-").split("일 ")[0]
-            #print(observed_date)  # 관찰 날짜
+
             created_date=bsObject_sub.find("p", {"class": "obsauthor__post-time"}).text.strip()
             created_date = created_date.replace("년 ", "-").replace("월 ", "-").split("일 ")[0]
             #print(created_date)  # 등록 날짜
+            observed_date = observed_date.replace("년 ", "-").replace("월 ", "-").split("일 ")[0]
+            if observed_date == '0000-0-0':
+                observed_date=created_date
+
+            #print(observed_date)  # 관찰 날짜
+
+
             writer=bsObject_sub.find("p", {"class": "obsauthor__name"}).text.strip()
             #print(writer)  # 등록자
             cc="(C) " + bsObject_sub.find("p", {"class": "obsauthor__name"}).text.strip() + " at 네이처링"
@@ -137,6 +147,9 @@ for page in range(math.ceil(last_page)):
 
             imagefile="/img/"+id+".jpg"
             soundfile="sound/170605_세종시_금개구리1.wav"
+            file = 'subsound/subFile0.wav'
+            start_point = "6.4319340"
+            end_point = "16.3211867"
 
             # 데이터 베이스에 저장
             conn_string = "host='localhost' dbname ='django_test' user='"+args.id+"' password='"+args.passward+"'"
@@ -145,7 +158,9 @@ for page in range(math.ceil(last_page)):
             cur.execute('select id from blog_animal_map where id='+id+';')
             result= cur.fetchall()
             if result==[]:
+                print('insert into blog_animal_map(id, writer , animalclass, title, "Latitude", "Longitude", address, imagefile, soundfile, observed_date, created_date ) values ('+id+",'"+writer+"','"+animalclass+"','"+title+"','"+Latitude+"','"+Longitude+"','"+addresssub+"','"+imagefile+"','"+soundfile+"','"+observed_date+"','"+created_date+"');")
                 cur.execute('insert into blog_animal_map(id, writer , animalclass, title, "Latitude", "Longitude", address, imagefile, soundfile, observed_date, created_date ) values ('+id+",'"+writer+"','"+animalclass+"','"+title+"','"+Latitude+"','"+Longitude+"','"+addresssub+"','"+imagefile+"','"+soundfile+"','"+observed_date+"','"+created_date+"');")
+                cur.execute('insert into blog_animal_sub_file(id,file,start_point,end_point,"Animal_map_id") values ('+id+",'"+file+"','"+start_point+"','"+end_point+"','"+id+"');")
                 conn.commit()
 
         except AttributeError:

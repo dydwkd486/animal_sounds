@@ -129,7 +129,8 @@
 			내부 정보
 			<p>{{ total_info.content }}</p>
 			LOD 정보
-			<pre style="white-space: pre-wrap;">{{ animals }}</pre>
+			<pre style="white-space: pre-wrap;">{{ animals }}
+			</pre>
 			<a href="{{url}}">더 자세한 정보</a>
 
 		       <br>
@@ -158,7 +159,7 @@
 			ready: function (event) {
 				$(this).jPlayer("setMedia", {
 					title: "{{ animal_map.title }} 소리",
-					mp3: "/media/{{ animal_map.soundfile }}",
+					mp3: "/media/{{ subfile.file }}",
 				});
 			},
 			swfPath: "../../dist/jplayer",

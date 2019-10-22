@@ -11,6 +11,7 @@
     <div>
        <p id="title" class="d-flex justify-content-center"></p>
     </div>
+       <!--
    <div style="height: 100px; margin-top: 30px;" class="d-flex justify-content-center">
     <fieldset id="search_fieldset"> <input id="search_input" type="search", style="height: 50%; width: 450px; margin-left: 70px;" placeholder="animals, locations, etc..."/>
       <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px; height: 55%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 35px;"></button>
@@ -18,26 +19,27 @@
     </fieldset>
    </div>
   </div>
+  -->
   <!-- 상단 end -->
-<div style="width: 60%; margin-left: auto; margin-right: auto;">
+    <div style="width: 60%; margin-left: auto; margin-right: auto;">
       <div class="collapse navbar-collapse" id="navbarColor01" style="width: 100%; display: block;">
-            <ul class="navbar-nav m-auto" style="flex-direction: unset;">
+            <ul class="navbar-nav m-auto" style="flex-direction: unset;float: inherit;">
       <li class="nav-item active" style="margin-left: 10px; width: 33%">
-        <b style="font-size: 150%; color: #339933; text-align: left;">목 록</b>
+        <b style="font-size: 150%; color: #339933; ">목 록</b>
       </li>
     </ul>
       </div>
     <div id="out" style="width: 100%;">
       <!--동물 정보 start-->
-       <div id="pac-text" class="table" style="overflow-y:scroll; width:100%;height:400px;  display: inline-block; background-color: #ffffff">
-            <tbody>
+
 
              {% for animal_map in animal_maps %}
-             <hr >
+
+             <hr style="margin:0px;margin-top:4px;">
           <div style="width: 100%;">
 
-             <div class="text_img" style="width: 10%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" ></div>
-              <div style="width: 60%; height: 100px;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; text-decoration: underline;"><b>{{ animal_map.title }}</b></a></h5>
+             <div class="text_img" style="width: 100px;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" ></div>
+              <div style="width: 350px; height: 100px;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; text-decoration: underline;"><b>{{ animal_map.title }}</b></a></h5>
               <p>
 
               발견장소:
@@ -65,42 +67,126 @@
                 북한
                 {%endif%}
 
+
              </p>
              <p> 발견시각:{{animal_map.observed_date}}</p>
               <p>구분:
-              {%if animal_map.Class == 'm' %}
+              {%if animal_map.animalclass == 'm' %}
               포유류
-              {%elif animal_map.Class == 'b'%}
+              {%elif animal_map.animalclass == 'b'%}
               조류
-              {%elif animal_map.Class == 'r'%}
+              {%elif animal_map.animalclass == 'r'%}
               파충류
-              {%elif animal_map.Class == 'a'%}
+              {%elif animal_map.animalclass == 'a'%}
               양서류
-              {%elif animal_map.Class == 'i'%}
+              {%elif animal_map.animalclass == 'i'%}
               곤충
               {%endif%}
-
-
-
-
 
 
               </p>
           
 
           </div>
-            
+              <div style="display: inline-block;">
+                  <!--jplater start-->
+			<div id="jquery_jplayer_{{animal_map.id}}" class="jp-jplayer"></div>
+			<div id="jp_container_{{animal_map.id}}" class="jp-audio" role="application" aria-label="media player" style="">
+				<div class="jp-type-single">
+					<div class="jp-gui jp-interface">
+						<div class="jp-controls">
+							<button class="jp-play" role="button" tabindex="0">play</button>
+							<button class="jp-stop" role="button" tabindex="0">stop</button>
+						</div>
+						<div class="jp-progress">
+							<div class="jp-seek-bar">
+								<div class="jp-play-bar"></div>
+							</div>
+						</div>
+						<div class="jp-volume-controls">
+							<button class="jp-mute" role="button" tabindex="0">mute</button>
+							<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+							<div class="jp-volume-bar">
+								<div class="jp-volume-bar-value"></div>
+							</div>
+						</div>
+						<div class="jp-time-holder">
+							<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+							<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+							<div class="jp-toggles">
+								<button class="jp-repeat" role="button" tabindex="0">repeat</button>
+							</div>
+						</div>
+					</div>
+					<div class="jp-details">
+						<div class="jp-title" aria-label="title">&nbsp;</div>
+					</div>
+					<div class="jp-no-solution">
+						<span>Update Required</span>
+						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+					</div>
+				</div>
+			</div>
+			<!--jplater end-->
+                  </div>
           </div>
+
             {% endfor%}
 
-            </tbody>
-       </div>
+    <script type="text/javascript">
+    //<jplater script
+    $(document).ready(function(){
+        {% for animal_map in animal_maps %}
+
+		$("#jquery_jplayer_{{animal_map.id}}").jPlayer({
+			ready: function () {
+				$(this).jPlayer("setMedia", {
+					title: "{{ animal_map.title }}소리",
+					mp3:{% for sub_result in sub_results %}{% if sub_result.id == animal_map.id %}"/media/{{sub_result.file}}"{%endif%}{% endfor %}});
+			},
+            play: function() { // To avoid multiple jPlayers playing together.
+			$(this).jPlayer("pauseOthers");
+		},
+			swfPath: "../../dist/jplayer",
+			supplied: "m4a, oga,mp3",
+            cssSelectorAncestor: "#jp_container_{{animal_map.id}}",
+            wmode: "window",
+            globalVolume: true,
+            useStateClassSkin: true,
+            autoBlur: false,
+            smoothPlayBar: true,
+            keyEnabled: true
+		});
+
+        {% endfor%}
+
+	});
+
+    </script>
+<div class="paging" style="margin-bottom: 50px;margin-top: 50px;">
+  <a href="/animallist/?page=1" style="font-size: 2em;padding: 4px; "class="btn_arr first"><span class="">처음페이지</span></a>
+  <a href="#" class="btn_arr prev"><span class="hide">이전페이지</span></a>
+  <a href="/animallist/?page=1" class="on"style="font-size: 2em;padding: 4px;">1</a><!-- D : 활성화페이지일 경우 : on 처리 -->
+  <a href="/animallist/?page=2" style="font-size: 2em;padding: 4px;">2</a>
+  <a href="/animallist/?page=3" style="font-size: 2em;padding: 4px;">3</a>
+  <a href="/animallist/?page=4" style="font-size: 2em;padding: 4px;">4</a>
+  <a href="/animallist/?page=5" style="font-size: 2em;padding: 4px;">5</a>
+  <a href="/animallist/?page=6" style="font-size: 2em;padding: 4px;">6</a>
+  <a href="/animallist/?page=7" style="font-size: 2em;padding: 4px;">7</a>
+  <a href="/animallist/?page=8" style="font-size: 2em;padding: 4px;">8</a>
+  <a href="/animallist/?page=9" style="font-size: 2em;padding: 4px;">9</a>
+  <a href="/animallist/?page=10"style="font-size: 2em;padding: 4px; ">10</a>
+  <a href="#" class="btn_arr next"><span class="hide">다음페이지</span></a>
+  <a href="#" class="btn_arr last"><span class="hide">마지막페이지</span></a>
+</div>
+
+
     <!--동물 정보 end-->
         </div>
 </div>
     <footer style="background: #ecf0f1">
     <div class="container">
-      <div class="row">
+      <div class="row" >
         <div class="col-lg-8 col-md-10 mx-auto">
           <ul class="list-inline text-center">
             <li class="list-inline-item">
@@ -266,9 +352,7 @@ function attachSecretMessage(marker, secretMessage) {
   });
 }
 </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap"
-         async defer></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+
 <script>
 // 맵 재검색 기능 start
 function map_reload(){
@@ -313,44 +397,12 @@ $('#search_button').click(function(){
 
 </script>
 <script type="text/javascript">
-  if({{animal_maps}} != null){
+  if( {{animal_maps}} != null){
     alert("검색 결과가 없습니다.");
   }
   
 </script>
-<!-- Plotly.js -->
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script type="text/javascript">
-//표1 나오는 스크립트
-var x = [];
-for (var i = 0; i < 100; i ++) {
-    x[i] = Math.random();
-}
 
-var trace = {
-    x: x,
-    type: 'histogram',marker: {
-    color: 'grey',
-   },
-  };
-var data = [trace];
-Plotly.newPlot('myDiv', data, {}, {showSendToCloud: true});
-//표1 나오는 스크립트 end
-</script>
-
-
-
-<script type="text/javascript">
-  //표2 나오는 스크립트
-   var data = [{
-     values: [19, 26, 55],
-     labels: ['Residential', 'Non-Residential', 'Utility'],
-     type: 'pie'
-   }];
-   
-   Plotly.newPlot('tester2', data, {}, {showSendToCloud:true});
-  //표2 나오는 스크립트 end
-</script>
 <script type="text/javascript">
   function errorImg(){
   $("img").error(function () {
@@ -359,5 +411,6 @@ Plotly.newPlot('myDiv', data, {}, {showSendToCloud: true});
   }
   errorImg();
 </script>
+
 
 {% endblock %}

@@ -129,7 +129,7 @@
 </div>
     </div>
         <!-- 검색 end-->
-    <div class="row">
+    <div class="row" style="margin:0px;">
 <!--지도 start-->
         <div class="col-lg-1 col-sm-12 col-md-12"></div>
         <div class="col-lg-7 col-sm-12 col-md-12">
@@ -177,8 +177,9 @@
 
              </p>
              <p> 발견시각:{{animal_map.observed_date}}</p>
-              <p>구분:
+              <p>구분:<img src="/media/marker_{{ animal_map.animalclass }}.png" style="height: 20px;width: 20px; margin-bottom: 5px; margin-left: 5px;">
               {%if animal_map.animalclass == 'm' %}
+
               포유류
               {%elif animal_map.animalclass == 'b'%}
               조류
@@ -202,7 +203,7 @@
 </div><!-- container-->
 <footer style="background: #ecf0f1">
     <div class="container">
-      <div class="row">
+      <div class="row" >
         <div class="col-lg-8 col-md-10 mx-auto">
           <ul class="list-inline text-center">
             <li class="list-inline-item">
@@ -300,11 +301,12 @@ function initMap() {
   var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        title: '{{ animal_map.title }}'
+        title: '{{ animal_map.title }}',
+        icon : '/media/marker_{{ animal_map.animalclass }}.png'
       });
   attachSecretMessage(marker,contentString);
-  {% endif %}
-   {% endfor%}
+    {% endif %}
+    {% endfor%}
   //지도내 검색기능 start
   var markers = [];
   var input = document.getElementById('pac-input');
@@ -487,7 +489,7 @@ function map_reload(){
                }
           });
 
-         url = '/?search_key='+title+'&address_key='+options+'&class_key='+checks+"&startdate="+document.getElementById("startdate").value+"&enddate="+document.getElementById("enddate").value+'&centerlat='+map.getCenter().lat()+'&centerlng='+map.getCenter().lng()+'&zoom='+map.getZoom()+'&sw_lat='+sw_lat+'&sw_lng='+sw_lng+'&ne_lat='+ne_lat+'&ne_lng='+ne_lng;
+         url = '/?search_key='+title+'&address_key='+options+'&class_key='+checks+"&startdate="+document.getElementById("startdate").value+"&enddate="+document.getElementById("enddate").value+'&centerlat='+map.getCenter().lat()+'&centerlng='+map.getCenter().lng()+'&zoom='+map.getZoom()+'&sw_lat='+sw_lat+'&sw_lng='+sw_lng+'&ne_lat='+ne_lat+'&ne_lng='+ne_lng+"&count=0";
          window.open(url,'_self')
         });
         
@@ -515,7 +517,7 @@ $('input:checkbox[name="options"]:checked').each(function() {
         options=options+this.value;            
       }
  });
-   var url = '/?search_key='+document.getElementById('search_input').value+'&address_key='+options+'&class_key='+checks+"&startdate="+document.getElementById("startdate").value+"&enddate="+document.getElementById("enddate").value;
+   var url = '/?search_key='+document.getElementById('search_input').value+'&address_key='+options+'&class_key='+checks+"&startdate="+document.getElementById("startdate").value+"&enddate="+document.getElementById("enddate").value+"&count=0";
     window.open(url,'_self')
 }) 
 // 검색 기능 end

@@ -1106,7 +1106,7 @@ $(document).ready(function() {
     encoder.encode(newBuffer);
     var blob = encoder.finish();
 
-    var file = new File([blob], "subFile" + number);
+    var file = new File([blob], "subFile" + number+'.wav');
     return file;
   }
 

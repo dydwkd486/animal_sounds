@@ -4,11 +4,11 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404,HttpResponse
-from .models import Animal_map, Animal_total_info,district
+from .models import Animal_map, Animal_total_info,district,Animal_Sub_file
 from .forms import Animal_mapForm,AnimalmapFormMultiform
 from django.core.exceptions import ObjectDoesNotExist
 ''' 승원 수정 부분 '''
-from .forms import Animal_Sub_file
+from .forms import Animal_Sub_fileForm
 from accounts.models import Profile
 from django.db.models import Sum
 from django.db.models import Avg
@@ -119,6 +119,7 @@ def home(request):
 
     animal_maps=Animal_map.objects.filter()
     #조건이 6가지 (이름, 구분, 지역, 시작날짜, 끝날짜, 맵다시확인)
+    count = 100
     query=""
     sw_lat="0"
     sw_lng="0"
@@ -155,11 +156,17 @@ def home(request):
     if request.GET.get('enddate'):
         enddate=request.GET['enddate']
         print("enddate",enddate)
-
-    for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__in=address,animalclass__in=class_key,observed_date__range=(startdate,enddate)):
+    if request.GET.get('count'):
+        count=request.GET['count']
+        print("count",count)
+    for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat),title__contains=query,address__in=address,animalclass__in=class_key,observed_date__range=(startdate,enddate)).order_by('-observed_date'):
         results.append(odject)
-        print(odject.title)
-    context = {'animal_maps':results} 
+        #print(odject.title)
+    print(count)
+    if count == "0":
+        count = len(results)
+
+    context = {'animal_maps':results[:count]}
 
     return render(request, 'home.html',context)
 
@@ -214,7 +221,7 @@ def save(request):
             #print("url:",url)
 
             while request.POST.get('subfile_meta%d' % num):
-                subfile = Animal_Sub_file().save(commit=False)
+                subfile = Animal_Sub_fileForm().save(commit=False)
                 subfile_meta = request.POST.get('subfile_meta%d' % num)
                 tokens = subfile_meta.split(",")
                 subfile.Animal_map = animal
@@ -241,24 +248,40 @@ def save(request):
         form = AnimalmapFormMultiform()
     return render(request, 'animalsave.html', {'form': form})
 ''' end 승원 수정 부분 '''
+
 def list(request):
-    animal_maps=Animal_map.objects.filter()
+    animal_maps=Animal_map.objects.filter().order_by('-observed_date')
+
+    count = 1
+    sub_results = []
+    for odject in animal_maps:
+        try:
+            sub_file = Animal_Sub_file.objects.get(id=odject.id)
+            sub_results.append(sub_file)
+        except ObjectDoesNotExist:
+            sub_file = Animal_Sub_file.objects.get(id=5000)
+            sub_results.append(sub_file)
+    if request.GET.get('page'):
+        count = int(request.GET['page'])
+        print(count)
     if request.GET.get('sw_lat'):
         results =[]
+
         sw_lat = request.GET['sw_lat']
         sw_lng = request.GET['sw_lng']
         ne_lat = request.GET['ne_lat']
         ne_lng = request.GET['ne_lng']
-        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)):
+        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)).order_by('-observed_date'):
             results.append(odject)
-        context = {'animal_maps':results} 
+
+        context = {'animal_maps':results}
         return render(request, 'homelist.html',context)
 
     if request.GET.get('search_key'):
         results =[]
         query = request.GET['search_key']
         
-        for odject in animal_maps.filter(title__startswith=query):
+        for odject in animal_maps.filter(title__startswith=query).order_by('-observed_date'):
             results.append(odject)
         context = {'animal_maps':results} 
         return render(request, 'homelist.html',context)
@@ -269,12 +292,11 @@ def list(request):
         sw_lng = request.GET['sw_lng']
         ne_lat = request.GET['ne_lat']
         ne_lng = request.GET['ne_lng']
-        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)):
+        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)).order_by('-observed_date'):
             results.append(odject)
-        context = {'animal_maps':results} 
+        context = {'animal_maps':results}
         return render(request, 'homelist.html',context)
-
-    return render(request, 'homelist.html',{'animal_maps':animal_maps})
+    return render(request, 'homelist.html',{'animal_maps':animal_maps[(count-1)*10:count*10],'sub_results':sub_results[(count-1)*10:count*10]})
 
 def signup(request):
     if request.method == 'POST':
@@ -295,6 +317,8 @@ def animal_detail(request, pk):
     animal_maps = animal_map
     print("aa",animal_maps.title)
     try:
+        subfile=Animal_Sub_file.objects.get(id=animal_maps.id)
+        print("subfile:", subfile)
         animal_total_info=Animal_total_info.objects.get(name__startswith=animal_maps.title)
     except ObjectDoesNotExist:
         animal_total_info=None
@@ -347,7 +371,7 @@ def animal_detail(request, pk):
         './{http://www.w3.org/2005/sparql-results#}results/{http://www.w3.org/2005/sparql-results#}result/{http://www.w3.org/2005/sparql-results#}binding[@name="sName"]/{http://www.w3.org/2005/sparql-results#}literal')
     if(spe==None or spename==None):
         print("이상발생")
-        animalsinfo = ""
+        animalsinfo = "LOD 정보를 찾을 수 없었습니다..."
         urlpage =""
         spename=animal_map.title
     else:
@@ -380,7 +404,7 @@ def animal_detail(request, pk):
     ##
     ###
 
-    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo ,'url':urlpage,'spename':spename})
+    return render(request, 'animal_detail.html', {'animal_map': animal_map,'total_info':animal_total_info,'animals':animalsinfo ,'url':urlpage,'spename':spename, 'subfile':subfile})
 
 def search_table(request):
     all_class=Animal_map.objects.filter()

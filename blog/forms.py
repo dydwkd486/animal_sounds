@@ -24,7 +24,7 @@ class Animal_mapForm(forms.ModelForm):
         self.fields['Latitude'].required = False
         self.fields['Longitude'].required = False
 
-class Animal_Sub_file(forms.ModelForm):
+class Animal_Sub_fileForm(forms.ModelForm):
     class Meta:
         model = Animal_Sub_file
         fields = []
@@ -33,5 +33,5 @@ class Animal_Sub_file(forms.ModelForm):
 class AnimalmapFormMultiform(MultiModelForm):
     form_classes ={
         'animal_map':Animal_mapForm,
-        'animal_Sub_file':Animal_Sub_file, 
+        'animal_Sub_file':Animal_Sub_fileForm,
     }
