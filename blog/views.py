@@ -256,7 +256,7 @@ def list(request):
     sub_results = []
     for odject in animal_maps:
         try:
-            sub_file = Animal_Sub_file.objects.get(id=odject.id)
+            sub_file = Animal_Sub_file.objects.get(Animal_map_id=odject.id)
             sub_results.append(sub_file)
         except ObjectDoesNotExist:
             sub_file = Animal_Sub_file.objects.get(id=5000)
@@ -317,7 +317,7 @@ def animal_detail(request, pk):
     animal_maps = animal_map
     print("aa",animal_maps.title)
     try:
-        subfile=Animal_Sub_file.objects.get(id=animal_maps.id)
+        subfile=Animal_Sub_file.objects.get(Animal_map_id=animal_maps.id)
         print("subfile:", subfile)
         animal_total_info=Animal_total_info.objects.get(name__startswith=animal_maps.title)
     except ObjectDoesNotExist:

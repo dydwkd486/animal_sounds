@@ -16,6 +16,9 @@ import math
 DELETE FROM public.blog_animal_map WHERE id BETWEEN 382226 AND 383755;
 DELETE FROM public.blog_animal_map;
 DELETE FROM public.blog_animal_sub_file ;
+DELETE FROM blog_animal_sub_file ;
+DELETE FROM blog_animal_map;
+
 '''
 ## 시작 페이지, 마지막 페이지, 디비 아이디, 비밀번호, 이미지 폴더
 parse = argparse.ArgumentParser(description="테스트입니다.")

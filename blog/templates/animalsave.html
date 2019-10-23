@@ -168,12 +168,11 @@
               <div id="curTime" class="time-indicator">00:00:00</div>
               <div class="time-indicator-divider">/</div>
               <div id="fullTime" class="time-indicator">00:00:00</div>
-              <button id="play" class="video-play"></button>
-              <button id="stop" class="video-stop"></button>
+              <button id="play" class="video-play"  type="button"></button>
+              <button id="stop" class="video-stop" type="button"></button>
             </div>
             <div class="control_bar_row">
-              <button id="add-button">ADD</button>
-              <button id="register-button">Register</button>
+
             </div>
           </div>
         </div>
@@ -771,10 +770,10 @@ $(document).ready(function() {
     startTime.appendTo(rangeBarControl);
     divider.appendTo(rangeBarControl);
     endTime.appendTo(rangeBarControl);
-    playButton.appendTo(rangeBarControl);
-    stopButton.appendTo(rangeBarControl);
-    extractButton.appendTo(rangeBarControl);
-    inputName.appendTo(rangeBarControl);
+    //playButton.appendTo(rangeBarControl);
+    //stopButton.appendTo(rangeBarControl);
+    //extractButton.appendTo(rangeBarControl);
+    //inputName.appendTo(rangeBarControl);
 
     // 컨트롤 바 설정
     rangeBar.asRange({
@@ -974,6 +973,7 @@ $(document).ready(function() {
         num += 1;
 
         // 범위 지정 바 추가
+          /**/
         $("#add-button").on('click', function(event){
           setRangeBar(wavesurfer, num);
           setRangeBarEvent(num);
