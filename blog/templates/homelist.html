@@ -142,7 +142,7 @@
 			ready: function () {
 				$(this).jPlayer("setMedia", {
 					title: "{{ animal_map.title }}소리",
-					mp3:{% for sub_result in sub_results %}{% if sub_result.id == animal_map.id %}"/media/{{sub_result.file}}"{%endif%}{% endfor %}});
+					mp3:{% for sub_result in sub_results %}{% if sub_result.Animal_map_id == animal_map.id %}"/media/{{sub_result.file}}"{%endif%}{% endfor %}});
 			},
             play: function() { // To avoid multiple jPlayers playing together.
 			$(this).jPlayer("pauseOthers");

@@ -255,12 +255,8 @@ def list(request):
     count = 1
     sub_results = []
     for odject in animal_maps:
-        try:
-            sub_file = Animal_Sub_file.objects.get(Animal_map_id=odject.id)
-            sub_results.append(sub_file)
-        except ObjectDoesNotExist:
-            sub_file = Animal_Sub_file.objects.get(id=5000)
-            sub_results.append(sub_file)
+        sub_file = Animal_Sub_file.objects.get(Animal_map_id=odject.id)
+        sub_results.append(sub_file)
     if request.GET.get('page'):
         count = int(request.GET['page'])
         print(count)
@@ -296,6 +292,7 @@ def list(request):
             results.append(odject)
         context = {'animal_maps':results}
         return render(request, 'homelist.html',context)
+    print(sub_results)
     return render(request, 'homelist.html',{'animal_maps':animal_maps[(count-1)*10:count*10],'sub_results':sub_results[(count-1)*10:count*10]})
 
 def signup(request):
