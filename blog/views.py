@@ -257,22 +257,6 @@ def list(request):
     for odject in animal_maps:
         sub_file = Animal_Sub_file.objects.get(Animal_map_id=odject.id)
         sub_results.append(sub_file)
-    if request.GET.get('page'):
-        count = int(request.GET['page'])
-        print(count)
-    if request.GET.get('sw_lat'):
-        results =[]
-
-        sw_lat = request.GET['sw_lat']
-        sw_lng = request.GET['sw_lng']
-        ne_lat = request.GET['ne_lat']
-        ne_lng = request.GET['ne_lng']
-        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)).order_by('-observed_date'):
-            results.append(odject)
-
-        context = {'animal_maps':results}
-        return render(request, 'homelist.html',context)
-
     if request.GET.get('search_key'):
         results =[]
         query = request.GET['search_key']
@@ -282,16 +266,6 @@ def list(request):
         context = {'animal_maps':results} 
         return render(request, 'homelist.html',context)
 
-    if request.GET.get('sw_lat'):
-        results =[]
-        sw_lat = request.GET['sw_lat']
-        sw_lng = request.GET['sw_lng']
-        ne_lat = request.GET['ne_lat']
-        ne_lng = request.GET['ne_lng']
-        for odject in animal_maps.filter(Longitude__range=(sw_lng,ne_lng),Latitude__range=(sw_lat,ne_lat)).order_by('-observed_date'):
-            results.append(odject)
-        context = {'animal_maps':results}
-        return render(request, 'homelist.html',context)
     print(sub_results)
     return render(request, 'homelist.html',{'animal_maps':animal_maps[(count-1)*10:count*10],'sub_results':sub_results[(count-1)*10:count*10]})
 

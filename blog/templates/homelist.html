@@ -11,15 +11,15 @@
     <div>
        <p id="title" class="d-flex justify-content-center"></p>
     </div>
-       <!--
-   <div style="height: 100px; margin-top: 30px;" class="d-flex justify-content-center">
-    <fieldset id="search_fieldset"> <input id="search_input" type="search", style="height: 50%; width: 450px; margin-left: 70px;" placeholder="animals, locations, etc..."/>
-      <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px; height: 55%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 35px;"></button>
+
+   <div style="width: 60%; margin-left: auto; margin-right: auto;" class="d-flex justify-content-center">
+    <fieldset id="search_fieldset"> <input id="search_input" type="search", style=" width: 60%; " placeholder="목록 검색"/>
+      <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px;background-color: #669966; width: 30%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 35px;background-color: #669966;"></button>
       
     </fieldset>
    </div>
   </div>
-  -->
+
   <!-- 상단 end -->
     <div style="width: 60%; margin-left: auto; margin-right: auto;">
       <div class="collapse navbar-collapse" id="navbarColor01" style="width: 100%; display: block;">
@@ -376,7 +376,7 @@ function map_reload(){
          if(title==null){
            title=document.getElementById('search_input').value;
          }
-         url = '/?search_key='+title+'&centerlat='+map.getCenter().lat()+'&centerlng='+map.getCenter().lng()+'&zoom='+map.getZoom()+'&sw_lat='+sw_lat+'&sw_lng='+sw_lng+'&ne_lat='+ne_lat+'&ne_lng='+ne_lng;
+         url = '/animallist/?search_key='+title+'&centerlat='+map.getCenter().lat()+'&centerlng='+map.getCenter().lng()+'&zoom='+map.getZoom()+'&sw_lat='+sw_lat+'&sw_lng='+sw_lng+'&ne_lat='+ne_lat+'&ne_lng='+ne_lng;
          window.open(url,'_self')
         });
         
@@ -390,7 +390,7 @@ $('#reload_button').click(function(){
 
 // 검색 기능 start
 $('#search_button').click(function(){ 
-   var url = '/?search_key='+document.getElementById('search_input').value;
+   var url = '/animallist/?search_key='+document.getElementById('search_input').value;
     window.open(url,'_self')
 }) 
 // 검색 기능 end
