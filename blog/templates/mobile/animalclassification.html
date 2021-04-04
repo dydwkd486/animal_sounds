@@ -1,0 +1,770 @@
+{% extends 'mobile/base.html' %}
+
+<!-- static 파일 사용 선언 -->
+{% load static %}
+
+{% block title %}동물 소리(모바일)(animal_sound){% endblock %}
+
+{% block content %}
+
+<div class="div_wrap">
+	<div class="content">
+
+      <h1 onclick="test()" style="ont-family: 'Noto Sans KR', sans-serif;sans-serif; font-size: 5em;">동물 분류</h1>
+        <form id="mForm" method="POST" class="post-form" enctype="multipart/form-data"style="
+    margin: auto;">
+          {% csrf_token %}
+<input type="file" name="soundfile" id="id_soundfile" class="btn btn-success" style="margin: auto; font-size: 2.5em;">
+            <br>
+          <div id="mainControl">
+
+          </div>
+           <button type="submit" class="btn btn-success" onclick=_showPage(); style="font-size: 3em;">분석하기</button>
+      </form>
+              <div id="waveform"></div>
+              <div id="controlBar">
+                  <div class="control_bar_row">
+                      <div id="curTime" class="time-indicator" style="font-size: 3em;">00:00:00</div>
+                      <div class="time-indicator-divider"style="font-size: 3em;">/</div>
+                      <div id="fullTime" class="time-indicator"style="font-size: 3em;">00:00:00</div>
+                      <button id="play" class="video-play"style="background-size: 3em;background-repeat: no-repeat;width: 44px;    height: 44px;"></button>
+                      <button id="stop" class="video-stop"style="background-size: 3em;background-repeat: no-repeat;width: 44px;    height: 44px;"></button>
+                  </div>
+                  <div class="control_bar_row">
+                      <!--오른쪽 테이블-->
+                  </div>
+
+              </div>
+      </div>
+
+  </div>
+<div class="loader" style="display:none;">
+</div>
+
+
+    <style>
+        .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+    </style>
+
+    <script>
+        var _showPage = function() {
+            var loader = $("div.loader");
+            loader.css("display","block");
+        };
+    </script>
+<script type="text/javascript">
+// 인증에 따른 수정, 삭제 버튼 숨김처리
+  for(i = 0; i < $(".writer_name").length; i++){
+    if($("#user_name").text() == $(".writer_name")[i].innerHTML){
+      $("#control_id"+i).removeClass("hidden");
+    }
+  }
+
+
+</script>
+
+<style type="text/css">
+#map_canvas { height:50%; width:60%; }
+
+#id_file{ background-color: #FFFFFF; }
+
+.div_wrap {
+width:100%;
+height:800px; 
+margin:0px auto;
+padding:0px; 
+overflow:hidden;
+text-align: center;
+}
+
+.content{
+border:1px solid black;
+width:90%;
+height:90%;
+margin:24px auto;
+padding:0px;
+overflow:hidden;
+text-align:center;
+}
+
+.content:after {content:""; clear:both; display:block;}
+
+
+
+.btn.btn-primary.btn-large {
+margin-top: 10px;
+width:60%;
+height:60px; 
+font-size: 30px;
+}
+
+#id_content{
+height:100px; 
+}
+
+#pac-input {
+background-color: #fff;
+font-family: Roboto;
+font-size: 15px;
+font-weight: 300;
+margin-left: 12px;
+padding: 0 11px 0 13px;
+text-overflow: ellipsis;
+width: 400px;
+height: 30px;
+}
+
+#info { height:50%; width:60%; }
+
+#mainControl {
+width: 100%;
+height: 100%;
+float: left;
+margin-right: 30px;
+}
+#addControl {
+width: 45%;
+height: 100%;
+float: left;
+}
+
+#sound_dropbox {
+display: inline-block;
+width: 100%;
+height: 100%;
+border: 5px solid #3C2F2E;
+-moz-border-radius: 15px;
+margin: 0;
+}
+
+#controlBar {
+margin-top: 30px;
+}
+
+.control_bar_row {
+margin: 20px 0 20px 0;
+}
+
+.range-bar-control {
+margin: 20px 0 20px 0;
+}
+
+
+.video-play {
+width:26px;
+height:26px;
+background-image: url("{% static 'img/play-26.png' %}");
+}
+
+.video-stop {
+width:26px;
+height:26px;
+background: url("{% static 'img/stop-26.png' %}");
+}
+
+.ui-slider .ui-slider-handle{
+background: url("{% static 'img/stop-26.png' %}");
+}
+
+.indicator-container {
+display: inline-block;
+position: absolute;
+}
+
+.indicator {
+z-index:3;
+height:100%;
+width:3px;
+background-color:#999;
+position:absolute;
+display:inline-block;
+left:0%;
+}
+
+.indicator-rec {
+z-index:2;
+height:100%;
+width:100%;
+background-color: #ffffff;
+position:absolute;
+opacity: 0;
+display:none;
+left:0%;
+opacity: 0.3;
+}
+
+.indicator-rec-back {
+background-color: #000000;
+}
+
+.indicator-end{
+left:100%;
+}
+
+.time-indicator{
+
+margin: 0 10px 0 10px;
+display: inline-block;
+}
+
+.time-indicator-divider{
+width:5px;
+text-align: center;
+display: inline-block;
+}
+
+
+</style>
+<!-- Google Maps Library load -->
+
+<!-- WaveSurfer Library load -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
+
+<!-- WebAudioRecoder Library load -->
+
+<script src="{% static 'js/recorder/WebAudioRecorder.min.js' %}"></script>
+<script src="{% static 'js/recorder/WebAudioRecorderWav.min.js' %}"></script>
+
+<!-- Slider Library load -->
+<script src="{% static 'js/slider/jquery-asRange.js' %}"></script>
+<link rel="stylesheet" href="{% static 'js/slider/css/asRange.css' %}">
+
+<script type="text/javascript">
+
+    //이미지,사운드 파일 확장자 고정.
+    document.getElementById("id_animal_map-soundfile").accept="audio/*";
+
+</script>
+
+<script type="text/javascript">
+  /* 오디오 파일 관련 스크립트 start */
+  
+  // 미리 지정한 색
+  var predefinedColor = ["#7ebdcb", "#47C83E", "#FF0000", "#4641D9", "#FFBB00", "#000000"];
+  // 범위 지정 바의 수
+  var num = 0;
+  // 전역 Wavesurfer
+  var globalWavesurfer = null;
+
+  // 남은 시간을 디스플레이하기 위한 텍스트 처리 함수
+  // duration: 초
+  // "00:00:00"와 같은 시분초 텍스트 형태로 반환
+  function durationParsing(duration){
+    var hours = Math.floor(duration / 3600);
+    duration %= 3600;
+    var minutes = Math.floor(duration / 60);
+    var seconds = Math.floor(duration % 60);
+    var txt = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
+    return txt;
+  }
+
+  // WaveSurfer 설정 함수
+  // containerSelector: 웨이브폼 표시하는 공간
+  // file: 오디오/비디오 파일
+  // 설정된 Wavesurfer 반환
+  function setWaveSurfer(containerSelector, file){
+    var wavesurfer = WaveSurfer.create({
+      container: containerSelector,
+      waveColor: 'violet',
+      progressColor: 'purple'
+    });
+    wavesurfer.loadBlob(file);
+    globalWavesurfer = wavesurfer;
+    return wavesurfer;
+  }
+
+  // 파일이 오디오 혹은 비디오인지 체크
+  function checkFileType(file){
+    var videoType = /video.*/;
+    var audioType = /audio.*/;
+    var isVideoType = false;
+    var isAudioType = false;
+
+    if(file.type.match(videoType)){
+      isVideoType = true;
+    }
+    else if(file.type.match(audioType)){
+      isAudioType = true;
+    }
+
+    var status = {
+      isVideo : isVideoType,
+      isAudio : isAudioType
+    }
+
+    return status;
+  }
+
+  // 드래그앤드롭 및 input file 이벤트 처리 함수
+  // isDrop: 드래그앤드랍 이벤트 여부
+  function getFile(object, isDrop){
+    var file = null;
+    if(isDrop){
+      var transfer = object.dataTransfer || object.originalEvent.dataTransfer;
+      file = transfer.files[0];
+    }else{
+      file = object.files[0];
+    }
+    return file;
+  }
+
+  // Wavesurfer 메인 컨트롤 함수
+  // Wavesurfer의 기본 이벤트 설정
+  function setInitMainPlayer(wavesurfer){
+    // Play 버튼, Pause 버튼 이벤트 설정
+    $("#play").on("click", function(){
+      wavesurfer.playPause();
+      if(wavesurfer.isPlaying()==true){
+        $(this).css("background", 'url("{% static 'img/pause-26.png' %}")');
+      }else{
+        $(this).css("background", 'url("{% static 'img/play-26.png' %}")');
+      }
+    });
+
+    // 전체 길이 표기
+    var dur = wavesurfer.getDuration();
+    var durText = durationParsing(dur);
+    $("#fullTime").text(durText);
+
+    // Stop 버튼 이벤트 설정
+    $("#stop").on("click", function(){
+      wavesurfer.stop();
+    });
+  }
+
+  // Wavesurfer 현재 재생 시간 표기 이벤트
+  function playingEvent(wavesurfer){
+    wavesurfer.on("audioprocess", function () {
+      $("#curTime").text(durationParsing(wavesurfer.getCurrentTime()));
+    });
+  }
+
+  // 범위 지정 표기 레이아웃 함수
+  // rangeBar: 범위 지정 표시 레이아웃을 컨트롤하는 바
+  // number: 컨트롤 바의 넘버
+  function prepareIndicator(rangeBar, number){
+    // 레이아웃 컨테이너 생성 및 설정
+    var indicatorContainer = $("<div id='indicator-container" + number + "' class='indicator-container'></div>");
+    indicatorContainer.appendTo($("#waveform"));
+    indicatorContainer.css("width", $("#waveform").css("width"));
+    var h = $("#waveform").css("height");
+    indicatorContainer.css("height", h);
+    var w = $("#waveform").css("width");
+    var w1 = Number(w.replace("px", "")) / 2;
+    var w2 = String(w1);
+    indicatorContainer.css("margin-left", "-" + w2 + "px");
+    indicatorContainer.css("margin-top", "-" + h);
+
+    // 세부 레이아웃 설정
+    var node = $("<div id='indicator-rec" + number + "' class='indicator-rec'></div>");
+    node.appendTo(indicatorContainer);
+    node = $("<div id='indicator-rec-left" + number + "' class='indicator-rec indicator-rec-back'></div>");
+    node.appendTo(indicatorContainer);
+    node = $("<div id='indicator-rec-right" + number + "' class='indicator-rec indicator-rec-back'></div>");
+    node.appendTo(indicatorContainer);
+    node = $("<div id='indicator-start"  + number + "' class='indicator indicator-start'></div>");
+    node.appendTo(indicatorContainer);
+    node = $("<div id='indicator-end"  + number + "' class='indicator indicator-end'></div>");
+    node.appendTo(indicatorContainer);
+
+    $("#indicator-container"+number+" .indicator").css("background-color", predefinedColor[number]);
+    $("#indicator-container"+number+" .indicator").css("background-color", predefinedColor[number]);
+  }
+
+  // 범위 바 레이아웃 함수
+  // number: 컨트롤 바의 넘버
+  function setRangeBar(wavesurfer, number){
+    // 컨트롤 바 컨테이너 생성
+    var container = $("<div id='range-bar-container" + number + "' class='range-bar-container'></div>");
+    var rangeBar = $("<div id='range-bar" + number + "' class='range-bar'></div>");
+    var rangeBarControl = $("<div id='range-bar-control" + number + "' class='range-bar-control'></div>");
+    container.appendTo($("#addControl"));
+    rangeBar.appendTo(container);
+    rangeBarControl.appendTo(container);
+
+
+    // 세부 레이아웃 설정
+    var duration = wavesurfer.getDuration();
+
+    var startTime = $("<div id='startTime" + number + "' class='time-indicator'>00:00:00</div>");
+    var divider = $("<div class='time-indicator-divider'>/</div>");
+    var endTime = $("<div id='endTime" + number + "' class='time-indicator'>"+durationParsing(duration)+"</div>");
+    var playButton = $("<button id='play" + number + "' class='video-play'></button>");
+    var stopButton = $("<button id='stop" + number + "' class='video-stop'></button>");
+    var extractButton = $("<button id='extraction-button" + number + "' class='extraction-button'>extract</button>");
+    var inputName = $("<input id='input-name" + number + "' class='input-name'/>");
+
+    startTime.appendTo(rangeBarControl);
+    divider.appendTo(rangeBarControl);
+    endTime.appendTo(rangeBarControl);
+    playButton.appendTo(rangeBarControl);
+    stopButton.appendTo(rangeBarControl);
+    extractButton.appendTo(rangeBarControl);
+    inputName.appendTo(rangeBarControl);
+
+    // 컨트롤 바 설정
+    rangeBar.asRange({
+      range: true,
+      step: 0.01,
+      min: 0,
+      max: duration,
+      limit: false,
+      tip: false,
+    });
+    rangeBar.asRange('set', [0, duration]);
+    rangeBar.css("width", "100%");
+
+    $("#range-bar"+number+" .asRange-selected").css("background-color", predefinedColor[number]);
+    $("#styleDiv").append("<style>#range-bar"+number+" .asRange-pointer:before {background:"+ predefinedColor[number]+";border: 1px solid #ffffff;}</style>");
+
+    // 컨트롤 바와 상응하는 범위 지정 표기 레이아웃 생성
+    prepareIndicator(rangeBar, number);
+
+    // 추출 버튼 이벤트 설정
+    extractButton.on("click", function(e){
+      var idNumber = e.target.id[-1];
+      extractAudio(wavesurfer, number);
+    });
+  }
+
+  // 범위 바-표시 레이아웃 연동 이벤트 처리 함수
+  // 바를 움직이면 레이아웃을 변화
+  // number: 컨트롤 바의 넘버
+  function setRangeBarEvent(number){
+    // 변화 이벤트
+    $("#range-bar"+number).on('asRange::change', function(event){
+      var value = $("#range-bar"+number).asRange('get');
+      var minValue = value[0];
+      var maxValue = value[1];
+      var minText = durationParsing(minValue);
+      var maxText = durationParsing(maxValue);
+      $("#startTime"+number).text(minText);
+      $("#endTime"+number).text(maxText);
+
+      var totalWidth = $("#range-bar"+number).css('width');
+      totalWidth = totalWidth.slice(0, totalWidth.length-2);
+      var curLocation1 = $("#range-bar"+number+" .asRange-pointer-1").css('left');
+      var curLocation2 = $("#range-bar"+number+" .asRange-pointer-2").css('left');
+      curLocation1 = curLocation1.slice(0, curLocation1.length-2);
+      curLocation2 = curLocation2.slice(0, curLocation2.length-2);
+
+      var percentage1 = 100 * (curLocation1 / totalWidth);
+      var percentage2 = 100 * (curLocation2 / totalWidth);
+
+      $("#indicator-start"+number).css("left",percentage1+"%");
+      $("#indicator-end"+number).css("left",percentage2+"%");
+
+      var wid = curLocation2 - curLocation1;
+      $("#indicator-rec"+number).css({"left": percentage1+"%", "width":wid+"px", "display":"inline-block"});
+      $("#indicator-rec-left"+number).css({"width":curLocation1+"px","display":"inline-block"});
+      wid = totalWidth-curLocation2;
+      $("#indicator-rec-right"+number).css({"width":wid+"px","left": percentage2+"%","display":"inline-block"});
+    });
+
+    // 변화 종료 이벤트
+    $("#range-bar"+number).on('asRange::moveEnd', function(event){
+      $("#indicator-rec"+number).css("display", "none");
+      $("#indicator-rec-left"+number).css("display", "none");
+      $("#indicator-rec-right"+number).css("display", "none");
+    });
+  }
+
+  // 부분 재생 함수
+  // number: 컨트롤 바의 넘버
+  function setClipPlayStopEvent(wavesurfer, number){
+    // 부분 재생 및 일시 정지
+    $("#play"+number).on('click', function(event){
+      if(!wavesurfer.isPlaying()){
+        var totalWidth = $("#range-bar"+number).css('width');
+        totalWidth = totalWidth.slice(0, totalWidth.length-2);
+        var duration = wavesurfer.getDuration();
+        var curLocation1 = $("#range-bar"+number+" .asRange-pointer-1").css('left');
+        var curLocation2 = $("#range-bar"+number+" .asRange-pointer-2").css('left');
+        curLocation1 = curLocation1.slice(0, curLocation1.length-2);
+        curLocation2 = curLocation2.slice(0, curLocation2.length-2);
+        var loc1 = duration * (curLocation1 / totalWidth);
+        var loc2 = duration * (curLocation2 / totalWidth);
+        wavesurfer.play(loc1, loc2);
+        $(this).css("background", 'url("{% static 'img/pause-26.png' %}")');
+      }else{
+        wavesurfer.pause();
+        $(this).css("background", 'url("{% static 'img/play-26.png' %}")');
+      }
+    });
+
+    // 정지 이벤트
+    $("#stop"+number).on("click", function(){
+      wavesurfer.stop();
+    });
+  }
+
+  // 파일 메타데이터 불러오는 함수
+  // file: 대상 파일
+  function getFileMeta(file, wavesurfer){
+    var fileSize = file.size || file.fileSize;
+    var fileName = file.name;
+    var splitTokens = fileName.split(".");
+    var fileEx = splitTokens[splitTokens.length-1];
+    var duration = wavesurfer.getDuration();
+
+    console.log(fileSize);
+    console.log(file.name);
+    console.log(fileEx);
+    console.log(duration);
+
+    /*
+    var forms = $('#mForm');
+    var fileSizeInput = $("<input id='file_size_input' type='text' value='" + fileSize + "' hidden>");
+    fileSizeInput.appendTo(forms);
+
+    var fileNameInput = $("<input id='file_name_input' type='hidden' value='" + fileName + "' hidden>");
+    fileNameInput.appendTo(forms);
+
+    var fileExInput = $("<input id='file_ex_input' type='hidden' value='" + fileEx + "' hidden>");
+    fileExInput.appendTo(forms);
+
+    var durationInput = $("<input id='duration_input' type='hidden' value='" + duration + "' hidden>");
+    durationInput.appendTo(forms);
+    */
+  }
+
+  // 파일 등록 이벤트 함수
+  // 아직 삭제 이벤트는 추가하지 않음!
+  // file: 대상 파일
+  function addFileIcon(file){
+    var fileInfoDiv = document.createElement("div");
+    var fileIconDiv = document.createElement("img");
+    fileIconDiv.src = "{% static 'img/video-file-48.png' %}";
+    var fileNameDiv = document.createElement("div");
+    fileNameDiv.innerHTML = file.name;
+    var fileDeleteDiv = document.createElement("img");
+    fileDeleteDiv.src = "{% static 'img/delete-26.png' %}";
+    fileInfoDiv.appendChild(fileIconDiv);
+    fileInfoDiv.appendChild(fileNameDiv);
+    fileInfoDiv.appendChild(fileDeleteDiv);
+    var uploadedList = document.getElementById("sound_dropbox");
+    uploadedList.appendChild(fileInfoDiv);
+  }
+
+  // 파일 업로드 시도 처리 함수
+  // file: 대상 파일
+  function fileProcess(file){
+    var fileType = checkFileType(file);
+    var isVideo = fileType.isVideo;
+    var isAudio = fileType.isAudio;
+
+    var reader = new FileReader();
+    console.log(file)
+    // 파일 읽어올 경우 이벤트 처리
+    reader.onload=function(e){
+      // Wavesurfer 설정
+      var wavesurfer = setWaveSurfer('#waveform', file);
+
+      // Waversurfer가 준비되면 차례대로 처리
+      wavesurfer.on('ready', function(){
+
+        setInitMainPlayer(wavesurfer);
+        playingEvent(wavesurfer);
+
+        // setRangeBar(wavesurfer, num);
+        // setRangeBarEvent(num);
+        // setClipPlayStopEvent(wavesurfer, num);
+        // num += 1;
+
+        // 범위 지정 바 추가
+        // $("#add-button").on('click', function(event){
+        //   setRangeBar(wavesurfer, num);
+        //   setRangeBarEvent(num);
+        //   setClipPlayStopEvent(wavesurfer, num);
+        //   num += 1;
+        // });
+
+        getFileMeta(file, wavesurfer);
+      });
+
+      addFileIcon(file);
+    }
+
+    // 비디오나 오디오일 경우 파일 읽어옴
+    if(isVideo || isAudio){
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
+  // 오디오 부분 추출 함수
+  // number: 컨트롤 바의 넘버
+  function extractAudio(wavesurfer, number){
+    var strStartTime = $("#startTime"+number).text();
+    var strEndTime = $("#endTime"+number).text();
+
+    // 범위 찾음
+    var strStartTimeTokens = strStartTime.split(":");
+    var hourInSec = 3600 * parseInt(strStartTimeTokens[0]);
+    var minuteInSec = 60 * parseInt(strStartTimeTokens[1]);
+    var sec = parseInt(strStartTimeTokens[2]);
+    var totalStartSec = hourInSec + minuteInSec + sec;
+
+    var strEndTimeTokens = strEndTime.split(":");
+    hourInSec = 3600 * parseInt(strEndTimeTokens[0]);
+    minuteInSec = 60 * parseInt(strEndTimeTokens[1]);
+    sec = parseInt(strEndTimeTokens[2]);
+    var totalEndSec = hourInSec + minuteInSec + sec;
+
+    // 버퍼로 긁어옴
+    var originalBuffer = wavesurfer.backend.buffer;
+    var segmentDuration = totalEndSec - totalStartSec;
+    var startPosition = totalStartSec * originalBuffer.sampleRate;
+
+    var audioCtx = new (window.AudioContext|| window.webkitAudioContext)();
+
+    var emptySegment = audioCtx.createBuffer(
+      originalBuffer.numberOfChannels,
+      segmentDuration * originalBuffer.sampleRate,
+      originalBuffer.sampleRate
+      );
+    for (var i = 0; i < originalBuffer.numberOfChannels; i++) {
+      var chanData = originalBuffer.getChannelData(i);
+      var segmentChanData = emptySegment.getChannelData(i);
+      for (var j = 0, len = chanData.length; j < len; j++) {
+        segmentChanData[j] = chanData[j+startPosition];
+      }
+    }
+    var newBuffer = []
+    for (var i = 0; i < originalBuffer.numberOfChannels; i++) {
+      newBuffer.push(emptySegment.getChannelData(i));
+    }
+
+    var source = audioCtx.createBufferSource();
+    source.buffer = emptySegment;
+    source.connect(audioCtx.destination);
+
+    // blob 형태로 저장
+    var encoder = new WavAudioEncoder(originalBuffer.sampleRate, originalBuffer.numberOfChannels);
+    console.log(newBuffer);
+    encoder.encode(newBuffer);
+    var blob = encoder.finish();
+    console.log("blob:",blob);
+    console.log("blob:",blob);
+    var html, time, url;
+    time = new Date();
+    url = URL.createObjectURL(blob);
+    console.log(url);
+
+    // 접근 링크 보이기
+    var hf = document.createElement('a');
+    hf.href = url;
+    hf.style.backgroundColor = "black";
+    hf.download = new Date().toISOString() + '.wav';
+    hf.innerHTML = hf.download;
+    document.getElementById("range-bar-container"+number).appendChild(hf);
+  }
+
+  // 업로드용 오디오 부분 추출 함수
+  function extractAudioForUp(wavesurfer, number){
+    var strStartTime = $("#startTime"+number).text();
+    var strEndTime = $("#endTime"+number).text();
+
+    var strStartTimeTokens = strStartTime.split(":");
+    var hourInSec = 3600 * parseInt(strStartTimeTokens[0]);
+    var minuteInSec = 60 * parseInt(strStartTimeTokens[1]);
+    var sec = parseInt(strStartTimeTokens[2]);
+    var totalStartSec = hourInSec + minuteInSec + sec;
+
+    var strEndTimeTokens = strEndTime.split(":");
+    hourInSec = 3600 * parseInt(strEndTimeTokens[0]);
+    minuteInSec = 60 * parseInt(strEndTimeTokens[1]);
+    sec = parseInt(strEndTimeTokens[2]);
+    var totalEndSec = hourInSec + minuteInSec + sec;
+
+    var originalBuffer = wavesurfer.backend.buffer;
+    var segmentDuration = totalEndSec - totalStartSec;
+    var startPosition = totalStartSec * originalBuffer.sampleRate;
+
+    var audioCtx = new (window.AudioContext|| window.webkitAudioContext)();
+
+    var emptySegment = audioCtx.createBuffer(
+      originalBuffer.numberOfChannels,
+      segmentDuration * originalBuffer.sampleRate,
+      originalBuffer.sampleRate
+      );
+    for (var i = 0; i < originalBuffer.numberOfChannels; i++) {
+      var chanData = originalBuffer.getChannelData(i);
+      var segmentChanData = emptySegment.getChannelData(i);
+      for (var j = 0, len = chanData.length; j < len; j++) {
+        segmentChanData[j] = chanData[j+startPosition];
+      }
+    }
+    var newBuffer = []
+    for (var i = 0; i < originalBuffer.numberOfChannels; i++) {
+      newBuffer.push(emptySegment.getChannelData(i));
+    }
+
+    var source = audioCtx.createBufferSource();
+    source.buffer = emptySegment;
+    source.connect(audioCtx.destination);
+
+    var encoder = new WavAudioEncoder(originalBuffer.sampleRate, originalBuffer.numberOfChannels);
+    console.log(newBuffer);
+    encoder.encode(newBuffer);
+    var blob = encoder.finish();
+    console.log(blob);
+
+    var file = new File([blob], "tempo");
+    console.log(file);
+    return file;
+  }
+
+  // 이벤트 설정
+  $(document).ready(function(){
+
+
+    $("#id_soundfile").on("change", function(){
+        $("div").remove("#waveform");
+        $(".content").append('<div id="waveform"></div>');
+        var file = getFile(this, false);
+
+        fileProcess(file);
+    });
+
+    $("#sound_dropbox").on("dragover", false).on("drop", function (event){
+      event.stopPropagation();
+      event.preventDefault();
+      console.log("ondrop");
+      var file = getFile(event, true);
+
+      fileProcess(file);
+    });
+  });
+
+
+
+
+
+  </script>
+  {% endblock %}

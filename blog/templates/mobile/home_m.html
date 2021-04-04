@@ -1,11 +1,28 @@
 <!-- templates/home.html-->
 <!--맨 위 커버 -->
-{% extends 'base.html' %}
+{% extends 'mobile/base.html' %}
 
 <!-- 페이지 이름 -->
-{% block title %}동물 소리(animal_sound){% endblock %}
+{% block title %}동물 소리(모바일)(animal_sound){% endblock %}
 
 {% block content %}
+<!--
+<div class="visible-xs-block"  style="background-color:#CCCCCC;height:30px;">
+이글은 xs의 경우에만 보입니다.
+</div>
+
+<div class="visible-sm-block"  style="background-color:#DDDDDD;height:30px;">
+이글은 sm의 경우에만 보입니다.
+</div>
+
+<div class="visible-md-block"  style="background-color:#EEEEEE;height:30px;">
+이글은 md의 경우에만 보입니다.
+</div>
+
+<div class="visible-lg-block"  style="background-color:red;height:30px;">
+이글은 lg의 경우에만 보입니다.
+</div>
+-->
 
 <script>
 
@@ -47,10 +64,10 @@
 </style>
 <div class="container-fluid">
     <!-- 검색 start-->
-    <div id= "pac-text" style="width: 400px; margin-bottom: 30px;background-color: rgba(255,255,255,0.7); ">
-        <div style="margin-left: 4%;margin-right: 2%;text-align: center;padding-top: 10px;"><input id="search_input" type="search", style="width: 70%; font-family: 'Noto Sans KR', sans-serif;" placeholder="동물, 위치, 기타..."/>
-            <button id="search_button" type="submit"class="btn btn-primary" style=" background-color: #669966; width: 10%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 16px;"></button>
-            <button id="reload_button" type="submit"class="btn btn-primary" style=" background-color: #669966; width: 10%;"><i class="fa fa-search"></i><img src="/media/reload.png" style="height: 16px;"></button></div>
+    <div id= "pac-text" style="margin-bottom: 30px;background-color: rgba(255,255,255,0.7); ">
+        <div style="margin-left: 4%;margin-right: 2%;text-align: center;padding-top: 10px;"><input id="search_input" type="search", style="width: 70%; font-family: 'Noto Sans KR', sans-serif;font-size: 2.2em;" placeholder="동물, 위치, 기타..."/>
+            <button id="search_button" type="submit"class="btn btn-primary" style=" background-color: #669966; width: 10%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 50px;"></button>
+            <button id="reload_button" type="submit"class="btn btn-primary" style=" background-color: #669966; width: 10%;"><i class="fa fa-search"></i><img src="/media/reload.png" style="height: 50px;"></button></div>
 
         <!--       <div style="text-align: center;"> <button class="select" style="background-color: #669966;font-size: 22px; font-family: 'Noto Sans KR', sans-serif; border-radius: 5px;color: #FFFFFF" >상세검색</button></div>-->
         <div id="box2" style="display: block;margin-left: 2%;margin-right: 2%;">
@@ -118,7 +135,7 @@
             <div>
                 <p style="padding-left: 5%;"><b>기간</b></p>
                 <div class=""  style="width: 100%; text-align: center; padding-bottom: 20px;">
-                    <input type="date" id="startdate" name="birthday" style="background-color: #669966;color: white;"> ~ <input type="date" id="enddate" style="background-color: #669966;color: white;"> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
+                    <input type="date" id="startdate" name="birthday" style="background-color: #669966;color: white;font-size: 2.5em;padding: 10px;"> ~ <input type="date" id="enddate" style="padding: 10px;font-size: 2.5em;background-color: #669966;color: white;"> <!-- 클레스나 id 값으로 정보 받게 하면 될듯.-->
                 </div>
             </div>
         </div>
@@ -136,15 +153,15 @@
     </div>
     <!--지도 end-->
     <!--동물 정보 start-->
-    <div class="col-lg-3 col-sm-12 col-md-12" id="input">
-        <div style="overflow-y:scroll; display: inline-block; background-color: rgba(255,255,255,0.7)">
+    <div class="col-lg-12 col-sm-12 col-md-12" id="input">
+        <div style="overflow-y:scroll; background-color: rgba(255,255,255,0.7)">
             <tbody>
-            <div style="width: 350px;height: 800px; margin-bottom: 30px; ">
+            <div style="height: 800px; margin-bottom: 30px; ">
                 {% for animal_map in animal_maps %}
                 <hr style="margin-top: 0.1rem;margin-bottom:0px;">
-                <div class="text_img" style="width: 20%;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" onerror="this.src='/media/No_image.png'" ></div>
-                <div style="width: 60%;display: inline-block;"><h5><a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; "><b>{{ animal_map.title1 }}</b></a></h5>
-                    <p>
+                <div class="text_img" style="height: 200px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style=" height: 100%;" onerror="this.src='/media/No_image.png'" ></div>
+                <div style="display: inline-block;"><h5><a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; font-size: 2.5em;"><b>{{ animal_map.title1 }}</b></a></h5>
+                    <p style="font-size: 2.5em;">
                         발견장소:
                         {%if animal_map.address == 'a' %}
                         서울시
@@ -171,8 +188,8 @@
                         {%endif%}
 
                     </p>
-                    <p> 발견시각:{{animal_map.observed_date}}</p>
-                    <p>구분:<img src="/media/marker_{{ animal_map.animalclass }}.png" style="height: 20px;width: 20px; margin-left: 5px;">
+                    <p style="font-size: 2.5em;"> 발견시각:{{animal_map.observed_date}}</p>
+                    <p style="font-size: 2.5em;">구분:<img src="/media/marker_{{ animal_map.animalclass }}.png" style="height: 40px;width: 40px; margin-left: 5px;">
                         {%if animal_map.animalclass == 'm' %}
                         포유류
                         {%elif animal_map.animalclass == 'b'%}
@@ -268,7 +285,7 @@
     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
     var options = { //지도를 생성할 때 필요한 기본 옵션
         center: new kakao.maps.LatLng(parseFloat(centerlat), parseFloat(centerlng)), //지도의 중심좌표.
-        level: 12 //지도의 레벨(확대, 축소 정도)
+        level: 11 //지도의 레벨(확대, 축소 정도)
     };
     var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
@@ -282,7 +299,7 @@
     myLatLng = {lat: Latitude, lng: Longitude};
 
     var imageSrc = '/media/marker_{{ animal_map.animalclass }}.png', // 마커이미지의 주소입니다
-        imageSize = new kakao.maps.Size(12, 12), // 마커이미지의 크기입니다
+        imageSize = new kakao.maps.Size(24, 24), // 마커이미지의 크기입니다
         imageOption = {offset: new kakao.maps.Point(5, 0)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
         markerPosition = new kakao.maps.LatLng(Latitude, Longitude); // 마커가 표시될 위치입니다
@@ -293,8 +310,8 @@
         image: markerImage // 마커이미지 설정
     });
     marker.setMap(map);
-    var iwContent  = '<div style="padding:5px;"><img src="/media/{{animal_map.imagefile}}" width="10" height="10"> <h1 style="font-size: 18px;margin:0px;">종명: {{ animal_map.title1 }}</h1> {{ animal_map.content }} '+
-        '<a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#339933; text-align: right; display: block;">더 보기..</a> <p>작성자: {{ animal_map.writer }}</p></div>';
+    var iwContent  = '<div style="padding:5px;"> <h1 style="font-size: 2.5em;margin:0px;">종명: {{ animal_map.title1 }}</h1>  '+
+        '<a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#339933; text-align: right; display: block;font-size: 2.5em;">더 보기..</a><br> <br> <br> </div>';
 
     // var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
@@ -306,8 +323,8 @@
     {% endfor%}
     var input = document.getElementById('input');
     var pactext = document.getElementById('pac-text');
-    map.addControl(input, kakao.maps.ControlPosition.TOPLEFT);
-    map.addControl(pactext, kakao.maps.ControlPosition.TOPRIGHT);
+    // map.addControl(input, kakao.maps.ControlPosition.TOPLEFT);
+    // map.addControl(pactext, kakao.maps.ControlPosition.TOPRIGHT);
     function attachSecretMessage(marker, secretMessage) {
 // 인포윈도우를 생성합니다
         var infowindow = new kakao.maps.InfoWindow({
@@ -325,6 +342,7 @@
 
 
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 
     var class_check = getParameterByName('class_key');
@@ -446,7 +464,7 @@
     })
     // 맵 재검색 기능 end
 
-    // 검색 기능 start
+   // 검색 기능 start
     $('#search_button').click(function(){
         var checks="";
         var options="";
@@ -570,7 +588,6 @@ if(enddate!=""){
 //-->
 
 </SCRIPT>
-
 
 <!-- Plotly.js -->
 

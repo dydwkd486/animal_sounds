@@ -1,11 +1,17 @@
 <!-- templates/home.html-->
 <!--맨 위 커버 -->
-{% extends 'base.html' %}
+{% extends 'mobile/base.html' %}
 
 <!-- 페이지 이름 -->
 {% block title %}동물 소리(animal_sound){% endblock %}
 
 {% block content %}
+<style>
+
+    p ,h5{
+    font-size: 2em;
+}
+</style>
   <!-- 상단 start -->
    <div style="width: 100%;">
     <div>
@@ -13,15 +19,15 @@
     </div>
 
    <div style="width: 100%; margin-left: auto; margin-right: auto;" class="d-flex justify-content-center">
-    <fieldset id="search_fieldset"style="width: 60%;"> <input id="search_input" type="search", style=" width: 60%;height: 50px; " placeholder="목록 검색"/>
-      <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px;background-color: #669966; width: 30%;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style="height: 35px;background-color: #669966;"></button>
+    <fieldset id="search_fieldset"style="width: 80%;"> <input id="search_input" type="search", style=" width: 80%;font-size: 2.5em; " placeholder="목록 검색"/>
+      <button id="search_button" type="submit"class="btn btn-primary" style="margin-left: 15px;background-color: #669966; width: 10%;    margin-bottom: 13px;"><i class="fa fa-search"></i><img src="/media/iconfinder_Search_984754.png" style=" height: 45px;background-color: #669966;"></button>
       
     </fieldset>
    </div>
   </div>
 
   <!-- 상단 end -->
-    <div style="width: 60%; margin-left: auto; margin-right: auto;">
+    <div style="width: 90%; margin-left: auto; margin-right: auto;">
       <div class="collapse navbar-collapse" id="navbarColor01" style="width: 100%; display: block;">
             <ul class="navbar-nav m-auto" style="flex-direction: unset;float: inherit;">
       <li class="nav-item active" style="margin-left: 10px; width: 33%">
@@ -38,8 +44,8 @@
              <hr style="margin:0px;margin-top:4px;">
           <div style="width: 100%;">
 
-             <div class="text_img" style="width: 100px;height: 100px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100px;" onerror="this.src='/media/No_image.png'"></div>
-              <div style="width: 350px; height: 100px;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; text-decoration: underline;"><b>{{ animal_map.title1 }}</b></a></h5>
+             <div class="text_img" style="width: 20%;height: 180px;display: inline-block;"><img src="/media/{{animal_map.imagefile}}" style="width: 100%; height: 100%;" onerror="this.src='/media/No_image.png'"></div>
+              <div style="width: 60%;display: inline-block;"><h5>이름: <a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#000000; text-decoration: underline;"><b>{{ animal_map.title1 }}</b></a></h5>
               <p>
 
               발견장소:
@@ -88,21 +94,21 @@
           
 
           </div>
-              <div style="display: inline-block;">
+              <div style="display: inline-block; width: 15%;">
                   <!--jplater start-->
 			<div id="jquery_jplayer_{{animal_map.id}}" class="jp-jplayer"></div>
-			<div id="jp_container_{{animal_map.id}}" class="jp-audio" role="application" aria-label="media player" style="">
+			<div id="jp_container_{{animal_map.id}}" class="jp-audio" role="application" aria-label="media player" style="width: 100%;">
 				<div class="jp-type-single">
 					<div class="jp-gui jp-interface">
-						<div class="jp-controls">
+						<div class="jp-controls" style="width: 100%;">
 							<button class="jp-play" role="button" tabindex="0">play</button>
 							<button class="jp-stop" role="button" tabindex="0">stop</button>
 						</div>
-						<div class="jp-progress">
-							<div class="jp-seek-bar">
-								<div class="jp-play-bar"></div>
-							</div>
-						</div>
+<!--						<div class="jp-progress">-->
+<!--							<div class="jp-seek-bar">-->
+<!--								<div class="jp-play-bar"></div>-->
+<!--							</div>-->
+<!--						</div>-->
 						<div class="jp-volume-controls">
 							<button class="jp-mute" role="button" tabindex="0">mute</button>
 							<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
@@ -110,17 +116,17 @@
 								<div class="jp-volume-bar-value"></div>
 							</div>
 						</div>
-						<div class="jp-time-holder">
-							<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-							<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-							<div class="jp-toggles">
-								<button class="jp-repeat" role="button" tabindex="0">repeat</button>
-							</div>
-						</div>
+<!--						<div class="jp-time-holder">-->
+<!--							<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>-->
+<!--							<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>-->
+<!--							<div class="jp-toggles">-->
+<!--								<button class="jp-repeat" role="button" tabindex="0">repeat</button>-->
+<!--							</div>-->
+<!--						</div>-->
 					</div>
-					<div class="jp-details">
-						<div class="jp-title" aria-label="title">&nbsp;</div>
-					</div>
+<!--					<div class="jp-details">-->
+<!--						<div class="jp-title" aria-label="title">&nbsp;</div>-->
+<!--					</div>-->
 					<div class="jp-no-solution">
 						<span>Update Required</span>
 						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
@@ -141,7 +147,7 @@
 		$("#jquery_jplayer_{{animal_map.id}}").jPlayer({
 			ready: function () {
 				$(this).jPlayer("setMedia", {
-					title: "{{ animal_map.title }}소리",
+					title: "{{ animal_map.title1 }}소리",
 					mp3:{% for sub_result in sub_results %}{% if sub_result.Animal_map_id == animal_map.id %}"/media/{{sub_result.file}}"{%endif%}{% endfor %}});
 			},
             play: function() { // To avoid multiple jPlayers playing together.
@@ -164,20 +170,47 @@
 
     </script>
 <div class="paging" style="margin-bottom: 50px;margin-top: 50px;">
-  <a href="/animallist/?page=1" style="font-size: 1em;padding: 4px; "class="btn_arr first"><span class="">처음페이지</span></a>
+  <a href="/animallist/?page=1" style="font-size: 2.5em;padding: 4px; "class="btn_arr first"><span class="">처음페이지</span></a>
+     &nbsp;
+     &nbsp;
   <a href="#" class="btn_arr prev"><span class="hide">이전페이지</span></a>
-  <a href="/animallist/?page=1" class="on"style="font-size: 1em;padding: 4px;">1</a><!-- D : 활성화페이지일 경우 : on 처리 -->
-  <a href="/animallist/?page=2" style="font-size: 1em;padding: 4px;">2</a>
-  <a href="/animallist/?page=3" style="font-size: 1em;padding: 4px;">3</a>
-  <a href="/animallist/?page=4" style="font-size: 1em;padding: 4px;">4</a>
-  <a href="/animallist/?page=5" style="font-size: 1em;padding: 4px;">5</a>
-  <a href="/animallist/?page=6" style="font-size: 1em;padding: 4px;">6</a>
-  <a href="/animallist/?page=7" style="font-size: 1em;padding: 4px;">7</a>
-  <a href="/animallist/?page=8" style="font-size: 1em;padding: 4px;">8</a>
-  <a href="/animallist/?page=9" style="font-size: 1em;padding: 4px;">9</a>
-  <a href="/animallist/?page=10"style="font-size: 1em;padding: 4px; ">10</a>
+     &nbsp;
+  <a href="/animallist/?page=1" class="on"style="font-size: 2.5em;padding: 4px;">1</a><!-- D : 활성화페이지일 경우 : on 처리 -->
+     &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=2" style="font-size: 2.5em;padding: 4px;">2</a>
+     &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=3" style="font-size: 2.5em;padding: 4px;">3</a>
+     &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=4" style="font-size: 2.5em;padding: 4px;">4</a>
+     &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=5" style="font-size: 2.5em;padding: 4px;">5</a>
+     &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=6" style="font-size: 2.5em;padding: 4px;">6</a>
+     &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=7" style="font-size: 2.5em;padding: 4px;">7</a>
+         &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=8" style="font-size: 2.5em;padding: 4px;">8</a>
+         &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=9" style="font-size: 2.5em;padding: 4px;">9</a>
+         &nbsp;
+     &nbsp;
+  <a href="/animallist/?page=10"style="font-size: 2.5em;padding: 4px; ">10</a>
+         &nbsp;
+     &nbsp;
   <a href="#" class="btn_arr next"><span class="hide">다음페이지</span></a>
+         &nbsp;
+     &nbsp;
   <a href="#" class="btn_arr last"><span class="hide">마지막페이지</span></a>
+         &nbsp;
+     &nbsp;
 </div>
 
 
@@ -273,7 +306,7 @@ function initMap() {
   Longitude = {{ animal_map.Longitude }};
   myLatLng = {lat: Latitude, lng: Longitude};
   
-  var contentString = '<img src="/media/{{animal_map.imagefile}}" width="100" height="100"> <h3>{{ animal_map.title }}</h3> {{ animal_map.content }} '+
+  var contentString = '<img src="/media/{{animal_map.imagefile}}" width="100" height="100"> <h3>{{ animal_map.title1 }}</h3> {{ animal_map.content }} '+
        '<a href="{% url 'animal_detail' pk=animal_map.pk %}" style="color:#339933; text-align: right; display: block;">더 보기..</a> <br><p>작성자: {{ animal_map.writer }}</p>';
    
   var marker = new google.maps.Marker({

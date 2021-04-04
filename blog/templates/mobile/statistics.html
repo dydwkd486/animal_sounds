@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'mobile/base.html' %}
 
 
 {% block content %}
@@ -44,6 +44,12 @@
 	a{
 		color: #000000;
 	}
+    #pac-input p{
+        font-size: 1.9em;
+    }
+    .gtitle{
+        font-size: 2em;
+    }
 </style>
 
 {% endblock%}
@@ -79,13 +85,13 @@
     </div>
     </div>
 
-    <div id="pac-input" style="background-color:white; width:180px; border-radius:0.5em;">
-        <p style="font-size:20px;"> <a href="/statistics/?s=all">모든 종 별 통계</a></p>
-        <p style="font-size:20px;"> <a href="/statistics/?s=m">포유류 지역별 통계</a></p>
-        <p style="font-size:20px;"> <a href="/statistics/?s=b">조류 지역별 통계</a></p>
-        <p style="font-size:20px;"> <a href="/statistics/?s=r">파충류 지역별 통계</a></p>
-        <p style="font-size:20px;"> <a href="/statistics/?s=a">양서류 지역별 통계</a></p>
-        <p style="font-size:20px;"> <a href="/statistics/?s=i">곤충 지역별 통계</a></p>
+    <div id="pac-input" style="background-color:white; width:250px; border-radius:0.5em;">
+        <p style=""> <a href="/statistics/?s=all">모든 종 별 통계</a></p>
+        <p style=""> <a href="/statistics/?s=m">포유류 지역별 통계</a></p>
+        <p style=""> <a href="/statistics/?s=b">조류 지역별 통계</a></p>
+        <p style=""> <a href="/statistics/?s=r">파충류 지역별 통계</a></p>
+        <p style=""> <a href="/statistics/?s=a">양서류 지역별 통계</a></p>
+        <p style=""> <a href="/statistics/?s=i">곤충 지역별 통계</a></p>
     </div>
 <script>
 function getParameterByName(name) {
@@ -103,59 +109,9 @@ var aa=[];
 var geo;
 var j=0;
 var input = document.getElementById('pac-input');
-// var input1 = document.getElementById('myDiv');
-// var input2 = document.getElementById('tester2');
-//
-// function initMap() {
-//     map = new google.maps.Map(document.getElementById('map'), {
-//           zoom: 7,
-//           center: {lat: 36.489, lng: 127.398},
-//           mapTypeId: 'terrain'
-//     });
-//     //map.controls[google.maps.ControlPosition.RIGHT_TOP].push(input1);
-//     map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(input2);
-//     map.controls[google.maps.ControlPosition.LEFT].push(input);
-//
-// {% for animaldistrict in animaldistricts %}
-//     var triangleCoords=[];
-//     geo="{{animaldistrict.WKT}}";
-//     var contentuid = "{{animaldistrict.id}}";
-//     var geos=geo.split('MULTIPOLYGON (((')[1].split(')),')[0].split('),')[0].split(',');
-//     for (var i in geos) {
-//         triangleCoords[i]={lat: parseFloat(geos[i].split(' ')[1]), lng: parseFloat(geos[i].split(' ')[0])};
-//     }
-//
-//
-//     var triangleCoord = triangleCoords;
-//     aa[contentuid]=triangleCoords;
-//     bermudaTriangle1=new google.maps.Polygon({
-//       paths: triangleCoord,
-//       strokeColor: '#FFFF00',
-//       strokeOpacity: 0.8,
-//       strokeWeight: 3,
-//       fillColor: '#669966',
-//       fillOpacity: 0.35
-//     });
-//     bermudaTriangle1.setMap(map);
-//     bermudaTriangle1.addListener('click',function(event) {
-//         // Since this polygon has only one path, we can call getPath() to return the
-//         // MVCArray of LatLngs.
-//         var contentString = "{{animaldistrict.CTP_KOR_NM}}";
-//
-//         asd(contentString,statistics);
-//         //$('.test').text("{{animaldistrict.CTP_KOR_NM}}");
-//         // Replace the info window's content and position.
-//         infoWindow.setContent(contentString);
-//         infoWindow.setPosition(event.latLng);
-//         infoWindow.open(map);
-//     });
-//     j=j+1;
-// {% endfor %}
-//     infoWindow = new google.maps.InfoWindow;
-// } //initMap end
+
 </script>
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWV0tlx-1gtFEIJPEdpIFWdGGghKB34xk&libraries=places&callback=initMap&region=KR"async defer></script>-->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4d099ffcf80745413cb9e87556bf5975"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -394,7 +350,7 @@ function  asd(contentString,statistics){
                 var layout = {
                   title: statisticsname,
                   xaxis: {tickformat:'.0f'},
-                  font: {size: 11}
+                  font: {size: 20}
                 };
                 Plotly.newPlot('tester2', data,layout);
              }
@@ -441,7 +397,7 @@ var data = [
 ];
 var layout = {
   title: name+' 계체 통계',
-  font: {size: 11}
+  font: {size: 20}
 };
 Plotly.newPlot('myDiv', data,layout);
 //표1 나오는 스크립트 end

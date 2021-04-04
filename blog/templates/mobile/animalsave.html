@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'mobile/base.html' %}
 
 <!-- static 파일 사용 선언 -->
 {% load static %}
@@ -134,10 +134,10 @@
            </div>
     </div>
        <!--오른쪽-->
-       <div class="content" style="margin-top: 0px; margin-left: 0%;">
+       <div style="margin-top: 0px; margin-left: 0%;">
        {% if request.user.profile.professional %}
        <br><label style="color: #669966; font-size: 125%;"><b>위치 정보</b></label><br>
-        <label style="color: #669966; font-size: 100%;"><b>Tip: 지도에서 위치를 클릭하면 위도/경도가 기록됩니다.</b></label><br>
+        <label style="color: #669966; font-size: 100%;"><b>Tip: 구글 지도에서 위치를 클릭하면 위도/경도가 기록됩니다.</b></label><br>
         <div class="form-group " style="text-align: left; width: 55%;">
           <label for="id_animal_map-Latitude" style="width: 50%;"><b>위도</b><b style="color:red;">*</b></label>
             <label for="id_animal_map-Longitude" style="width: 50%; float: right;"><b>경도</b><b style="color:red;">*</b></label>
@@ -415,6 +415,7 @@ display: inline-block;
 @media only screen and (max-width: 1200px) {
 
 html{font-size:10px;}
+div .content{font-size:2.4em;}
 p{font-size:1.1em;}
 .form-control{
 font-size: 1.2em;
@@ -454,7 +455,7 @@ width: 1.2em;
     var centerlat=37.58098;
     var centerlng=127.01487;
     var container = document.getElementById('map_canvas'); //지도를 담을 영역의 DOM 레퍼런스
-    document.getElementById("id_animal_map-Latitude").value=centerlat;
+        document.getElementById("id_animal_map-Latitude").value=centerlat;
     document.getElementById("id_animal_map-Longitude").value=centerlng;
     var options = { //지도를 생성할 때 필요한 기본 옵션
         center: new kakao.maps.LatLng(centerlat, centerlng), //지도의 중심좌표.
@@ -484,11 +485,11 @@ width: 1.2em;
 
     });
 
-    //좌표 선택시 결과 lat,lng 정보 입력.
-    function populateInputs(pos) {
-        document.getElementById("id_animal_map-Latitude").value=pos.getLat().toFixed(5);
-        document.getElementById("id_animal_map-Longitude").value=pos.getLng().toFixed(5);
-    }
+//좌표 선택시 결과 lat,lng 정보 입력.
+function populateInputs(pos) {
+  document.getElementById("id_animal_map-Latitude").value=pos.getLat().toFixed(5)
+  document.getElementById("id_animal_map-Longitude").value=pos.getLng().toFixed(5);
+}
 
 </script>
 
@@ -1169,6 +1170,7 @@ $(document).ready(function() {
   });
 
   function form_submit(){
+      // document.getElementById('form-control').value;
       var fileCheck_soundfile = document.getElementById("id_animal_map-soundfile").value;
       var fileCheck_imagefile = document.getElementById("id_animal_map-imagefile").value;
       var fileCheck_title = document.getElementById("id_animal_map-title").value;
@@ -1189,6 +1191,7 @@ $(document).ready(function() {
           alert('종 이름을 넣어주세요.');
           return false;
       }
+
     var myForm = document.getElementById('mForm');
     var formData = new FormData(myForm);
     console.log(num)

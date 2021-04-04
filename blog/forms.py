@@ -1,5 +1,5 @@
 from django import forms
-from .models import Animal_map,Animal_Sub_file
+from .models import Animal_map,Animal_Sub_file,UploadFileModel
 from betterforms.multiform import MultiModelForm
 
 class DateInput(forms.DateTimeInput):
@@ -24,7 +24,7 @@ class Animal_mapForm(forms.ModelForm):
         self.fields['Latitude'].required = False
         self.fields['Longitude'].required = False
 
-class Animal_Sub_file(forms.ModelForm):
+class Animal_Sub_fileForm(forms.ModelForm):
     class Meta:
         model = Animal_Sub_file
         fields = []
@@ -33,5 +33,17 @@ class Animal_Sub_file(forms.ModelForm):
 class AnimalmapFormMultiform(MultiModelForm):
     form_classes ={
         'animal_map':Animal_mapForm,
-        'animal_Sub_file':Animal_Sub_file, 
+        'animal_Sub_file':Animal_Sub_fileForm,
     }
+
+class Animal_classForm(forms.ModelForm):
+    class Meta:
+        model = UploadFileModel
+        fields = ('soundfile',)
+
+    def __init__(self, *args, **kwargs):
+        super(Animal_classForm, self).__init__(*args, **kwargs)
+        self.fields['soundfile'].required = False
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()

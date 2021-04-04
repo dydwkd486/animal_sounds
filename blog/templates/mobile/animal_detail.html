@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'mobile/base.html' %}
 
 
 {% block content %}
@@ -7,8 +7,9 @@
 
 <style type="text/css">
 	.in{
-			width: 100%;
-			text-align: center;
+		/*font-size: 2.5em;*/
+		width: 100%;
+		text-align: center;
 	}
 	.post{
 		width: 70%; 
@@ -32,6 +33,7 @@
 	
 	}
 	.content{
+		/*font-size: 2.5em;*/
 		text-align: left;
 		width: 48%;
 	
@@ -43,6 +45,12 @@
 	}
 	a{
 		color: #000000;
+	}
+	h4{
+		font-size: 2.5em;
+	}
+	pre{
+		font-size: 2.5em;
 	}
 </style>
 
@@ -107,7 +115,7 @@
 						</div>
 					</div>
 					<div class="jp-details">
-						<div class="jp-title" aria-label="title">&nbsp;</div>
+						<div class="jp-title" aria-label="title" style="font-size: 1.75em;">&nbsp;</div>
 					</div>
 					<div class="jp-no-solution">
 						<span>Update Required</span>
@@ -126,9 +134,9 @@
     <div class='content' style="width: 960px; height: 400px; margin-right: auto; margin-left: auto;">
 		<div class='content_2' style="width: 80%; margin-right: auto; margin-left: auto;">
 			<h4 style="text-align: center;">세부 내용</h4>
-			내부 정보
+			<p>내부 정보</p>
 			<p>{{ total_info.content }}</p>
-			LOD 정보
+			<p>LOD 정보</p>
 			<pre style="white-space: pre-wrap;">{{ animals }}
 			</pre>
 			<a href="{{url}}">더 자세한 정보</a>
@@ -257,17 +265,16 @@ var markerPosition  = new kakao.maps.LatLng({{animal_map.Latitude}}, {{animal_ma
 		stroke: #999;
 		fill:rgba(124,240,10,0);
 	}
-	/*.instance-text {*/
-	/*	font: 12px sans-serif;*/
-	/*	fill:black;*/
-	/*	}*/
+
 	.node-text {
-		font: 11px sans-serif;
+		font: 15px sans-serif;
 		fill:black;
 	}
-	.node-text:hover,.link-text:hover,.instance-text:hover {
-		font: 20px sans-serif;
+	.instance-text{
+		font: 15px sans-serif;
+		fill:black;
 	}
+
 	.link-text {
 		font: 9px sans-serif;
 		fill:grey;
@@ -275,6 +282,7 @@ var markerPosition  = new kakao.maps.LatLng({{animal_map.Latitude}}, {{animal_ma
 	/*svg{*/
 	/*	border:1px solid black;*/
 	/*}*/
+
 </style>
 <script>
 		function filterNodesById(nodes,id){
@@ -402,7 +410,7 @@ var markerPosition  = new kakao.maps.LatLng({{animal_map.Latitude}}, {{animal_ma
 					.enter()
 					.append("circle")
 					.attr("class", "class")
-					.attr("r",8)
+					.attr("r",14)
 					.call(force.drag)
 			;//instance
 			// ==================== Add instance =====================
@@ -411,7 +419,7 @@ var markerPosition  = new kakao.maps.LatLng({{animal_map.Latitude}}, {{animal_ma
 					.enter()
 					.append("circle")
 					.attr("class", "instance")
-					.attr("r",8)
+					.attr("r",14)
 					.attr("onclick", function (d) { return "window.open('http://lod.nature.go.kr/page/"+d.label+"')"; })
 					.call(force.drag)
 			;//instance
@@ -421,7 +429,7 @@ var markerPosition  = new kakao.maps.LatLng({{animal_map.Latitude}}, {{animal_ma
 								.enter()
 								.append("circle")
 									.attr("class", "node")
-									.attr("r",8)
+									.attr("r",14)
 									.call(force.drag)
 							;//nodes
 
