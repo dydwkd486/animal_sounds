@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:page="http://data.kdata.kr/page/"
+    xmlns:kdataontology="http://data.kdata.kr/ontology/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:prv="http://purl.org/net/provenance/ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:void="http://rdfs.org/ns/void#"
+    xmlns:event="http://purl.org/NET/c4dm/event.owl#"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:meta="http://example.org/metadata#"
+    xmlns:ho="http://data.kdata.kr/heritage/"
+    xmlns:kdc="http://data.kdata.kr/class/"
+    xmlns:nature="http://lod.nature.go.kr/resource/"
+    xmlns:countries="http://data.kdata.kr/countries/"
+    xmlns:kcup="http://data.kdata.kr/cultural_property/"
+    xmlns:administrative_section="http://data.kdata.kr/administrative_section/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    xmlns:yago="http://localhost:8080/class/yago/"
+    xmlns:bibo="http://purl.org/ontology/bibo/"
+    xmlns:kdata="http://data.kdata.kr/resource/"
+    xmlns:prismstandard="http://prismstandard.org/namespaces/basic/3.0/"
+    xmlns:doap="http://usefulinc.com/ns/doap#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:bc="http://data.kdata.kr/biological_classification/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:kohis="http://data.kdata.kr/korea_history/"
+    xmlns:kodac="http://data.kdata.kr/korea_data_category/"
+    xmlns:p="http://localhost:8080/property/"
+    xmlns:no="http://lod.nature.go.kr/ontology/"
+    xmlns:dprop="http://dbpedia.org/property/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:geonames="http://www.geonames.org/ontology#"
+    xmlns:kdp="http://data.kdata.kr/property/"
+    xmlns:units="http://data.kdata.kr/units/"
+    xmlns:prvTypes="http://purl.org/net/provenance/types#"
+    xmlns:wvc="http://lod.nature.go.kr/vocabulary/">
+  <no:Species rdf:about="http://lod.nature.go.kr/resource/Ardea_cinerea">
+    <no:nestShape>소나무 참나무류의 가지에 죽은 나뭇가지를 이용해 매우 크게 짓는다.</no:nestShape>
+    <owl:sameAs rdf:resource="http://zh-min-nan.dbpedia.org/resource/Hái-khiā-á"/>
+    <owl:sameAs rdf:resource="http://id.dbpedia.org/resource/Cangak_abu"/>
+    <owl:sameAs rdf:resource="http://sk.dbpedia.org/resource/Volavka_popolavá"/>
+    <no:competition>천적이 번식지 내로 들어오면 일제히 날아올라 주변을 맴돌며, 가까이 접근하면 반쯤 소화된 먹이를 목구멍에서 토해내 악취를 풍기는 퇴치범을 이용한다.</no:competition>
+    <owl:sameAs rdf:resource="http://he.dbpedia.org/resource/אנפה_אפורה"/>
+    <owl:sameAs rdf:resource="http://ro.dbpedia.org/resource/Stârc_cenușiu"/>
+    <owl:sameAs rdf:resource="http://nn.dbpedia.org/resource/Gråhegre"/>
+    <owl:sameAs rdf:resource="http://ar.dbpedia.org/resource/بلشون_رمادي"/>
+    <owl:sameAs rdf:resource="http://ja.dbpedia.org/resource/アオサギ"/>
+    <owl:sameAs rdf:resource="http://ms.dbpedia.org/resource/Burung_Puchong_Seriap"/>
+    <owl:sameAs rdf:resource="http://ku.dbpedia.org/resource/Şaqavî"/>
+    <owl:sameAs rdf:resource="http://ru.dbpedia.org/resource/Серая_цапля"/>
+    <owl:sameAs rdf:resource="http://lv.dbpedia.org/resource/Zivju_gārnis"/>
+    <rdfs:label xml:lang="en">Ardea cinerea</rdfs:label>
+    <owl:sameAs rdf:resource="http://als.dbpedia.org/resource/Graureiher"/>
+    <owl:sameAs rdf:resource="http://af.dbpedia.org/resource/Bloureier"/>
+    <no:feather>전체적으로 회색귓머리에 긴 검은색 댕기가 있다.</no:feather>
+    <owl:sameAs rdf:resource="http://et.dbpedia.org/resource/Hallhaigur"/>
+    <no:sitting>25~26</no:sitting>
+    <no:feed>미꾸라지, 개구리, 어류 수서곤충 등</no:feed>
+    <owl:sameAs rdf:resource="http://sv.dbpedia.org/resource/Gråhäger"/>
+    <no:phylum rdf:resource="http://lod.nature.go.kr/resource/Chordata"/>
+    <no:relatedHistoryDesc>"지중추부사 홍양호(洪良浩)가 상차하여 《흥왕조승(興王肇乘)》 4편(編)을 올리면서 아뢰기를, 
+“삼가 생각건대 우리 동방에 나라가 있게 된 것은 상고 시대로부터인데 단군(檀君)이 맨 먼저 나오시고 기자(箕子)께서 동쪽으로 건너 오셨습니다. 그때 이후로 삼한(三韓)으로 나누어지고 구이(九夷)로 흩어져 있다가 신라(新羅)와 고려(高麗) 시대에 들어와 비로소 하나로 섞여 살게 되었는데, 그 사상으로 말하면 유교(儒敎)와 불교(佛敎)가 반반을 차지했고 그 풍속으로 말하면 중국과 오랑캐의 것이 서로 뒤섞여 있었습니다. 
+그런데 지역적으로는 연(燕)나라·제(齊)나라와 가까웠고 성수(星宿)를 보면 기성(箕星)과 두성(斗星)의 분야에 해당하였는데, 옛적에 단군께서 나라를 일으키신 때는 도당씨(陶唐氏) 7282) 때와 일치하고 기자께서 봉해지신 것은 주(周)나라 무왕(武王) 때로 거슬러 올라갑니다. 
+대체로 그 풍토가 중국과 서로 비슷한 데다 중국의 교화를 점차로 입게 된 결과 의관(衣冠)도 모두 중국의 제도를 따랐고 문자도 오랑캐의 그것을 사용하지 않았으므로 혹은 소중화(小中華)라 칭하기도 하고 혹은 군자(君子)의 나라라고 일컫기도 하였으니, 왜가리 소리를 내며 왼쪽으로 깃을 다는 저 오랑캐의 풍속과는 완전히 달랐습니다. 
+그런데 다만 왕씨(王氏) 7283) 의 시대로 접어들면서 말갈(靺鞨)과 국경을 접하고 몽고족(蒙古族)인 원(元)나라와 혼인 관계를 맺었기 때문에 예교(禮敎)가 일으켜지지 않고 윤기(倫紀)가 밝혀지지 않게 되었습니다. 그리하여 치고 찌르는 것을 능사로 삼아 반란이 일어나지 않는 해가 거의 없을 정도였으니 단군과 기자께서 남겨주신 풍도를 까마득히 볼 수가 없게 되었습니다. 【태백산사고본】 52책 52권 58장 A면 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+이때 제주(濟州) 대정현(大靜縣)의 당포(唐浦)에 어느 나라 것인지 분변 못하는 큰 선박이 지나가다가 다섯 사람을 내려놓고는 그대로 곧 선박을 내치어 갔는데, 내려놓은 다섯 사람의 의제(衣制)와 상모(狀貌)가 대단히 괴이하여 입은 것이 좁아서 몸을 묶은 것 같았으며, 발에는 버선을 신지 않았고 머리에는 등립(？笠)을 썼는데, 얼굴과 몸이 모두 검어서 형상이 팔 긴 원숭이 같았으며, 왜가리가 시끄럽게 지절거리는 것 같아서 인하여 정상(情狀)을 물을 수 없어 글씨를 쓰게 한즉 오른손에 붓을 잡고 왼쪽에서부터 횡서(橫書)로 쓴 것이 전자[篆]도 아니고 그림도 아니어서 난잡하기가 엉클어진 실 모양과 같았다고 도신(道臣)이 이로써 계문(啓聞)하자, 육로로 해서 북경(北京)에 들여보내라고 명하였다. 【태백산사고본】 3책 3권 50장 A면
+이때 제주(濟州) 대정현(大靜縣)의 당포(唐浦)에 어느 나라 것인지 분변 못하는 큰 선박이 지나가다가 다섯 사람을 내려놓고는 그대로 곧 선박을 내치어 갔는데, 내려놓은 다섯 사람의 의제(衣制)와 상모(狀貌)가 대단히 괴이하여 입은 것이 좁아서 몸을 묶은 것 같았으며, 발에는 버선을 신지 않았고 머리에는 등립(？笠)을 썼는데, 얼굴과 몸이 모두 검어서 형상이 팔 긴 원숭이 같았으며, 왜가리가 시끄럽게 지절거리는 것 같아서 인하여 정상(情狀)을 물을 수 없어 글씨를 쓰게 한즉 오른손에 붓을 잡고 왼쪽에서부터 횡서(橫書)로 쓴 것이 전자[篆]도 아니고 그림도 아니어서 난잡하기가 엉클어진 실 모양과 같았다고 도신(道臣)이 이로써 계문(啓聞)하자, 육로로 해서 북경(北京)에 들여보내라고 명하였다. 【태백산사고본】 3책 3권 50장 A면</no:relatedHistoryDesc>
+    <no:hasGlobalDistribution rdf:resource="http://lod.nature.go.kr/resource/Asia"/>
+    <owl:sameAs rdf:resource="http://de.dbpedia.org/resource/Graureiher"/>
+    <no:hasGlobalDistribution rdf:resource="http://lod.nature.go.kr/resource/Europe"/>
+    <no:scientificName>Ardea cinerea</no:scientificName>
+    <owl:sameAs rdf:resource="http://hu.dbpedia.org/resource/Szürke_gém"/>
+    <owl:sameAs rdf:resource="http://kk.dbpedia.org/resource/Көкқұтан"/>
+    <foaf:depiction rdf:resource="http://lod.nature.go.kr/service/assets/picture/vertebrate-BI-291-1.jpg"/>
+    <no:brooding>50~55</no:brooding>
+    <owl:sameAs rdf:resource="http://pt.dbpedia.org/resource/Garça-real-europeia"/>
+    <owl:sameAs rdf:resource="http://mk.dbpedia.org/resource/Сива_чапја"/>
+    <owl:sameAs rdf:resource="http://az.dbpedia.org/resource/Boz_vağ"/>
+    <owl:sameAs rdf:resource="http://war.dbpedia.org/resource/Ardea_cinerea"/>
+    <owl:sameAs rdf:resource="http://cy.dbpedia.org/resource/Crëyr_Glas"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Grey_Heron"/>
+    <no:hasStopover rdf:resource="http://lod.nature.go.kr/resource/Farmland"/>
+    <owl:sameAs rdf:resource="http://fa.dbpedia.org/resource/حواصیل_خاکستری"/>
+    <foaf:depiction rdf:resource="http://lod.nature.go.kr/service/assets/picture/vertebrate-BI-291-2.jpg"/>
+    <owl:sameAs rdf:resource="http://pl.dbpedia.org/resource/Czapla_siwa"/>
+    <owl:sameAs rdf:resource="http://it.dbpedia.org/resource/Ardea_cinerea"/>
+    <owl:sameAs rdf:resource="http://be-x-old.dbpedia.org/resource/Чапля_шэрая"/>
+    <no:bodyLengthOfMale>94~97</no:bodyLengthOfMale>
+    <owl:sameAs rdf:resource="http://zh-yue.dbpedia.org/resource/蒼鷺"/>
+    <owl:sameAs rdf:resource="http://no.dbpedia.org/resource/Gråhegre"/>
+    <owl:sameAs rdf:resource="http://sl.dbpedia.org/resource/Siva_čaplja"/>
+    <no:bodyType>다리와 목이 길다. 중대백로보다 약간 크고 대백로보다 작다.</no:bodyType>
+    <rdfs:label xml:lang="ko">왜가리</rdfs:label>
+    <owl:sameAs rdf:resource="http://gl.dbpedia.org/resource/Garza_real"/>
+    <owl:sameAs rdf:resource="http://data.kdata.kr/resource/Ardea_cinerea"/>
+    <owl:sameAs rdf:resource="http://br.dbpedia.org/resource/Kerc&apos;heiz_louet"/>
+    <no:scatteringNumber>3~5</no:scatteringNumber>
+    <no:nestLocation>침엽수림과 활엽수림으로 이루어진 교목림</no:nestLocation>
+    <rdfs:seeAlso rdf:resource="http://ko.wikipedia.org/wiki/왜가리?oldid=11776445"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q25273"/>
+    <no:hasGlobalDistribution rdf:resource="http://lod.nature.go.kr/resource/Africa"/>
+    <owl:sameAs rdf:resource="http://fr.dbpedia.org/resource/Héron_cendré"/>
+    <owl:sameAs rdf:resource="http://cs.dbpedia.org/resource/Volavka_popelavá"/>
+    <owl:sameAs rdf:resource="http://ml.dbpedia.org/resource/ചാരമുണ്ടി"/>
+    <owl:sameAs rdf:resource="http://sh.dbpedia.org/resource/Siva_čaplja"/>
+    <no:bodyColor>어린새는 전체적으로 엷은 재색이다.</no:bodyColor>
+    <owl:sameAs rdf:resource="http://da.dbpedia.org/resource/Fiskehejre"/>
+    <no:reviewer rdf:resource="http://lod.nature.go.kr/resource/Iusin"/>
+    <no:writer rdf:resource="http://lod.nature.go.kr/resource/Jinseondeok"/>
+    <no:colonyReproduction>쇠백로 중대백로 등 다른 백로류와 혼성해 매년 동일한 장소에서 집단번식한다.</no:colonyReproduction>
+    <owl:sameAs rdf:resource="http://cv.dbpedia.org/resource/Сарă_чарлан"/>
+    <owl:sameAs rdf:resource="http://eu.dbpedia.org/resource/Lertxun_hauskara"/>
+    <no:class rdf:resource="http://lod.nature.go.kr/resource/Aves"/>
+    <owl:sameAs rdf:resource="http://ca.dbpedia.org/resource/Bernat_pescaire"/>
+    <no:breedingSeason rdf:resource="http://lod.nature.go.kr/resource/May"/>
+    <no:beak>윗부리가 검은색이고 아랫부리는 연한 주황색이다.</no:beak>
+    <owl:sameAs rdf:resource="http://nl.dbpedia.org/resource/Blauwe_reiger"/>
+    <no:commonName xml:lang="ko">왜가리</no:commonName>
+    <no:cry>캬악캬악 하며 경계</no:cry>
+    <owl:sameAs rdf:resource="http://eo.dbpedia.org/resource/Griza_ardeo"/>
+    <no:genus rdf:resource="http://lod.nature.go.kr/resource/Ardea"/>
+    <owl:sameAs rdf:resource="http://es.dbpedia.org/resource/Ardea_cinerea"/>
+    <no:specificEpithet>cinerea</no:specificEpithet>
+    <owl:sameAs rdf:resource="http://lt.dbpedia.org/resource/Pilkasis_garnys"/>
+    <owl:sameAs rdf:resource="http://bg.dbpedia.org/resource/Сива_чапла"/>
+    <owl:sameAs rdf:resource="http://uk.dbpedia.org/resource/Чапля_сіра"/>
+    <owl:sameAs rdf:resource="http://ba.dbpedia.org/resource/Селән"/>
+    <owl:sameAs rdf:resource="http://simple.dbpedia.org/resource/Grey_Heron"/>
+    <owl:sameAs rdf:resource="http://ceb.dbpedia.org/resource/Ardea_cinerea"/>
+    <owl:sameAs rdf:resource="http://tr.dbpedia.org/resource/Gri_balıkçıl"/>
+    <owl:sameAs rdf:resource="http://fy.dbpedia.org/resource/Ielreager"/>
+    <no:hasBreedingPlace rdf:resource="http://lod.nature.go.kr/resource/ConiferousForest"/>
+    <owl:sameAs rdf:resource="http://hr.dbpedia.org/resource/Siva_čaplja"/>
+    <owl:sameAs rdf:resource="http://ta.dbpedia.org/resource/சாம்பல்_நாரை"/>
+    <no:generalDescription>우리나라에서 관찰되는 백로류에서 가장 크다. 암컷과 수컷의 색깔이 같아서 야외에서는 구별하기 어렵다. 등 쪽은 회색을 띠나 배 쪽은 우윳빛을 띤다. 부리와 다리는 어두운 회색을 띠며 번식기가 되면 머리의 양쪽에 있는 검은 깃털이 댕기모양으로 늘어진다. 날 때 다른 백로류처럼 목을 "Z"자 형태로 움츠리고 난다. 여름 철새이며 호수, 갯벌, 만, 냇가, 간척지 논 등 다양한 곳에서 어류 또는 양서류, 파충류, 크기가 작은 포유류, 곤충류 등을 잡아먹는다.2월 중순경부터 번식을 시작하여 9~10월경이 되면 번식지를 떠난다. 매년 같은 장소에서 다른 백로류와 함께 무리 지어 번식하며 높은 나무 위에 죽은 나뭇가지를 이용하여 둥지를 짓는다. 우리나라에서 겨울철에 볼 수 있는 것들은 북쪽에서 번식하는 무리로 생각된다. 유럽, 동북아시아와 동남아시아 등에 널리 분포한다.</no:generalDescription>
+    <owl:sameAs rdf:resource="http://la.dbpedia.org/resource/Ardea_cinerea"/>
+    <no:hasRelatedBook rdf:resource="http://lod.nl.go.kr/resource/KMU200339430"/>
+    <owl:sameAs rdf:resource="http://ko.dbpedia.org/resource/왜가리"/>
+    <owl:sameAs rdf:resource="http://pms.dbpedia.org/resource/Ardea_cinerea"/>
+    <no:mating>4월~8월</no:mating>
+    <owl:sameAs rdf:resource="http://fi.dbpedia.org/resource/Harmaahaikara"/>
+    <no:nestMaterial>소나무 참나무류의 가지</no:nestMaterial>
+    <no:genericName>Ardea</no:genericName>
+    <no:incubation>한배에 3~5개의 알을 낳는다. 산란은 격일 또는 3~4일 간격으로 하나씩 낳으며, 암수가 함께 알을 품는다.</no:incubation>
+    <owl:sameAs rdf:resource="http://pnb.dbpedia.org/resource/گرے_ہیرون"/>
+    <no:kingdom rdf:resource="http://lod.nature.go.kr/resource/Animalia"/>
+    <owl:sameAs rdf:resource="http://an.dbpedia.org/resource/Ardea_cinerea"/>
+    <owl:sameAs rdf:resource="http://bat-smg.dbpedia.org/resource/Guovars"/>
+    <no:order rdf:resource="http://lod.nature.go.kr/resource/CICINIIFORMES"/>
+    <owl:sameAs rdf:resource="http://be.dbpedia.org/resource/Чапля_шэрая"/>
+    <no:family rdf:resource="http://lod.nature.go.kr/resource/Ardeidae"/>
+    <owl:sameAs rdf:resource="http://zh.dbpedia.org/resource/苍鹭"/>
+    <owl:sameAs rdf:resource="http://vi.dbpedia.org/resource/Diệc_xám"/>
+    <no:hasWinteringHabitat rdf:resource="http://lod.nature.go.kr/resource/Reservoir"/>
+    <owl:sameAs rdf:resource="http://th.dbpedia.org/resource/นกกระสานวล"/>
+    <no:wing>어린 새는 어깨의 검은 무늬가 뚜렷하지 않다</no:wing>
+    <owl:sameAs rdf:resource="http://te.dbpedia.org/resource/నారాయణ_పక్షి"/>
+    <no:breedingSeason rdf:resource="http://lod.nature.go.kr/resource/April"/>
+  </no:Species>
+  <rdf:Description rdf:about="http://lod.nature.go.kr/data/Ardea_cinerea?output=rdfxml">
+    <rdfs:label>RDF description of Ardea cinerea</rdfs:label>
+    <foaf:primaryTopic rdf:resource="http://lod.nature.go.kr/resource/Ardea_cinerea"/>
+  </rdf:Description>
+</rdf:RDF>
